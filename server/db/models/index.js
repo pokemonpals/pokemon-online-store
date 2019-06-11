@@ -18,13 +18,21 @@ const Order = require('./Order')
  * instead of: const User = require('../db/models/user')
  */
 
-Inventory.hasMany(Pokemon)
+Pokemon.hasMany(Inventory)
 User.hasMany(Order)
-Order.hasMnay(SubOrder)
+Order.hasMany(SubOrder)
+Pokemon.hasMany(SubOrder)
 
 SubOrder.belongsTo(Order)
 Order.belongsTo(User)
 
+Inventory.belongsTo(Pokemon)
+SubOrder.belongsTo(Pokemon)
+
 module.exports = {
-  User
+  User,
+  Pokemon,
+  Order,
+  SubOrder,
+  Inventory
 }

@@ -26,7 +26,7 @@ const Pokemon = db.define('pokemon', {
       isDecimal: true
     }
   },
-  imageURL: {
+  imageUrl: {
     type: Sequelize.STRING
   }
 })
