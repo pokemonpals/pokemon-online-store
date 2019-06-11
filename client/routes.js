@@ -33,7 +33,8 @@ class Routes extends Component {
           <CssBaseline />
           <main>
             <Switch>
-              <Route exact path="/products" component={productList} />
+              <Route path="/products" component={productList} />
+              <Route path="/login" component={Login} />
               <Route path="/products/:pokemonId" component={SinglePokemon} />
             </Switch>
           </main>
