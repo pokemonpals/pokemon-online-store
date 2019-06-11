@@ -2,12 +2,12 @@ import {createStore, combineReducers, applyMiddleware} from 'redux'
 import {createLogger} from 'redux-logger'
 import thunkMiddleware from 'redux-thunk'
 import {composeWithDevTools} from 'redux-devtools-extension'
-import {userReducer} from './userReducer'
+import userReducer from './userReducer'
 import {pokemonReducer} from './pokemonReducer'
 import {loadingReducer} from './loadingReducer'
 
 const reducer = combineReducers({
-  // defaultUser: userReducer,
+  user: userReducer,
   pokemons: pokemonReducer,
   loading: loadingReducer
 })
@@ -17,4 +17,4 @@ const middleware = composeWithDevTools(
 const store = createStore(reducer, middleware)
 
 export default store
-// export * from './userReducer'
+export * from './userReducer'
