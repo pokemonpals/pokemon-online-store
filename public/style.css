@@ -1,21 +1,100 @@
+/*
+ * Hi! I'm your stylesheet! I've got some sensible defaults here,
+ * but feel free to change me to your heart's content!
+ */
+
+* {
+  box-sizing: border-box;
+  font-family: arial, sans-serif;
+}
+
 body {
-  font-family: sans-serif;
+  background-attachment: fixed;
+  background-image: linear-gradient(
+    to right top,
+    #6b95d1,
+    #68a2d8,
+    #69aedd,
+    #6ebae1,
+    #76c5e4,
+    #65cfe9,
+    #55d9ea,
+    #49e2e7,
+    #0aecd7,
+    #24f4b9,
+    #5ff991,
+    #95fb5f
+  );
+  padding: 0;
+  margin: 0;
+  width: 100vw;
 }
 
-a {
-  text-decoration: none;
+nav {
+  align-items: center;
+  color: #c0c0c0;
+  display: flex;
+  justify-content: space-between;
+  height: 80px;
+  padding: 10px;
 }
 
-label {
-  display: block;
+main {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-nav a {
-  display: inline-block;
-  margin: 1em;
+.error {
+  padding: 0.05em 2em;
+  font-size: 1em;
+  letter-spacing: 0.1em;
+  background-color: orangered;
+  color: white;
+  margin-top: 0.5em;
 }
 
-form div {
-  margin: 1em;
-  display: inline-block;
+.warning {
+  padding: 0 0.5em;
+  font-size: 0.75em;
+  letter-spacing: 0.1em;
+  color: red;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.displayNone {
+  display: none;
+}
+
+.modal-main {
+  position: fixed;
+  background: white;
+  width: 80%;
+  height: auto;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container {
+  display: flex;
+}
+
+.container .bio {
+  flex-direction: column;
+  margin-top: 5%;
+}
+
+.container img {
+  margin-top: 5%;
+  margin-left: 5%;
+  max-width: 600px;
+}
+
+button {
+  color: #6b95d1;
 }

@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getPokemonsThunk} from '/store/pokemonReducer'
+import {getPokemonsThunk} from '../store/pokemonReducer'
 import PokemonCard from '../components/PokemonCard'
 //material ui:
 import Grid from '@material-ui/core/Grid'
@@ -15,10 +15,10 @@ class DisconnectedProductList extends Component {
       return (
         <div>
           <div id="products" className="container">
-            <Grid container spacing={24} style={{padding: 24}}>
+            <Grid container>
               {this.props.pokemons.map(pokemon => {
                 return (
-                  <Grid key={pokemon.id} item xs={12} sm={6} lg={4} xl={3}>
+                  <Grid key={pokemon.id} item xs={12} sm={6}>
                     <PokemonCard pokemon={pokemon} key={pokemon.id} />
                   </Grid>
                 )
