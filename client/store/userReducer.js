@@ -8,9 +8,8 @@ const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 
 /**
- * INITIAL STATE
+ * INITIAL STATE-->combinedReducer
  */
-const defaultUser = {}
 
 /**
  * ACTION CREATORS
