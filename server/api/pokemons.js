@@ -2,16 +2,6 @@ const router = require('express').Router()
 const Pokemon = require('../db/models/Pokemon')
 module.exports = router
 
-//get all pokemons
-router.get('/', async (req, res, next) => {
-  try {
-    const pokemons = await Pokemon.findAll({})
-    res.json(pokemons)
-  } catch (err) {
-    next(err)
-  }
-})
-
 //get single pokemon
 router.get('/:pokemonId', async (req, res, next) => {
   try {
@@ -30,5 +20,15 @@ router.get('/:pokemonId', async (req, res, next) => {
     }
   } catch (error) {
     next(error)
+  }
+})
+
+//get all pokemons
+router.get('/', async (req, res, next) => {
+  try {
+    const pokemons = await Pokemon.findAll({})
+    res.json(pokemons)
+  } catch (err) {
+    next(err)
   }
 })
