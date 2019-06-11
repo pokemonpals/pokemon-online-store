@@ -1,7 +1,7 @@
 'use strict'
 
 const db = require('../server/db')
-const {User, Pokemon} = require('../server/db/models')
+const {User, Pokemon, Inventory} = require('../server/db/models')
 
 const allPokemon = [
   {
@@ -53,6 +53,19 @@ async function seed() {
       return Pokemon.create(pokemon)
     })
   )
+
+  // const inventories = await Promise.all(allPokemon.map(pokemon => {
+  //   return Inventory.create({
+  //     quantity: 100,
+  //     pokemonId: 1
+  //   })
+  // }))
+  const inventory = await Promise.all([
+    Inventory.create({
+      quantity: 100,
+      pokemonId: 1
+    })
+  ])
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
