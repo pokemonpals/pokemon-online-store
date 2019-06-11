@@ -1,7 +1,43 @@
 'use strict'
 
 const db = require('../server/db')
-const {User} = require('../server/db/models')
+const {User, Pokemon} = require('../server/db/models')
+
+const allPokemon = [
+  {
+    name: 'Pikachu',
+    type: 'Electric',
+    description:
+      'Known for its electrifying personality and lightning-quick speed, Pikachu will be sure to keep you on your toes. Do not be fooled by its cute appearance or you will be shocked by its cunning intelligence.',
+    price: 1500.0,
+    imageUrl: 'https://cdn.bulbagarden.net/upload/b/b8/025Pikachu_LG.png'
+  },
+  {
+    name: 'Charmander',
+    type: 'Fire',
+    description:
+      'With its ability to light fire, Charmander is a a great pal to consider for lovers of the outdoors. It will light your campfire, warm your heart, and set your world aflame with its unwavering loyalty.',
+    price: 1500.0,
+    imageUrl: 'https://cdn.bulbagarden.net/upload/7/73/004Charmander.png'
+  },
+  {
+    name: 'Squirtle',
+    type: 'Water',
+    description:
+      'As one of the more playful Pokemon, Squirtle will be overflowing with ideas on how to keep you entertained with its refresheningly cool personality.',
+    price: 1500.0,
+    imageUrl: 'https://cdn.bulbagarden.net/upload/3/39/007Squirtle.png'
+  },
+  {
+    name: 'Bulbasaur',
+    type: 'Grass',
+    description:
+      'With a gentle and calm demeanor, Bulbasaur is perfect for those looking for a low-maintenance pal.',
+    //mature, wrap, calm, grow
+    price: 1500.0,
+    imageUrl: 'https://cdn.bulbagarden.net/upload/2/21/001Bulbasaur.png'
+  }
+]
 
 async function seed() {
   await db.sync({force: true})
@@ -11,6 +47,12 @@ async function seed() {
     User.create({email: 'cody@email.com', password: '123'}),
     User.create({email: 'murphy@email.com', password: '123'})
   ])
+
+  const pokemons = await Promise.all(
+    allPokemon.map(pokemon => {
+      return Pokemon.create(pokemon)
+    })
+  )
 
   console.log(`seeded ${users.length} users`)
   console.log(`seeded successfully`)
