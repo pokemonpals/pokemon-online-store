@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {startLoading, endLoading} from './loadingReducer'
 
 //initial state
 
@@ -13,8 +14,10 @@ export const getSinglePokemon = pokemon => ({type: GET_SINGLE_POKEMON, pokemon})
 //thunk
 export const getPokemonsThunk = () => async dispatch => {
   try {
+    dispatch(startLoading())
     const {data} = await axios.get('/api/products')
     dispatch(getPokemons(data))
+    dispatch(endLoading())
   } catch (err) {
     console.log(err)
   }
@@ -22,8 +25,10 @@ export const getPokemonsThunk = () => async dispatch => {
 
 export const getSinglePokemonThunk = pokemonId => async dispatch => {
   try {
+    dispatch(startLoading())
     const {data} = await axios.get(`/api/products/${pokemonId}`)
     dispatch(getSinglePokemon(data))
+    dispatch(endLoading())
   } catch (err) {
     console.log(err)
   }
