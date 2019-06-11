@@ -15,6 +15,7 @@ import {me} from './store'
 //material ui:
 import CssBaseline from '@material-ui/core/CssBaseline'
 import Link from '@material-ui/core/Link'
+import {SinglePokemon} from './components/SinglePokemon'
 
 /**
  * COMPONENT
@@ -34,6 +35,7 @@ class Routes extends Component {
             <Switch>
               <Route path="/products" component={productList} />
               <Route path="/login" component={Login} />
+              <Route path="/products/:pokemonId" component={SinglePokemon} />
             </Switch>
           </main>
         </div>
