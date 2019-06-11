@@ -6,21 +6,21 @@ import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Typography from '@material-ui/core/Typography'
+import {CardActionArea} from '@material-ui/core'
 
 const PokemonCard = props => {
   return (
     <Card key={props.pokemon.id}>
       <Link to={`/products/${props.pokemon.id}`}>
-        <CardMedia
-          style={{height: 0, paddingTop: '56.25%', marginTop: '30'}}
-          image={props.pokemon.imageURL}
-          title={props.pokemon.name}
-        />
-        <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            $ {props.pokemon.price}
-          </Typography>
-        </CardContent>
+        <CardActionArea>
+          <CardContent>
+            <img src={props.pokemon.imageUrl} />
+            {props.pokemon.name}
+            <Typography gutterBottom variant="h5" component="h2">
+              $ {props.pokemon.price}
+            </Typography>
+          </CardContent>
+        </CardActionArea>
       </Link>
     </Card>
   )

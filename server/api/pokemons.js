@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {Pokemon} = require('../db/models/Pokemon')
+const Pokemon = require('../db/models/Pokemon')
 module.exports = router
 
 //get all pokemons
