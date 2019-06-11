@@ -26,4 +26,4 @@ deploy:
   provider: heroku
   app: pokemon-online-store # see README
   api_key:
-    secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+    secure: NGFQHSvISnjZxYXE3IXmdFHKLuc2v6p7c06EbLaUkzPx8a7aRz3HmaBXpgL+h+JyfkTrcj/LUJwJNfrqdIWtIbu1mPWiAeDhWa+vVSzLJnvyS/DpOTBFKDKz0vKLcMw9WOM/gikg8TT3feAIYu771r7IQDRLtywTIll7gjWZGdlidEhs8uz/KkeKB3dRo43LlvhzSirr5j4TQd2O1PS5+AeMDl1yS10jDPQGWmvxB0xC9/+eSsKA2dN2/qXEzFygxQAL6Pyce6N5DVv3J8BOLJhDqseVIvrtSZ9HexlUV+ZymJN8iibTB+CxhlJ5KqtftYI5FYvkk4Xn+C5t0pLaf5G2kWI1P5nWel6OGIGusons34l/2CB+l11Zcs7bCgyNhpr7R8ZtQvIpKWiNRxluEyN8mCmeEAZJbn41pybEKZX16e+TuIt+6U11BB5as77x/n0ZJiZFm6fOQvF42rslCt/IveX3wmLdDBGdKoZq9WfUy6tM3QvqgUqKcP+NnEbOJK3DRt2NauiCfJEbxSoPxp7CrGipsyAk/LwGt3KlqGtL3iwCNHRd2an+bzLhmkKZpjQdpF9UNZc1vdl+XEJygIASujfqm1iYfHSSgzxfqMsEe7BDtGcGN37Bsh9gf7oxyz3yeWDWWKyBxaIU8D+04zEROr0ni0v7bnE6jBtfKdA= # see README
