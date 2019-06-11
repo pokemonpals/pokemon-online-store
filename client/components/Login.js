@@ -1,5 +1,5 @@
 import React from 'react'
-import AuthForm, {login} from './auth-form'
+import AuthForm from './auth-form'
 
 const Login = () => {
   return (

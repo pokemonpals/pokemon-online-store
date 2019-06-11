@@ -6,6 +6,7 @@ router.post('/login', async (req, res, next) => {
   console.log('req.body: ', req.body)
   try {
     const user = await User.findOne({where: {email: req.body.email}})
+    console.log('WHAT USER?', user)
     if (!user) {
       console.log('No such user found:', req.body.email)
       res.status(401).send('Wrong username and/or password')
