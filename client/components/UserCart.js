@@ -1,5 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
+import {getCartItemsThunk} from '../store/cartReducer'
 // import cartThunk from '../store/cartReducer'
 
 //material ui
@@ -7,11 +8,11 @@ import Button from '@material-ui/core/Button'
 
 class Cart extends Component {
   //page will render what is inside of cart => what is inside cart === what is in Order model that is not purcashed?
-  //button onSubmit => update order in Order model to show purchased or purchase ? true AND post to suborder model
-  //dropdown to edit quantity => onChange update quantity in Order model
+  //checkout button onSubmit => update order in Order model to show purchased or purchase ? true AND post to suborder model
+  //quanity input field to edit quantity => onChange update quantity in Order model
   //remove => onClick delete pokemon from Order model
   render() {
-    console.log(this.props)
+    console.log('this props', this.props)
     return (
       <div>
         <h2>Your Shopping Cart</h2>
@@ -68,6 +69,7 @@ const mapStateToProps = state => ({
 })
 const mapDispatchToProps = dispatch => ({
   // receivedOrder: cartId => dispatch(cartThunk(cartId))
+  getCart: orderId => dispatch(getCartItemsThunk(orderId))
 })
 
 export const UserCart = connect(mapStateToProps, mapDispatchToProps)(Cart)

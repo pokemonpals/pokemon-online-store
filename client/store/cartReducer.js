@@ -33,10 +33,10 @@ export const addToCartThunk = pokemonId => {
   }
 }
 
-export const getCartItemsThunk = () => async dispatch => {
+export const getCartItemsThunk = orderId => async dispatch => {
   try {
     dispatch(startLoading())
-    const {data} = await axios.get('/api/cart')
+    const {data} = await axios.get(`/api/cart/${orderId}`)
     dispatch(getCartItems(data))
     dispatch(endLoading())
   } catch (err) {
