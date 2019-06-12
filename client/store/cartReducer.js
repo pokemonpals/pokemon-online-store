@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {startLoading, endLoading} from './loadingReducer'
 
 //initial state
 const initialState = {
@@ -14,10 +15,10 @@ export const addToCart = pokemon => ({
   type: ADD_TO_CART,
   pokemon
 })
-// export const getCart = cartId => ({
-//   type: GET_CART,
-//   cartId
-// })
+export const getCartItems = items => ({
+  type: GET_CART,
+  items
+})
 
 //thunk
 export const addToCartThunk = pokemonId => {
@@ -32,14 +33,25 @@ export const addToCartThunk = pokemonId => {
   }
 }
 
+export const getCartItemsThunk = () => async dispatch => {
+  try {
+    dispatch(startLoading())
+    const {data} = await axios.get('/api/cart')
+    dispatch(getCartItems(data))
+    dispatch(endLoading())
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 //reducer
 export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
       console.log('CART REDUCER RUNNING')
       return {...state, pokemon: [...state.pokemon, action.pokemon]}
-    // case GET_CART:
-    //   return {}
+    case GET_CART:
+      return action.items
     default:
       return state
   }
