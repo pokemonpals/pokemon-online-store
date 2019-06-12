@@ -39,7 +39,7 @@ export const auth = (email, password, method) => async dispatch => {
 
   try {
     dispatch(getUser(res.data))
-    history.push('/home')
+    history.push('/me')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
   }
@@ -63,6 +63,7 @@ export default function(state = [], action) {
     case GET_USER:
       return action.user
     case REMOVE_USER:
+      state = []
       return state
     default:
       return state

@@ -1,12 +1,11 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {withRouter, Route, Switch, Link as RouterLink} from 'react-router-dom'
+import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, UserCart} from './components'
 import {productList} from './components/productList'
 import {me} from './store'
 import Home from './components/Home'
-
 import Link from '@material-ui/core/Link'
 import {SinglePokemon} from './components/SinglePokemon'
 
@@ -23,21 +22,36 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route exact path="/" component={Home} />
-        <Route exact path="/products/:pokemonId" component={SinglePokemon} />
-        <Route exact path="/products" component={productList} />
-        <Route exact path="/cart" component={UserCart} />'
-        <Route path="/login" component={Login} />'
-        {/* <Route path="/signup" component={Signup} /> */}
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
+            <Route path="/me" component={UserHome} />
           </Switch>
         )}
         {/* Displays our Login component as a fallback */}
-        {/* <Route component={productList} /> */}
+        <Route component={Login} />
       </Switch>
+
+      // ERROR: Not rendering to user home page once logged in. Not rendering to login page once signed out.
+      // <Switch>
+      //   {/* Routes placed here are available to all visitors */}
+      //   {/* <Route exact path="/" component={Home} /> */}
+      //   {/* <Route exact path="/products/:pokemonId" component={SinglePokemon} />
+      //   <Route exact path="/products" component={productList} />
+      //   <Route exact path="/cart" component={UserCart} /> */}
+      //   <Route path="/login" component={Login} />
+      //   <Route path="/signup" component={Signup} />
+      //   {isLoggedIn && (
+      //     <Switch>
+      //       {/* Routes placed here are only available after logging in */}
+      //       <Route path="/me" component={UserHome} />
+      //     </Switch>
+      //   )}
+      //   {/* Displays our Login component as a fallback */}
+      //   {/* <Route component={Home} /> */}
+      // </Switch>
     )
   }
 }
