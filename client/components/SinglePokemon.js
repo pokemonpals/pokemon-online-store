@@ -16,16 +16,19 @@ class DisconnectedSinglePokemon extends Component {
     // this.props.addToCart(this.props.match.params.pokemonId)
   }
   handleClick(evt) {
-    console.log(evt.target.value, 'the event target value')
-    console.log('THE evt target', evt.target)
-    console.log('THE PROPS', evt.target.stuff)
     evt.preventDefault()
-    evt.target.stuff.addToCart(+evt.target.value)
+    console.log('the event target value', evt.target.value)
+    console.log('THE evt target', evt.target)
+    console.log('THE PROPS', this.props)
+
+    // this.props.addToCart(+evt.target.value)
+    // evt.target.stuff.addToCart(+evt.target.value)
   }
 
   render() {
     if (!this.props.isLoading) {
       if (this.props.pokemon) {
+        console.log('inside pokemon view props:', this.props)
         const pokemon = this.props.pokemon
         return (
           <div>
@@ -38,17 +41,19 @@ class DisconnectedSinglePokemon extends Component {
                   <Typography variant="caption">
                     {pokemon.description}
                   </Typography>
-                  <Button
-                    value={pokemon.id}
-                    onClick={this.handleClick}
-                    className="button"
-                    style={{marginTop: 24}}
-                    size="small"
-                    color="primary"
-                    variant="contained"
-                  >
-                    Add To Cart
-                  </Button>
+                  <div>
+                    <Button
+                      value={pokemon.id}
+                      onClick={this.handleClick}
+                      className="button"
+                      style={{marginTop: 24}}
+                      size="small"
+                      color="primary"
+                      variant="contained"
+                    >
+                      Add To Cart
+                    </Button>
+                  </div>
                 </CardContent>
               </Card>
             </div>
