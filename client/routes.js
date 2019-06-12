@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import {Login, Signup, UserHome, UserCart} from './components'
 import {productList} from './components/productList'
 import {me} from './store'
+import Home from './components/Home'
 
 import Link from '@material-ui/core/Link'
 import {SinglePokemon} from './components/SinglePokemon'
@@ -22,7 +23,7 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route exact path="/" component={productList} />
+        <Route exact path="/" component={Home} />
         <Route exact path="/products/:pokemonId" component={SinglePokemon} />
         <Route exact path="/products" component={productList} />
         <Route exact path="/cart" component={UserCart} />'
