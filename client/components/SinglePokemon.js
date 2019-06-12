@@ -21,11 +21,13 @@ class DisconnectedSinglePokemon extends Component {
     console.log('THE PROPS', this)
     evt.preventDefault()
     this.props.addToCart(evt.target.value)
+
   }
 
   render() {
     if (!this.props.isLoading) {
       if (this.props.pokemon) {
+        console.log('inside pokemon view props:', this.props)
         const pokemon = this.props.pokemon
         return (
           <div>
