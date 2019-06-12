@@ -1,7 +1,9 @@
 import React, {Component} from 'react'
-import userForm from './userForm'
+import {UserForm} from './UserForm'
+import {connect} from 'react-redux'
+import {signupThunk} from '../store/userReducer'
 
-export default class SignUp extends Component {
+export class SignUp extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -13,7 +15,9 @@ export default class SignUp extends Component {
     this.handleChange = this.handleChange.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
   }
-
+  // componentDidMount() {
+  //   this.props.addNewUser()
+  // }
   handleChange(event) {
     this.setState({
       [event.target.name]: event.target.value
@@ -22,7 +26,7 @@ export default class SignUp extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    this.props.addNewUser({
+    this.addNewUser({
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       email: this.state.email,
@@ -33,7 +37,7 @@ export default class SignUp extends Component {
   render() {
     return (
       <div>
-        <userForm
+        <UserForm
           handleSubmit={this.handleSubmit}
           addNewUser={this.props.addNewUser}
           handleChange={this.handleChange}
@@ -46,3 +50,13 @@ export default class SignUp extends Component {
     )
   }
 }
+
+const mapStateToProps = state => ({
+  user: state.user
+})
+
+const mapDispatchToProps = dispatch => ({
+  addNewUser: () => dispatch(signupThunk())
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignUp)

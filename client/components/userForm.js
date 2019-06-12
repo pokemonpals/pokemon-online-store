@@ -40,7 +40,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export const SignUp = () => {
+export const UserForm = props => {
   const classes = useStyles()
 
   return (
@@ -51,9 +51,9 @@ export const SignUp = () => {
           <LockOutlinedIcon />
         </Avatar>
         <Typography component="h1" variant="h5">
-          Sign up
+          Sign Up
         </Typography>
-        <form className={classes.form} noValidate>
+        <form className={classes.form} noValidate onSubmit={props.handleSubmit}>
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
               <TextField
@@ -104,7 +104,7 @@ export const SignUp = () => {
             <Grid item xs={12}>
               <FormControlLabel
                 control={<Checkbox value="allowExtraEmails" color="primary" />}
-                label="I want to receive inspiration, marketing promotions and updates via email."
+                label="I want to receive newsletters, promotions and updates via email."
               />
             </Grid>
           </Grid>
@@ -126,9 +126,6 @@ export const SignUp = () => {
           </Grid>
         </form>
       </div>
-      <Box mt={5}>
-        <MadeWithLove />
-      </Box>
     </Container>
   )
 }
