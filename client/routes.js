@@ -1,19 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {
-  BrowserRouter,
-  withRouter,
-  Route,
-  Switch,
-  Link as RouterLink
-} from 'react-router-dom'
+import {withRouter, Route, Switch, Link as RouterLink} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome} from './components'
+import {Login, Signup, UserHome, UserCart} from './components'
 import {productList} from './components/productList'
 import {me} from './store'
+import Home from './components/Home'
 
-//material ui:
-import CssBaseline from '@material-ui/core/CssBaseline'
 import Link from '@material-ui/core/Link'
 import {SinglePokemon} from './components/SinglePokemon'
 
@@ -26,20 +19,25 @@ class Routes extends Component {
   }
 
   render() {
-    // const {isLoggedIn} = this.props
+    const {isLoggedIn} = this.props
     return (
-      <BrowserRouter>
-        <div>
-          <CssBaseline />
-          <main>
-            <Switch>
-              <Route path="/products" component={productList} />
-              <Route path="/login" component={Login} />
-              <Route path="/products/:pokemonId" component={SinglePokemon} />
-            </Switch>
-          </main>
-        </div>
-      </BrowserRouter>
+      <Switch>
+        {/* Routes placed here are available to all visitors */}
+        <Route exact path="/" component={Home} />
+        <Route exact path="/products/:pokemonId" component={SinglePokemon} />
+        <Route exact path="/products" component={productList} />
+        <Route exact path="/cart" component={UserCart} />'
+        <Route path="/login" component={Login} />'
+        {/* <Route path="/signup" component={Signup} /> */}
+        {isLoggedIn && (
+          <Switch>
+            {/* Routes placed here are only available after logging in */}
+            <Route path="/home" component={UserHome} />
+          </Switch>
+        )}
+        {/* Displays our Login component as a fallback */}
+        {/* <Route component={productList} /> */}
+      </Switch>
     )
   }
 }

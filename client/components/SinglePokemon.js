@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getSinglePokemonThunk} from '../store/pokemonReducer'
+import {addToCartThunk} from '../store/cartReducer'
 import {Link} from 'react-router-dom'
 
 //material ui
@@ -12,6 +13,14 @@ import CardContent from '@material-ui/core/CardContent'
 class DisconnectedSinglePokemon extends Component {
   componentDidMount() {
     this.props.getSinglePokemon(this.props.match.params.pokemonId)
+    // this.props.addToCart(this.props.match.params.pokemonId)
+  }
+  handleClick(evt) {
+    console.log(evt.target.value, 'the event target value')
+    console.log('THE evt target', evt.target)
+    console.log('THE PROPS', evt.target.stuff)
+    evt.preventDefault()
+    evt.target.stuff.addToCart(+evt.target.value)
   }
 
   render() {
@@ -30,13 +39,15 @@ class DisconnectedSinglePokemon extends Component {
                     {pokemon.description}
                   </Typography>
                   <Button
+                    value={pokemon.id}
+                    onClick={this.handleClick}
                     className="button"
                     style={{marginTop: 24}}
                     size="small"
                     color="primary"
                     variant="contained"
                   >
-                    Buy
+                    Add To Cart
                   </Button>
                 </CardContent>
               </Card>
@@ -46,6 +57,8 @@ class DisconnectedSinglePokemon extends Component {
       } else {
         return <div>Loading...</div>
       }
+    } else {
+      return 'LOADING'
     }
   }
 }
@@ -56,7 +69,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  getSinglePokemon: pokemonId => dispatch(getSinglePokemonThunk(pokemonId))
+  getSinglePokemon: pokemonId => dispatch(getSinglePokemonThunk(pokemonId)),
+  addToCart: pokemonId => dispatch(addToCartThunk(pokemonId))
 })
 
 export const SinglePokemon = connect(mapStateToProps, mapDispatchToProps)(
