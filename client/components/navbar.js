@@ -25,6 +25,9 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <Link to="/signup">Sign Up</Link>
         </div>
       )}
+      <Link to="/cart">
+        <img id="bag" src="https://img.icons8.com/color/420/pokebag.png" />
+      </Link>
     </nav>
     <hr />
   </div>

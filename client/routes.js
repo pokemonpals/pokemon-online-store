@@ -8,7 +8,7 @@ import {
   Link as RouterLink
 } from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome} from './components'
+import {Login, Signup, UserHome, UserCart} from './components'
 import {productList} from './components/productList'
 import {me} from './store'
 
@@ -33,9 +33,14 @@ class Routes extends Component {
           <CssBaseline />
           <main>
             <Switch>
-              <Route path="/products" component={productList} />
+              <Route exact path="/products" component={productList} />
               <Route path="/login" component={Login} />
-              <Route path="/products/:pokemonId" component={SinglePokemon} />
+              <Route
+                exact
+                path="/products/:pokemonId"
+                component={SinglePokemon}
+              />
+              <Route exact path="/cart" component={UserCart} />
             </Switch>
           </main>
         </div>
