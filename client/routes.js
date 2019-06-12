@@ -2,11 +2,10 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome, UserCart} from './components'
+import {Login, SignUp, UserHome, UserCart} from './components'
 import {productList} from './components/productList'
 import {me} from './store'
 import Home from './components/Home'
-import Link from '@material-ui/core/Link'
 import {SinglePokemon} from './components/SinglePokemon'
 
 /**
@@ -32,7 +31,7 @@ class Routes extends Component {
           </Switch>
         )}
         <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
+        <Route path="/signup" component={SignUp} />
         {/* Displays our Login component as a fallback */}
         {/* <Route component={Login} /> */}
       </Switch>
