@@ -22,36 +22,20 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
+        <Route exact path="/products" component={productList} />
+        <Route exact path="/products/:pokemonId" component={SinglePokemon} />
+        <Route exact path="/" component={Home} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
-            <Route path="/me" component={UserHome} />
+            <Route exact path="/me" component={UserHome} />
           </Switch>
         )}
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={Signup} />
         {/* Displays our Login component as a fallback */}
-        <Route component={Login} />
+        {/* <Route component={Login} /> */}
       </Switch>
-
-      // ERROR: Not rendering to user home page once logged in. Not rendering to login page once signed out.
-      // <Switch>
-      //   {/* Routes placed here are available to all visitors */}
-      //   {/* <Route exact path="/" component={Home} /> */}
-      //   {/* <Route exact path="/products/:pokemonId" component={SinglePokemon} />
-      //   <Route exact path="/products" component={productList} />
-      //   <Route exact path="/cart" component={UserCart} /> */}
-      //   <Route path="/login" component={Login} />
-      //   <Route path="/signup" component={Signup} />
-      //   {isLoggedIn && (
-      //     <Switch>
-      //       {/* Routes placed here are only available after logging in */}
-      //       <Route path="/me" component={UserHome} />
-      //     </Switch>
-      //   )}
-      //   {/* Displays our Login component as a fallback */}
-      //   {/* <Route component={Home} /> */}
-      // </Switch>
     )
   }
 }

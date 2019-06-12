@@ -5,7 +5,7 @@ import {addToCartThunk} from '../store/cartReducer'
 import {Link} from 'react-router-dom'
 
 //material ui
-import Button from '@material-ui/core/Button'
+// import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -15,14 +15,13 @@ class DisconnectedSinglePokemon extends Component {
     this.props.getSinglePokemon(this.props.match.params.pokemonId)
     // this.props.addToCart(this.props.match.params.pokemonId)
   }
-  handleClick(evt) {
-    evt.preventDefault()
-    console.log('the event target value', evt.target.value)
+  handleClick = evt => {
+    console.log(evt.target.value, 'the event target value')
     console.log('THE evt target', evt.target)
-    console.log('THE PROPS', this.props)
+    console.log('THE PROPS', this)
+    evt.preventDefault()
+    this.props.addToCart(evt.target.value)
 
-    // this.props.addToCart(+evt.target.value)
-    // evt.target.stuff.addToCart(+evt.target.value)
   }
 
   render() {
@@ -33,7 +32,8 @@ class DisconnectedSinglePokemon extends Component {
         return (
           <div>
             <div id="pokemon" className="container">
-              <Card>
+              {console.log('this.props before card: ', this.props)}
+              <Card props={pokemon}>
                 <CardContent>
                   <img src={pokemon.imageUrl} />
                   <Typography variant="body2">{pokemon.name}</Typography>
@@ -41,19 +41,18 @@ class DisconnectedSinglePokemon extends Component {
                   <Typography variant="caption">
                     {pokemon.description}
                   </Typography>
-                  <div>
-                    <Button
-                      value={pokemon.id}
-                      onClick={this.handleClick}
-                      className="button"
-                      style={{marginTop: 24}}
-                      size="small"
-                      color="primary"
-                      variant="contained"
-                    >
-                      Add To Cart
-                    </Button>
-                  </div>
+                  <button
+                    type="submit"
+                    // className="button"
+                    // style={{marginTop: 24}}
+                    // size="small"
+                    // color="primary"
+                    // variant="contained"
+                    onClick={this.handleClick}
+                    value={pokemon.id}
+                  >
+                    Add To Cart
+                  </button>
                 </CardContent>
               </Card>
             </div>
