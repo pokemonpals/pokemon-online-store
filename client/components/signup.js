@@ -3,7 +3,7 @@ import {UserForm} from './UserForm'
 import {connect} from 'react-redux'
 import {signupThunk} from '../store/userReducer'
 
-export class SignUp extends Component {
+class DisconnectedSignUp extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -59,4 +59,6 @@ const mapDispatchToProps = dispatch => ({
   addNewUser: () => dispatch(signupThunk())
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
+export const SignUp = connect(mapStateToProps, mapDispatchToProps)(
+  DisconnectedSignUp
+)

@@ -23,6 +23,7 @@ class DisconnectedSinglePokemon extends Component {
   }
 
   render() {
+    console.log(this.props.pokemon)
     if (!this.props.isLoading) {
       if (this.props.pokemon) {
         const pokemon = this.props.pokemon
