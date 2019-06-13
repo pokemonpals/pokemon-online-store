@@ -86,7 +86,7 @@ class Cart extends Component {
   }
 }
 const mapStateToProps = state => ({
-  cart: state.cart
+  cart: state.cart.pokemon
 })
 const mapDispatchToProps = dispatch => ({
   // receivedOrder: cartId => dispatch(cartThunk(cartId))
