@@ -13,14 +13,18 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/', (req, res, next) => {
-  const {firstName, lastName, email, password} = req.body
-  User.create({
-    firstName,
-    lastName,
-    email,
-    password
-  })
-    .then(user => res.json(user))
-    .catch(next)
+router.post('/', async (req, res, next) => {
+  try {
+    const {firstName, lastName, email, password} = req.body
+    console.log(firstName, lastName, email, password)
+    const data = await User.create({
+      firstName,
+      lastName,
+      email,
+      password
+    })
+    res.json(data)
+  } catch (err) {
+    console.error(err)
+  }
 })
