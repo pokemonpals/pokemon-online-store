@@ -21,15 +21,20 @@ const Order = require('./Order')
 Pokemon.hasMany(Inventory)
 // Inventory.hasMany(Pokemon)
 User.hasMany(Order)
-Order.hasMany(SubOrder)
-Pokemon.hasMany(SubOrder)
 
-SubOrder.belongsTo(Order)
+//Creating new many-to-many associations between Orders and Pokemons for SubOrder through table
+// Order.hasMany(SubOrder)
+// Pokemon.hasMany(SubOrder)
+Order.belongsToMany(Pokemon, {through: 'SubOrder'})
+Pokemon.belongsToMany(Order, {through: 'SubOrder'})
+
+// SubOrder.belongsTo(Order)
+
 Order.belongsTo(User)
 
 Inventory.belongsTo(Pokemon)
 // Pokemon.belongsTo(Inventory, { as: 'pokemonId' })
-SubOrder.belongsTo(Pokemon)
+// SubOrder.belongsTo(Pokemon)
 
 module.exports = {
   User,

@@ -5,7 +5,7 @@ import {addToCartThunk} from '../store/cartReducer'
 import {Link} from 'react-router-dom'
 
 //material ui
-// import Button from '@material-ui/core/Button'
+import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
@@ -18,20 +18,19 @@ class DisconnectedSinglePokemon extends Component {
   handleClick = evt => {
     console.log(evt.target.value, 'the event target value')
     console.log('THE evt target', evt.target)
-    console.log('THE PROPS', this)
+    console.log('THE PROPS', this.props)
     evt.preventDefault()
     this.props.addToCart(evt.target.value)
   }
 
   render() {
+    console.log(this.props.cart, 'PROPS CART')
     if (!this.props.isLoading) {
       if (this.props.pokemon) {
-        console.log('inside pokemon view props:', this.props)
         const pokemon = this.props.pokemon
         return (
           <div>
             <div id="pokemon" className="container">
-              {console.log('this.props before card: ', this.props)}
               <Card props={pokemon}>
                 <CardContent>
                   <img src={pokemon.imageUrl} />
@@ -42,13 +41,13 @@ class DisconnectedSinglePokemon extends Component {
                   </Typography>
                   <button
                     type="submit"
-                    // className="button"
-                    // style={{marginTop: 24}}
-                    // size="small"
-                    // color="primary"
-                    // variant="contained"
-                    onClick={this.handleClick}
                     value={pokemon.id}
+                    onClick={this.handleClick}
+                    className="button"
+                    style={{marginTop: 24}}
+                    size="small"
+                    color="primary"
+                    variant="contained"
                   >
                     Add To Cart
                   </button>
