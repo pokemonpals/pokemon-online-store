@@ -15,12 +15,13 @@ router.get('/', async (req, res, next) => {
 
 router.get('/:userId', async (req, res, next) => {
   try {
-    const singleUserOrder = await Order.findById({
+    const pendingOrder = await Order.findOrCreate({
       where: {
+        userId: req.params.userId,
         pending: true
       }
     })
-    res.json(singleUserOrder)
+    res.json(pendingOrder)
   } catch (err) {
     next(err)
   }
