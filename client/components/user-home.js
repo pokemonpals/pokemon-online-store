@@ -1,7 +1,7 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {updateUser} from '../store/userReducer'
+import {updateUserThunk} from '../store/userReducer'
 import UpdateUserProfile from './UpdateUserProfile'
 
 /**
@@ -13,6 +13,7 @@ export const UserHome = props => {
   return (
     <div>
       <h3>Welcome, {email}</h3>
+      <UpdateUserProfile user={props.user} updateUser={props.updateUser} />
     </div>
   )
 }
@@ -22,11 +23,16 @@ export const UserHome = props => {
  */
 const mapState = state => {
   return {
+    user: state.user,
     email: state.user.email
   }
 }
 
-export default connect(mapState)(UserHome)
+const mapDispatchToProps = dispatch => ({
+  updateUser: updatedUser => dispatch(updateUserThunk(updatedUser))
+})
+
+export default connect(mapState, mapDispatchToProps)(UserHome)
 
 /**
  * PROP TYPES
