@@ -61,9 +61,7 @@ export const getCartItemsThunk = orderId => async dispatch => {
 export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      // console.log('CART REDUCER RUNNING')
-      console.log('THE ACTION FROM CARTREDUCER', action)
-      return {...state, pokemon: action.pokemon}
+      return {...state, pokemon: action.pokemon, order: action.order}
     case GET_CART:
       return state.pokemon
     default:
