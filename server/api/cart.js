@@ -14,11 +14,12 @@ router.get('/', async (req, res, next) => {
 })
 
 router.get('/:userId', async (req, res, next) => {
+  console.log('BEFORE THE TRY IN GET/:USERID ROUTE')
   try {
     const pendingOrder = await Order.findOrCreate({
       where: {
         userId: req.params.userId,
-        pending: true
+        pending: 'true'
       }
     })
     console.log('THE PENDING ORDER', pendingOrder)

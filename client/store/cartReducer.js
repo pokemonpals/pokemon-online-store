@@ -13,10 +13,10 @@ const GET_CART = 'GET_CART'
 const REMOVE_ITEM = 'REMOVE_ITEM'
 
 //action creator
-export const addToCart = (pokemon, user) => ({
+export const addToCart = (pokemon, order) => ({
   type: ADD_TO_CART,
   pokemon,
-  user
+  order
 })
 export const getCartItems = items => ({
   type: GET_CART,
@@ -32,13 +32,8 @@ export const addToCartThunk = (pokemonId, userId) => {
   return async dispatch => {
     try {
       const pokemon = await axios.get(`/api/products/${pokemonId}`)
-      dispatch(addToCart(pokemon.data))
-    } catch (err) {
-      console.error(err)
-    }
-    try {
       const order = await axios.get(`/api/cart/${userId}`)
-      dispatch(addToCart(order.data.id))
+      dispatch(addToCart(pokemon.data, order.data[0].id))
     } catch (err) {
       console.error(err)
     }
@@ -66,8 +61,9 @@ export const getCartItemsThunk = orderId => async dispatch => {
 export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      console.log('CART REDUCER RUNNING')
-      return {...state, pokemon: [...state.pokemon, action.pokemon[0]]}
+      // console.log('CART REDUCER RUNNING')
+      console.log('THE ACTION FROM CARTREDUCER', action)
+      return {...state, pokemon: action.pokemon}
     case GET_CART:
       return state.pokemon
     default:
