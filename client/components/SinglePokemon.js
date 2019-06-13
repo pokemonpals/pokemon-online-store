@@ -17,6 +17,9 @@ class DisconnectedSinglePokemon extends Component {
   handleClick = evt => {
     evt.preventDefault()
     this.props.addToCart(evt.target.value)
+    // if (this.props.user.id) {
+
+    // }
   }
 
   render() {
@@ -68,7 +71,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   getSinglePokemon: pokemonId => dispatch(getSinglePokemonThunk(pokemonId)),
-  addToCart: pokemonId => dispatch(addToCartThunk(pokemonId))
+  addToCart: (pokemonId, userId) => dispatch(addToCartThunk(pokemonId, userId))
 })
 
 export const SinglePokemon = connect(mapStateToProps, mapDispatchToProps)(
