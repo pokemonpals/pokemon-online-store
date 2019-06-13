@@ -2,7 +2,10 @@ import axios from 'axios'
 import {startLoading, endLoading} from './loadingReducer'
 
 //initial state
-const initialState = []
+const initialState = {
+  pokemon: [],
+  order: 0
+}
 
 //action type
 const ADD_TO_CART = 'ADD_TO_CART'
@@ -10,9 +13,10 @@ const GET_CART = 'GET_CART'
 const REMOVE_ITEM = 'REMOVE_ITEM'
 
 //action creator
-export const addToCart = pokemon => ({
+export const addToCart = (pokemon, order) => ({
   type: ADD_TO_CART,
-  pokemon
+  pokemon,
+  order
 })
 export const getCartItems = items => ({
   type: GET_CART,
@@ -23,12 +27,13 @@ export const removeItem = () => ({
 })
 
 //thunk
-export const addToCartThunk = pokemonId => {
+export const addToCartThunk = (pokemonId, userId) => {
   console.log('CART THUNK RUNNING')
   return async dispatch => {
     try {
       const pokemon = await axios.get(`/api/products/${pokemonId}`)
-      dispatch(addToCart(pokemon.data))
+      const order = await axios.get(`/api/cart/${userId}`)
+      dispatch(addToCart(pokemon.data, order.data[0].id))
     } catch (err) {
       console.error(err)
     }
@@ -56,8 +61,7 @@ export const getCartItemsThunk = orderId => async dispatch => {
 export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
-      console.log('CART REDUCER RUNNING')
-      return [...state, action.pokemon[0]]
+      return {...state, pokemon: action.pokemon, order: action.order}
     case GET_CART:
       return state.pokemon
     default:
