@@ -24,9 +24,10 @@ export class SignUp extends Component {
     })
   }
 
-  handleSubmit(event) {
+  handleSubmit = event => {
     event.preventDefault()
-    this.addNewUser({
+    console.log('this.props', this.props)
+    this.props.addNewUser({
       firstName: this.state.firstName,
       lastName: this.state.lastName,
       email: this.state.email,
@@ -43,8 +44,6 @@ export class SignUp extends Component {
           handleChange={this.handleChange}
           user={this.state}
           handleClose={this.props.handleClose}
-          open={this.props.open}
-          // addOrUpdate="Add User"
         />
       </div>
     )
@@ -56,7 +55,7 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  addNewUser: () => dispatch(signupThunk())
+  addNewUser: user => dispatch(signupThunk(user))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp)

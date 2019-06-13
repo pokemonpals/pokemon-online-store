@@ -9,6 +9,8 @@ import {Link} from 'react-router-dom'
 import Typography from '@material-ui/core/Typography'
 import Card from '@material-ui/core/Card'
 import CardContent from '@material-ui/core/CardContent'
+import Grid from '@material-ui/core/Grid'
+import Paper from '@material-ui/core/Paper'
 
 class DisconnectedSinglePokemon extends Component {
   componentDidMount() {
@@ -30,7 +32,36 @@ class DisconnectedSinglePokemon extends Component {
         const pokemon = this.props.pokemon
         return (
           <div>
-            <div id="pokemon" className="container">
+            <Grid item xs={false} sm={4} md={7} className={pokeimage}>
+              <img src={pokemon.imageUrl} />
+            </Grid>
+            <Grid
+              item
+              xs={12}
+              sm={8}
+              md={5}
+              component={Paper}
+              elevation={6}
+              square
+            >
+              <Typography variant="body2">{pokemon.name}</Typography>
+              <Typography variant="body2">$ {pokemon.price}</Typography>
+              <Typography variant="caption">{pokemon.description}</Typography>
+              <button
+                type="submit"
+                // className="button"
+                // style={{marginTop: 24}}
+                // size="small"
+                // color="primary"
+                // variant="contained"
+                onClick={this.handleClick}
+                value={pokemon.id}
+              >
+                Add To Cart
+              </button>
+            </Grid>
+
+            {/* <div id="pokemon" className="container">
               {console.log('this.props before card: ', this.props)}
               <Card props={pokemon}>
                 <CardContent>
@@ -54,7 +85,7 @@ class DisconnectedSinglePokemon extends Component {
                   </button>
                 </CardContent>
               </Card>
-            </div>
+            </div> */}
           </div>
         )
       } else {
