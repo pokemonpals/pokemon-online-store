@@ -2,15 +2,16 @@ const Sequelize = require('sequelize')
 const db = require('../db')
 
 const Order = db.define('order', {
-  status: {
+  pending: {
     type: Sequelize.STRING,
+    defaultValue: true,
     allowNull: false,
     validate: {
       notEmpty: true
     }
   },
   totalPrice: {
-    type: Sequelize.DECIMAL,
+    type: Sequelize.INTEGER,
     validate: {
       min: 0.0
     }

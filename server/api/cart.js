@@ -21,6 +21,7 @@ router.get('/:userId', async (req, res, next) => {
         pending: true
       }
     })
+    console.log('THE PENDING ORDER', pendingOrder)
     res.json(pendingOrder)
   } catch (err) {
     next(err)

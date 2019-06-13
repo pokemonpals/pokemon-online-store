@@ -67,7 +67,7 @@ export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
       console.log('CART REDUCER RUNNING')
-      return [...state, action.pokemon[0]]
+      return {...state, pokemon: [...state.pokemon, action.pokemon[0]]}
     case GET_CART:
       return state.pokemon
     default:
