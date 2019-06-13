@@ -34,18 +34,8 @@ export const me = () => async dispatch => {
   }
 }
 
-export const signupThunk = (
-  firstName,
-  lastName,
-  email,
-  password
-) => async dispatch => {
-  const {data} = await axios.post(`/users`, {
-    firstName,
-    lastName,
-    email,
-    password
-  })
+export const signupThunk = input => async dispatch => {
+  const {data} = await axios.post(`/api/users`, input)
   dispatch(addUser(data))
 }
 

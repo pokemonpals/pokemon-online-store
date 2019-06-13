@@ -64,6 +64,8 @@ export const UserForm = props => {
                 fullWidth
                 id="firstName"
                 label="First Name"
+                value={props.user.firstName}
+                onChange={props.handleChange}
                 autoFocus
               />
             </Grid>
@@ -74,6 +76,8 @@ export const UserForm = props => {
                 fullWidth
                 id="lastName"
                 label="Last Name"
+                value={props.user.lastName}
+                onChange={props.handleChange}
                 name="lastName"
                 autoComplete="lname"
               />
@@ -85,6 +89,8 @@ export const UserForm = props => {
                 fullWidth
                 id="email"
                 label="Email Address"
+                value={props.user.email}
+                onChange={props.handleChange}
                 name="email"
                 autoComplete="email"
               />
@@ -96,6 +102,8 @@ export const UserForm = props => {
                 fullWidth
                 name="password"
                 label="Password"
+                value={props.user.password}
+                onChange={props.handleChange}
                 type="password"
                 id="password"
                 autoComplete="current-password"
@@ -114,6 +122,12 @@ export const UserForm = props => {
             variant="contained"
             color="primary"
             className={classes.submit}
+            disabled={
+              props.user.lastName === '' ||
+              props.user.firstName === '' ||
+              props.user.email === '' ||
+              props.user.password === ''
+            }
           >
             Sign Up
           </Button>
