@@ -34,11 +34,10 @@ router.put('/', async (req, res, next) => {
   const orderId = req.body.orderId
   const pokemonId = req.body.pokemonId
   const price = req.body.pokemon.data[0].price
-  console.log('PUT ROUTE POKEMON PRICE: ', price)
-
-  if (
-    await SubOrder.findAll({where: {orderId: orderId, pokemonId: pokemonId}})
-  ) {
+  const exist = await SubOrder.findOne({
+    where: {orderId: orderId, pokemonId: pokemonId}
+  })
+  if (!exist) {
     try {
       const {dataValues} = await SubOrder.create({
         orderId: orderId,
@@ -51,6 +50,9 @@ router.put('/', async (req, res, next) => {
     } catch (err) {
       next(err)
     }
+  } else {
+    await exist.increment(['quantity'], {by: 1})
+    console.log('THE ELSE')
   }
 })
 
