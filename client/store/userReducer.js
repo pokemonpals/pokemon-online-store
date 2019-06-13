@@ -4,6 +4,7 @@ import history from '../history'
 /**
  * ACTION TYPES
  */
+const GET_ALL_USERS = 'GET_ALL_USERS'
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const ADD_USER = 'ADD_USER'
@@ -15,6 +16,8 @@ const ADD_USER = 'ADD_USER'
 /**
  * ACTION CREATORS
  */
+
+const gotAllUsers = users => ({type: GET_ALL_USERS, users})
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
 const addUser = user => ({type: ADD_USER, user})
@@ -31,18 +34,8 @@ export const me = () => async dispatch => {
   }
 }
 
-export const signupThunk = (
-  firstName,
-  lastName,
-  email,
-  password
-) => async dispatch => {
-  const {data} = await axios.post(`/users`, {
-    firstName,
-    lastName,
-    email,
-    password
-  })
+export const signupThunk = input => async dispatch => {
+  const {data} = await axios.post(`/api/users`, input)
   dispatch(addUser(data))
 }
 
@@ -72,11 +65,24 @@ export const logout = () => async dispatch => {
   }
 }
 
+export const getAllUsers = () => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get('/api/users')
+      dispatch(getAllUsers())
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
+
 /**
  * REDUCER
  */
 export default function(state = [], action) {
   switch (action.type) {
+    case GET_ALL_USERS:
+      return action.users
     case GET_USER:
       return action.user
     case REMOVE_USER:
