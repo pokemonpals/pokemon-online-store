@@ -13,18 +13,13 @@ import CardContent from '@material-ui/core/CardContent'
 class DisconnectedSinglePokemon extends Component {
   componentDidMount() {
     this.props.getSinglePokemon(this.props.match.params.pokemonId)
-    // this.props.addToCart(this.props.match.params.pokemonId)
   }
   handleClick = evt => {
-    console.log(evt.target.value, 'the event target value')
-    console.log('THE evt target', evt.target)
-    console.log('THE PROPS', this.props)
     evt.preventDefault()
     this.props.addToCart(evt.target.value)
   }
 
   render() {
-    console.log(this.props.cart, 'PROPS CART')
     if (!this.props.isLoading) {
       if (this.props.pokemon) {
         const pokemon = this.props.pokemon
@@ -67,7 +62,8 @@ class DisconnectedSinglePokemon extends Component {
 
 const mapStateToProps = state => ({
   pokemon: state.pokemons[0],
-  isLoading: state.loading
+  isLoading: state.loading,
+  user: state.user
 })
 
 const mapDispatchToProps = dispatch => ({
