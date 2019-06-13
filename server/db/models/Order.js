@@ -14,6 +14,10 @@ const Order = db.define('order', {
     validate: {
       min: 0.0
     }
+  },
+  date: {
+    type: Sequelize.DATE,
+    defaultValue: Date.now()
   }
 })
 

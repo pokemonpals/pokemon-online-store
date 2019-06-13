@@ -25,8 +25,8 @@ User.hasMany(Order)
 //Creating new many-to-many associations between Orders and Pokemons for SubOrder through table
 // Order.hasMany(SubOrder)
 // Pokemon.hasMany(SubOrder)
-Order.belongsToMany(Pokemon, {through: 'SubOrder'})
-Pokemon.belongsToMany(Order, {through: 'SubOrder'})
+Order.belongsToMany(Pokemon, {through: SubOrder})
+Pokemon.belongsToMany(Order, {through: SubOrder})
 
 // SubOrder.belongsTo(Order)
 
