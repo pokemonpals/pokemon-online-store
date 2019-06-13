@@ -31,17 +31,26 @@ router.get('/:userId', async (req, res, next) => {
 })
 
 router.put('/', async (req, res, next) => {
-  try {
-    const {dataValues} = await SubOrder.create({
-      orderId: req.body.orderId,
-      pokemonId: req.body.pokemonId,
-      quantity: '1',
-      cost: req.body.pokemon.price
-    })
-    console.log('SUBORDER RETURNED FROM CART PUR ROUTE: ', dataValues)
-    res.json(dataValues)
-  } catch (err) {
-    next(err)
+  const orderId = req.body.orderId
+  const pokemonId = req.body.pokemonId
+  const price = req.body.pokemon.data[0].price
+  console.log('PUT ROUTE POKEMON PRICE: ', price)
+
+  if (
+    await SubOrder.findAll({where: {orderId: orderId, pokemonId: pokemonId}})
+  ) {
+    try {
+      const {dataValues} = await SubOrder.create({
+        orderId: orderId,
+        pokemonId: pokemonId,
+        quantity: '1',
+        price: price
+      })
+      console.log('SUBORDER RETURNED FROM CART PUR ROUTE: ', dataValues)
+      res.json(dataValues)
+    } catch (err) {
+      next(err)
+    }
   }
 })
 
