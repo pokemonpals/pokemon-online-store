@@ -21,7 +21,6 @@ class DisconnectedSinglePokemon extends Component {
     console.log('THE PROPS', this)
     evt.preventDefault()
     this.props.addToCart(evt.target.value)
-
   }
 
   render() {
