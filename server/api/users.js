@@ -28,3 +28,30 @@ router.post('/', async (req, res, next) => {
     console.error(err)
   }
 })
+
+router.put(`/api/users`, (req, res, next) => {
+  const {
+    email,
+    password,
+    firstName,
+    lastName,
+    address,
+    city,
+    state,
+    zipcode
+  } = req.body
+  res
+    .json(
+      User.update({
+        email,
+        password,
+        firstName,
+        lastName,
+        address,
+        city,
+        state,
+        zipcode
+      })
+    )
+    .catch(next)
+})

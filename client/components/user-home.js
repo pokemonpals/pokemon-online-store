@@ -1,6 +1,8 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
+import {updateUser} from '../store/userReducer'
+import UpdateUserProfile from './UpdateUserProfile'
 
 /**
  * COMPONENT
