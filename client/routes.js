@@ -1,20 +1,12 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {
-  BrowserRouter,
-  withRouter,
-  Route,
-  Switch,
-  Link as RouterLink
-} from 'react-router-dom'
+import {withRouter, Route, Switch} from 'react-router-dom'
 import PropTypes from 'prop-types'
-import {Login, Signup, UserHome} from './components'
+import {Login, SignUp, UserHome, UserCart} from './components'
 import {productList} from './components/productList'
 import {me} from './store'
-
-//material ui:
-import CssBaseline from '@material-ui/core/CssBaseline'
-import Link from '@material-ui/core/Link'
+import Home from './components/Home'
+import {SinglePokemon} from './components/SinglePokemon'
 
 /**
  * COMPONENT
@@ -25,18 +17,24 @@ class Routes extends Component {
   }
 
   render() {
-    // const {isLoggedIn} = this.props
+    const {isLoggedIn} = this.props
     return (
-      <BrowserRouter>
-        <div>
-          <CssBaseline />
-          <main>
-            <Switch>
-              <Route path="/products" component={productList} />
-            </Switch>
-          </main>
-        </div>
-      </BrowserRouter>
+      <Switch>
+        {/* Routes placed here are available to all visitors */}
+        <Route exact path="/products" component={productList} />
+        <Route exact path="/products/:pokemonId" component={SinglePokemon} />
+        <Route exact path="/" component={Home} />
+        {isLoggedIn && (
+          <Switch>
+            {/* Routes placed here are only available after logging in */}
+            <Route exact path="/me" component={UserHome} />
+          </Switch>
+        )}
+        <Route path="/login" component={Login} />
+        <Route path="/signup" component={SignUp} />
+        {/* Displays our Login component as a fallback */}
+        {/* <Route component={Login} /> */}
+      </Switch>
     )
   }
 }

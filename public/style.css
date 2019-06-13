@@ -45,7 +45,6 @@ main {
   flex-direction: column;
   justify-content: center;
 }
-
 .error {
   padding: 0.05em 2em;
   font-size: 1em;
@@ -97,4 +96,14 @@ main {
 
 button {
   color: #6b95d1;
+}
+
+img {
+  height: 300px;
+  width: auto;
+}
+
+#bag {
+  height: 4em;
+  width: auto;
 }

@@ -1,11 +1,12 @@
 import React from 'react'
 import AuthForm from './auth-form'
 
-const Login = props => {
-  const {handleSubmit} = props // passed via authform
+const Login = () => {
   return (
-    <form onSubmit={handleSubmit}>
+    <div>
       <AuthForm />
-    </form>
+    </div>
   )
 }
+
+export default Login
