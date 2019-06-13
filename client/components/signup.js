@@ -3,7 +3,7 @@ import {UserForm} from './UserForm'
 import {connect} from 'react-redux'
 import {signupThunk} from '../store/userReducer'
 
-export class SignUp extends Component {
+class SignUp extends Component {
   constructor(props) {
     super(props)
     this.state = {
