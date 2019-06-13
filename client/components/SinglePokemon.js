@@ -16,7 +16,7 @@ class DisconnectedSinglePokemon extends Component {
   }
   handleClick = evt => {
     evt.preventDefault()
-    this.props.addToCart(evt.target.value)
+    this.props.addToCart(evt.target.value, this.props.user.id)
     // if (this.props.user.id) {
 
     // }
