@@ -26,7 +26,7 @@ export function Navbar({handleClick, isLoggedIn}) {
   }
 
   return (
-    <div className>
+    <div className="classes">
       <AppBar position="static">
         <Tabs variant="fullWidth" value={value} onChange={handleChange}>
           <Tab label="Home" component={Link} to="/" />
@@ -36,11 +36,7 @@ export function Navbar({handleClick, isLoggedIn}) {
           </Tab>/>
           {isLoggedIn ? (
             <div>
-              <Tab
-                component={Link}
-                to="/me"
-                label="                My Account"
-              />
+              <Tab component={Link} to="/me" label="My Account" />
               <Tab
                 label="Logout"
                 onClick={handleClick}
