@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import {UserForm} from './UserForm'
+import {UserForm} from './userForm'
 import {connect} from 'react-redux'
 import {signupThunk} from '../store/userReducer'
 
