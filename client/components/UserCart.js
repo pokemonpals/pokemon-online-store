@@ -11,6 +11,9 @@ class Cart extends Component {
   //checkout button onSubmit => update order in Order model to show purchased or purchase ? true AND post to suborder model
   //quanity input field to edit quantity => onChange update quantity in Order model
   //remove => onClick delete pokemon from Order model
+  componentDidMount = () => {
+    this.props.getCart(this.props.orderId)
+  }
 
   handleClick = () => {
     console.log("THE DELETE BUTTON'S CLICKED")
@@ -27,12 +30,18 @@ class Cart extends Component {
           {this.props.cart.length ? (
             this.props.cart.map(pokeObj => {
               return (
-                <li key={pokeObj.id}>
+                <li key={pokeObj.pokemonId}>
                   <img src={pokeObj.imageUrl} width="10" height="auto" />
                   {pokeObj.name}
                   {pokeObj.price}
                   <label htmlFor="edit">Quantity: </label>
-                  <input name="edit" type="number" min="1" max="100" />
+                  <input
+                    name="edit"
+                    type="number"
+                    min="1"
+                    max="100"
+                    value={pokeObj.quanitity}
+                  />
 
                   {/* {pokeObj.quantity} */}
                   {/* <select>
@@ -50,7 +59,7 @@ class Cart extends Component {
                   <Button
                     onClick={this.handleClick}
                     type="submit"
-                    value={pokemon.id}
+                    value={pokeObj.id}
                     className="button"
                     style={{marginTop: 24}}
                     size="small"
@@ -86,7 +95,8 @@ class Cart extends Component {
   }
 }
 const mapStateToProps = state => ({
-  cart: state.cart.pokemon
+  cart: state.cart.pokemon,
+  orderId: state.cart.order
 })
 const mapDispatchToProps = dispatch => ({
   // receivedOrder: cartId => dispatch(cartThunk(cartId))

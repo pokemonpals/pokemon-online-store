@@ -1,7 +1,8 @@
 const router = require('express').Router()
-const Pokemon = require('../db/models/Pokemon')
-const Order = require('../db/models/Order')
-const SubOrder = require('../db/models/SubOrder')
+const {Pokemon, Order, SubOrder} = require('../db/models/index')
+// const Pokemon = require('../db/models/Pokemon')
+// const Order = require('../db/models/Order')
+// const SubOrder = require('../db/models/SubOrder')
 
 module.exports = router
 
@@ -30,6 +31,7 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
+// Create New or Update Existing Suborder
 router.put('/', async (req, res, next) => {
   const orderId = req.body.orderId
   const pokemonId = req.body.pokemonId
@@ -45,22 +47,31 @@ router.put('/', async (req, res, next) => {
         quantity: '1',
         price: price
       })
-      console.log('SUBORDER RETURNED FROM CART PUT ROUTE: ', dataValues)
+      // console.log('SUBORDER RETURNED FROM CART PUT ROUTE: ', dataValues)
       res.json(dataValues)
     } catch (err) {
       next(err)
     }
   } else {
-    await exist.increment(['quantity'], {by: 1})
+    try {
+      await exist.increment(['quantity'], {by: 1})
+      console.log('DIS ELSE')
+      res.send()
+    } catch (err) {
+      next(err)
+    }
   }
 })
 
 router.get('/sub/:orderId', async (req, res, next) => {
   const orderId = req.params.orderId
   try {
-    const subOrders = await SubOrder.findAll({where: {orderId: orderId}})
+    const subOrders = await Order.findOne({
+      where: {id: orderId},
+      include: [{model: Pokemon}]
+    })
     console.log('GET SUBORDERS BY ID ROUTE: ', subOrders)
-    res.json(subOrders.data)
+    res.json(subOrders)
   } catch (err) {
     next(err)
   }
