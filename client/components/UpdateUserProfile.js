@@ -9,6 +9,7 @@ export default class UpdateUserProfile extends Component {
   constructor(props) {
     super(props)
     this.state = {
+      id: props.user.id,
       email: props.user.email,
       password: props.user.password,
       firstName: props.user.firstName,
@@ -29,55 +30,33 @@ export default class UpdateUserProfile extends Component {
     })
   }
 
-  async handleSubmit(event) {
+  handleSubmit(event) {
     event.preventDefault()
-    try {
-      await this.props.updateUser({
-        email: this.state.user.email,
-        password: this.state.user.password,
-        firstName: this.state.user.firstName,
-        lastName: this.state.user.lastName,
-        address: this.state.user.address,
-        city: this.state.user.city,
-        state: this.state.user.state,
-        zipcode: this.state.user.zipcode
-      })
-    } catch (err) {
-      this.setState({
-        error: err
-      })
-    }
+    console.log('this.props.user.id', this.props.user.id)
+    this.props.updateUser(this.props.user.id, this.state)
+    // try {
+    //   await this.props.updateUser({
+    //     email: this.state.user.email,
+    //     password: this.state.user.password,
+    //     firstName: this.state.user.firstName,
+    //     lastName: this.state.user.lastName,
+    //     address: this.state.user.address,
+    //     city: this.state.user.city,
+    //     state: this.state.user.state,
+    //     zipcode: this.state.user.zipcode
+    //   })
+    // } catch (err) {
+    //   this.setState({
+    //     error: err
+    //   })
+    // }
   }
 
   render() {
     return (
       <div>
         <h1>Update your profile:</h1>
-        <UpdateEmailForm
-          handleSubmit={this.handleSubmit}
-          handleChange={this.handleChange}
-          user={this.state}
-          updateUser={this.props.updateUser}
-          handleClose={this.props.handleClose}
-          open={this.props.open}
-        />
-        <UpdatePasswordForm
-          handleSubmit={this.handleSubmit}
-          handleChange={this.handleChange}
-          user={this.state}
-          updateUser={this.props.updateUser}
-          handleClose={this.props.handleClose}
-          open={this.props.open}
-        />
-        <UpdateNameForm
-          handleSubmit={this.handleSubmit}
-          handleChange={this.handleChange}
-          user={this.state}
-          updateUser={this.props.updateUser}
-          handleClose={this.props.handleClose}
-          open={this.props.open}
-        />
-        <UpdateAddressForm
+        <ProfileUpdateForm
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
           user={this.state}

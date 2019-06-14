@@ -31,7 +31,8 @@ const mapState = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  updateUser: updatedUser => dispatch(updateUserThunk(updatedUser))
+  updateUser: (userId, updatedUser) =>
+    dispatch(updateUserThunk(userId, updatedUser))
 })
 
 export default connect(mapState, mapDispatchToProps)(UserHome)

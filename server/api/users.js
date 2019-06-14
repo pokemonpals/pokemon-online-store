@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Order} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -29,7 +29,27 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.put(`/api/users`, (req, res, next) => {
+router.get('/:userId', async (req, res, next) => {
+  try {
+    const singleUser = await User.findAll({
+      include: [
+        {
+          model: Order,
+          as: 'order'
+        }
+      ],
+      where: {
+        id: req.params.userId
+      }
+    })
+    if (singleUser) res.status(200).send(singleUser)
+    else res.sendStatus(404)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/:userId', (req, res, next) => {
   const {
     email,
     password,
@@ -40,18 +60,35 @@ router.put(`/api/users`, (req, res, next) => {
     state,
     zipcode
   } = req.body
-  res
-    .json(
-      User.update({
-        email,
-        password,
-        firstName,
-        lastName,
-        address,
-        city,
-        state,
-        zipcode
-      })
-    )
+  User.findByPk(req.params.userId)
+    .then(user => {
+      user
+        .update({
+          email,
+          password,
+          firstName,
+          lastName,
+          address,
+          city,
+          state,
+          zipcode
+        })
+        .then(async () =>
+          res.json(
+            await User.findOne({
+              include: [
+                {
+                  model: Order,
+                  as: 'order'
+                }
+              ],
+              where: {
+                id: req.params.userId
+              }
+            })
+          )
+        )
+    })
+    .then(user => res.json(user))
     .catch(next)
 })

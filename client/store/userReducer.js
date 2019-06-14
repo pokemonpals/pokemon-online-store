@@ -31,10 +31,10 @@ const updateUser = updatedUser => ({
  * THUNK CREATORS
  */
 
-export const updateUserThunk = udatedUser => async dispatch => {
+export const updateUserThunk = updatedUser => async dispatch => {
   try {
     dispatch(startLoading())
-    const {data} = await axios.put(`/api/users`, udatedUser)
+    const {data} = await axios.put(`/api/users/${updatedUser.id}`, updatedUser)
     dispatch(updateUser(data))
     dispatch(endLoading())
   } catch (err) {
