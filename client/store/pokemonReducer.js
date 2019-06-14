@@ -2,10 +2,10 @@ import axios from 'axios'
 import {startLoading, endLoading} from './loadingReducer'
 
 //initial state
-const initialState = {
-  pokemons: [],
-  pokemon: {}
-}
+// const initialState = {
+//   pokemons: [],
+//   pokemon: {}
+// }
 
 //action type
 const GET_POKEMONS = 'GET_POKEMONS'
@@ -51,15 +51,16 @@ export const addingPokemonThunk = pokemon => async dispatch => {
 }
 
 //reducer
-export const pokemonReducer = (state = initialState, action) => {
+export const pokemonReducer = (state = [], action) => {
   switch (action.type) {
     case GET_POKEMONS:
-      return {...state, pokemons: action.pokemons}
+      return action.pokemons
     case GET_SINGLE_POKEMON:
       return action.pokemon
     case ADD_POKEMON: {
       console.log('state of pokemons', state.pokemons)
-      return {...state, pokemons: [...state.pokemons, action.pokemon]}
+      // return  state: [...state.pokemons, action.pokemon]
+      return action.pokemon
     }
     default:
       return state

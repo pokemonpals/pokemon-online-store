@@ -1,13 +1,11 @@
 import React from 'react'
 import AdminSearchForm from './adminSearchForm'
+import AdminPokemonView from './adminPokemonView'
 import {connect} from 'react-redux'
 import {getPokemonsThunk, addingPokemonThunk} from '../store/pokemonReducer'
+import {Link} from 'react'
 
 class DisconnectedAdmin extends React.Component {
-  constructor(props) {
-    super(props)
-    //this state is to test functionaltiy only. This and forms should be moved to a new component later
-  }
   componentDidMount() {
     this.props.getAllPokemons()
   }

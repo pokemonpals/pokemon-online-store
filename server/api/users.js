@@ -4,6 +4,8 @@ module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
+    console.log('SESSION!!!', req.user)
+
     const users = await User.findAll({
       attributes: ['id', 'email']
     })
@@ -24,3 +26,11 @@ router.post('/', (req, res, next) => {
     .then(user => res.json(user))
     .catch(next)
 })
+
+function isAdmin(req, res) {
+  if (req.user.admin) {
+    //display all users and their emails
+  }
+  //if user is logged in, display their email
+  //if user isn't logged in, don't display anything
+}
