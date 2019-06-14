@@ -7,6 +7,7 @@ import {productList} from './components/productList'
 import {me} from './store'
 import Home from './components/Home'
 import {SinglePokemon} from './components/SinglePokemon'
+import DisconnectedAdmin from './components/adminHome'
 
 /**
  * COMPONENT
@@ -21,6 +22,7 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
+        <Route exact path="/admin" component={DisconnectedAdmin} />
         <Route exact path="/products" component={productList} />
         <Route exact path="/products/:pokemonId" component={SinglePokemon} />
         <Route exact path="/" component={Home} />

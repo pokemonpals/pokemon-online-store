@@ -32,3 +32,19 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.post('/', async (req, res, next) => {
+  try {
+    console.log('req body', req.body)
+    const newPokemon = await Pokemon.create({
+      name: req.body.name,
+      type: req.body.type,
+      description: req.body.description,
+      price: req.body.price,
+      imageUrl: req.body.imageUrl
+    })
+    res.json(newPokemon)
+  } catch (err) {
+    next(err)
+  }
+})
