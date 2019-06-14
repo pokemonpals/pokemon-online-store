@@ -45,14 +45,24 @@ router.put('/', async (req, res, next) => {
         quantity: '1',
         price: price
       })
-      console.log('SUBORDER RETURNED FROM CART PUR ROUTE: ', dataValues)
+      console.log('SUBORDER RETURNED FROM CART PUT ROUTE: ', dataValues)
       res.json(dataValues)
     } catch (err) {
       next(err)
     }
   } else {
     await exist.increment(['quantity'], {by: 1})
-    console.log('THE ELSE')
+  }
+})
+
+router.get('/sub/:orderId', async (req, res, next) => {
+  const orderId = req.params.orderId
+  try {
+    const subOrders = await SubOrder.findAll({where: {orderId: orderId}})
+    console.log('GET SUBORDERS BY ID ROUTE: ', subOrders)
+    res.json(subOrders.data)
+  } catch (err) {
+    next(err)
   }
 })
 
