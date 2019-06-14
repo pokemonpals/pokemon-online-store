@@ -15,15 +15,46 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.post('/', (req, res, next) => {
-  const {firstName, lastName, email, password} = req.body
-  User.create({
+router.post('/', async (req, res, next) => {
+  try {
+    const {firstName, lastName, email, password} = req.body
+    console.log(firstName, lastName, email, password)
+    const data = await User.create({
+      firstName,
+      lastName,
+      email,
+      password
+    })
+    res.json(data)
+  } catch (err) {
+    console.error(err)
+  }
+})
+
+router.put(`/api/users`, (req, res, next) => {
+  const {
+    email,
+    password,
     firstName,
     lastName,
-    email,
-    password
-  })
-    .then(user => res.json(user))
+    address,
+    city,
+    state,
+    zipcode
+  } = req.body
+  res
+    .json(
+      User.update({
+        email,
+        password,
+        firstName,
+        lastName,
+        address,
+        city,
+        state,
+        zipcode
+      })
+    )
     .catch(next)
 })
 

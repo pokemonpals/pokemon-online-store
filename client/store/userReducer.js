@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import {startLoading, endLoading} from './loadingReducer'
 
 /**
  * ACTION TYPES
@@ -8,6 +9,7 @@ const GET_ALL_USERS = 'GET_ALL_USERS'
 const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const ADD_USER = 'ADD_USER'
+const UPDATE_USER = 'UPDATE_USER'
 
 /**
  * INITIAL STATE-->combinedReducer
@@ -21,7 +23,10 @@ const gotAllUsers = users => ({type: GET_ALL_USERS, users})
 const getUser = user => ({type: GET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
 const addUser = user => ({type: ADD_USER, user})
-
+const updateUser = updatedUser => ({
+  type: UPDATE_USER,
+  updatedUser
+})
 /**
  * THUNK CREATORS
  */
@@ -34,18 +39,8 @@ export const me = () => async dispatch => {
   }
 }
 
-export const signupThunk = (
-  firstName,
-  lastName,
-  email,
-  password
-) => async dispatch => {
-  const {data} = await axios.post(`/users`, {
-    firstName,
-    lastName,
-    email,
-    password
-  })
+export const signupThunk = input => async dispatch => {
+  const {data} = await axios.post(`/api/users`, input)
   dispatch(addUser(data))
 }
 
@@ -86,6 +81,17 @@ export const getAllUsers = () => {
   }
 }
 
+export const updateUserThunk = updatedUser => async dispatch => {
+  try {
+    dispatch(startLoading())
+    const {data} = await axios.put(`/api/users`, updatedUser)
+    dispatch(updateUser(data))
+    dispatch(endLoading())
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 /**
  * REDUCER
  */
@@ -100,6 +106,8 @@ export default function(state = [], action) {
       return state
     case ADD_USER:
       return [...state, action.user]
+    case UPDATE_USER:
+      return action.user
     default:
       return state
   }
