@@ -30,6 +30,18 @@ const updateUser = updatedUser => ({
 /**
  * THUNK CREATORS
  */
+
+export const updateUserThunk = (userId, updatedUser) => async dispatch => {
+  try {
+    dispatch(startLoading())
+    const {data} = await axios.put(`/api/users/${userId}`, updatedUser)
+    dispatch(updateUser(data))
+    dispatch(endLoading())
+  } catch (err) {
+    console.log(err)
+  }
+}
+
 export const me = () => async dispatch => {
   try {
     const res = await axios.get('/auth/me')
@@ -81,17 +93,6 @@ export const getAllUsers = () => {
   }
 }
 
-export const updateUserThunk = updatedUser => async dispatch => {
-  try {
-    dispatch(startLoading())
-    const {data} = await axios.put(`/api/users`, updatedUser)
-    dispatch(updateUser(data))
-    dispatch(endLoading())
-  } catch (err) {
-    console.log(err)
-  }
-}
-
 /**
  * REDUCER
  */
@@ -107,7 +108,7 @@ export default function(state = [], action) {
     case ADD_USER:
       return [...state, action.user]
     case UPDATE_USER:
-      return action.user
+      return state
     default:
       return state
   }
