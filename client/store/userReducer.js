@@ -31,10 +31,10 @@ const updateUser = updatedUser => ({
  * THUNK CREATORS
  */
 
-export const updateUserThunk = updatedUser => async dispatch => {
+export const updateUserThunk = (userId, updatedUser) => async dispatch => {
   try {
     dispatch(startLoading())
-    const {data} = await axios.put(`/api/users/${updatedUser.id}`, updatedUser)
+    const {data} = await axios.put(`/api/users/${userId}`, updatedUser)
     dispatch(updateUser(data))
     dispatch(endLoading())
   } catch (err) {
@@ -108,7 +108,7 @@ export default function(state = [], action) {
     case ADD_USER:
       return [...state, action.user]
     case UPDATE_USER:
-      return action.user
+      return state
     default:
       return state
   }
