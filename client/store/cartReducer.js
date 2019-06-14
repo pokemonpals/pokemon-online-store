@@ -32,17 +32,20 @@ export const addToCartThunk = (pokemonId, userId) => {
   return async dispatch => {
     try {
       const pokemon = await axios.get(`/api/products/${pokemonId}`)
-      console.log('POKEMON COST', pokemon)
       const order = await axios.get(`/api/cart/${userId}`)
       const orderId = order.data[0].id
+      console.log('CART THUNK 1')
       const subOrder = await axios.put(`/api/cart/`, {
         pokemonId,
         orderId,
         pokemon
       })
-      console.log('CART THUNK SUBORDER', subOrder)
+      console.log('HERE?')
+      const cartData = await axios.get(`/api/cart/sub/${orderId}`)
 
-      dispatch(addToCart(pokemon.data, order.data[0].id))
+      console.log('CART THUNK SUBORDER', cartData)
+
+      dispatch(addToCart(cartData, orderId))
     } catch (err) {
       console.error(err)
     }
@@ -52,7 +55,7 @@ export const addToCartThunk = (pokemonId, userId) => {
 export const getCartItemsThunk = orderId => async dispatch => {
   try {
     dispatch(startLoading())
-    const {data} = await axios.get(`/api/cart/${orderId}`)
+    const {data} = await axios.get(`/api/cart/sub/${orderId}`)
     dispatch(getCartItems(data))
     dispatch(endLoading())
   } catch (err) {

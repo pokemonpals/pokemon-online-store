@@ -31,15 +31,36 @@ router.get('/:userId', async (req, res, next) => {
 })
 
 router.put('/', async (req, res, next) => {
+  const orderId = req.body.orderId
+  const pokemonId = req.body.pokemonId
+  const price = req.body.pokemon.data[0].price
+  const exist = await SubOrder.findOne({
+    where: {orderId: orderId, pokemonId: pokemonId}
+  })
+  if (!exist) {
+    try {
+      const {dataValues} = await SubOrder.create({
+        orderId: orderId,
+        pokemonId: pokemonId,
+        quantity: '1',
+        price: price
+      })
+      console.log('SUBORDER RETURNED FROM CART PUT ROUTE: ', dataValues)
+      res.json(dataValues)
+    } catch (err) {
+      next(err)
+    }
+  } else {
+    await exist.increment(['quantity'], {by: 1})
+  }
+})
+
+router.get('/sub/:orderId', async (req, res, next) => {
+  const orderId = req.params.orderId
   try {
-    const {dataValues} = await SubOrder.create({
-      orderId: req.body.orderId,
-      pokemonId: req.body.pokemonId,
-      quantity: '1',
-      cost: req.body.pokemon.price
-    })
-    console.log('SUBORDER RETURNED FROM CART PUR ROUTE: ', dataValues)
-    res.json(dataValues)
+    const subOrders = await SubOrder.findAll({where: {orderId: orderId}})
+    console.log('GET SUBORDERS BY ID ROUTE: ', subOrders)
+    res.json(subOrders.data)
   } catch (err) {
     next(err)
   }
