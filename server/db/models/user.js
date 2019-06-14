@@ -47,6 +47,9 @@ const User = db.define('user', {
   },
   zipcode: {
     type: Sequelize.STRING
+  },
+  admin: {
+    type: Sequelize.BOOLEAN
   }
 })
 
