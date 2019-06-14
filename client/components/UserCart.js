@@ -11,8 +11,10 @@ class Cart extends Component {
   //checkout button onSubmit => update order in Order model to show purchased or purchase ? true AND post to suborder model
   //quanity input field to edit quantity => onChange update quantity in Order model
   //remove => onClick delete pokemon from Order model
-  componentDidMount = () => {
-    this.props.getCart(this.props.orderId)
+  componentDidUpdate = prevProps => {
+    if (this.props.userId !== prevProps.userId) {
+      this.props.getCart(this.props.userId)
+    }
   }
 
   handleClick = () => {
@@ -27,8 +29,8 @@ class Cart extends Component {
         {/* list of pokemon followed by dropdown or input field (is there max amount for purchase --- how many in stock?)? */}
         {/* FOLLOWING CODE NEEDS TO BE CLEANED UP, CHECK PROPS */}
         <ul style={{listStyle: 'none'}}>
-          {this.props.cart.length ? (
-            this.props.cart.map(pokeObj => {
+          {this.props.cart !== 'undefined' ? (
+            this.props.cart.pokemons.map(pokeObj => {
               return (
                 <li key={pokeObj.pokemonId}>
                   <img src={pokeObj.imageUrl} width="10" height="auto" />
@@ -95,8 +97,9 @@ class Cart extends Component {
   }
 }
 const mapStateToProps = state => ({
-  cart: state.cart.pokemon,
-  orderId: state.cart.order
+  cart: state.cart.pokemons.pokemons,
+  orderId: state.cart.order,
+  userId: state.user.id
 })
 const mapDispatchToProps = dispatch => ({
   // receivedOrder: cartId => dispatch(cartThunk(cartId))

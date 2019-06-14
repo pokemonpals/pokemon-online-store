@@ -45,19 +45,22 @@ export const addToCartThunk = (pokemonId, userId) => {
       // console.log(subOrder)
       console.log('HERE?')
 
-      dispatch(addToCart(pokemon.data, orderId))
+      // dispatch(addToCart(pokemon.data, orderId))
     } catch (err) {
       console.error(err)
     }
   }
 }
 
-export const getCartItemsThunk = orderId => async dispatch => {
+export const getCartItemsThunk = userId => async dispatch => {
+  console.log('GET CART BY USER ID: ', userId)
   try {
     dispatch(startLoading())
+    const order = await axios.get(`/api/cart/${userId}`)
+    const orderId = order.data[0].id
     const {data} = await axios.get(`/api/cart/sub/${orderId}`)
-    // console.log('CART THUNK SUBORDER', data)
-    dispatch(getCartItems(data))
+    console.log('CART THUNK SUBORDER', data)
+    dispatch(getCartItems(data, orderId))
     dispatch(endLoading())
   } catch (err) {
     console.error(err)
@@ -76,7 +79,7 @@ export const cartReducer = (state = initialState, action) => {
     case ADD_TO_CART:
       return {...state, pokemon: action.pokemon, order: action.order}
     case GET_CART:
-      return {...state, pokemon: action.items, order: action.order}
+      return {...state, pokemon: action.pokemon, order: action.order}
     default:
       return state
   }
