@@ -2,10 +2,9 @@ const router = require('express').Router()
 const {User, Order} = require('../db/models')
 module.exports = router
 
-router.get('/', async (req, res, next) => {
+router.get('/', isAdmin, async (req, res, next) => {
   try {
     console.log('SESSION!!!', req.user)
-
     const users = await User.findAll({
       attributes: ['id', 'email']
     })
@@ -95,9 +94,10 @@ router.put('/:userId', (req, res, next) => {
     .catch(next)
 })
 
-function isAdmin(req, res) {
+function isAdmin(req, res, next) {
   if (req.user.admin) {
     //display all users and their emails
+    return next()
   }
   //if user is logged in, display their email
   //if user isn't logged in, don't display anything
