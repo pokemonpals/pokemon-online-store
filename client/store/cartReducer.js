@@ -37,7 +37,6 @@ export const addToCartThunk = (pokemonId, userId) => {
       const pokemon = await axios.get(`/api/products/${pokemonId}`)
       let order = await axios.get(`/api/cart/${userId}`)
       const orderId = order.data[0].id
-      console.log('CART THUNK 1')
       // add pokemon to suborder model: create or update
       await axios.put(`/api/cart/`, {
         pokemonId,
@@ -45,9 +44,6 @@ export const addToCartThunk = (pokemonId, userId) => {
         pokemon
       })
       order = await axios.get(`/api/cart/${userId}`)
-      console.log('UPDATED ORDER', order)
-      console.log('HERE?')
-
       dispatch(addToCart(order.data[0].pokemons, orderId))
     } catch (err) {
       console.error(err)
