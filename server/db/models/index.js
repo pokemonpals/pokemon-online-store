@@ -28,8 +28,6 @@ User.hasMany(Order)
 Order.belongsToMany(Pokemon, {through: SubOrder})
 Pokemon.belongsToMany(Order, {through: SubOrder})
 
-// SubOrder.belongsTo(Order)
-
 Order.belongsTo(User)
 
 Inventory.belongsTo(Pokemon)
