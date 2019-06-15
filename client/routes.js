@@ -21,7 +21,9 @@ class Routes extends Component {
   }
 
   render() {
-    this.props.getCart(this.props.userId)
+    if (this.props.userId !== undefined) {
+      this.props.getCart(this.props.userId)
+    }
     const {isLoggedIn} = this.props
     return (
       <Switch>

@@ -1,3 +1,5 @@
+//DON"T NEED THIS PAGE, TO DELETE
+
 import React, {Component} from 'react'
 import CheckoutFlow from './CheckoutFlow'
 import {updateUserThunk} from '../store/userReducer'

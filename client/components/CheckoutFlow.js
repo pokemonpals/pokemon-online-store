@@ -55,12 +55,7 @@ const steps = ['Shipping Address', 'Payment Details', 'Review Order']
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return (
-        <CheckoutShipping
-          user={this.props.user}
-          updateUser={this.props.updateUser}
-        />
-      )
+      return <CheckoutShipping />
     case 1:
       return <CheckoutPayment />
     case 2:

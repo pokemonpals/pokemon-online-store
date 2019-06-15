@@ -114,4 +114,13 @@ class CheckoutShipping extends Component {
   }
 }
 
-export default CheckoutShipping
+const mapState = state => ({
+  user: state.user
+})
+
+const mapDispatchToProps = dispatch => ({
+  updateUser: (userID, updatedUser) =>
+    dispatch(updateUserThunk(userID, updatedUser))
+})
+
+export default connect(mapState, mapDispatchToProps)(CheckoutShipping)
