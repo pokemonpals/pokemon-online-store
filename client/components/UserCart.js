@@ -22,70 +22,60 @@ class Cart extends Component {
         <h2>Your Shopping Cart</h2>
         {/* list of pokemon followed by dropdown or input field (is there max amount for purchase --- how many in stock?)? */}
         {/* FOLLOWING CODE NEEDS TO BE CLEANED UP, CHECK PROPS */}
-        <ul style={{listStyle: 'none'}}>
-          {this.props.cart.length ? (
-            this.props.cart.map(pokeObj => {
-              return (
-                <li key={pokeObj.pokemonId}>
-                  <img src={pokeObj.imageUrl} width="10" height="auto" />
-                  {pokeObj.name}
-                  {pokeObj.price}
-                  <label htmlFor="edit">Quantity: </label>
-                  <input
-                    name="edit"
-                    type="number"
-                    min="1"
-                    max="100"
-                    value={pokeObj.quanitity}
-                  />
 
-                  {/* {pokeObj.quantity} */}
-                  {/* <select>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                    <option>7</option>
-                    <option>8</option>
-                    <option>9</option>
-                    <option>10</option>
-                  </select> */}
-                  <Button
-                    onClick={this.handleClick}
-                    type="submit"
-                    value={pokeObj.id}
-                    className="button"
-                    style={{marginTop: 24}}
-                    size="small"
-                    color="primary"
-                    variant="contained"
-                  >
-                    Remove
-                  </Button>
-                </li>
-              )
-            })
-          ) : (
-            <div>
-              <h3>Your PokeBag is empty</h3>
-              <img src="https://unixtitan.net/images/mexican-transparent-pikachu-1.png" />
-            </div>
-          )}
-        </ul>
+        {this.props.cart.length ? (
+          <div>
+            <ul style={{listStyle: 'none'}}>
+              {this.props.cart.map(pokeObj => {
+                return (
+                  <li key={pokeObj.pokemonId}>
+                    <img src={pokeObj.imageUrl} width="10" height="auto" />
+                    {pokeObj.name}
+                    {pokeObj.price}
+                    <label htmlFor="edit">Quantity: </label>
+                    <input
+                      name="edit"
+                      type="number"
+                      min="1"
+                      max="100"
+                      value={pokeObj.quanitity}
+                    />
+
+                    <Button
+                      onClick={this.handleClick}
+                      type="submit"
+                      value={pokeObj.id}
+                      className="button"
+                      style={{marginTop: 24}}
+                      size="small"
+                      color="primary"
+                      variant="contained"
+                    >
+                      Remove
+                    </Button>
+                  </li>
+                )
+              })}
+            </ul>
+            <Button
+              className="button"
+              style={{marginTop: 24}}
+              size="small"
+              color="primary"
+              variant="contained"
+            >
+              Complete Purchase
+            </Button>
+          </div>
+        ) : (
+          <div>
+            <h3>Your PokeBag is empty</h3>
+            <img src="https://unixtitan.net/images/mexican-transparent-pikachu-1.png" />
+          </div>
+        )}
+
         {/* value={pokemon.id} */}
         {/* onClick={this.handleClick} */}
-
-        <Button
-          className="button"
-          style={{marginTop: 24}}
-          size="small"
-          color="primary"
-          variant="contained"
-        >
-          Complete Purchase
-        </Button>
       </div>
     )
   }
