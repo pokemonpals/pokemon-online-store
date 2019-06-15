@@ -2,14 +2,20 @@ import axios from 'axios'
 import {startLoading, endLoading} from './loadingReducer'
 
 //initial state
+// const initialState = {
+//   pokemons: [],
+//   pokemon: {}
+// }
 
 //action type
 const GET_POKEMONS = 'GET_POKEMONS'
 const GET_SINGLE_POKEMON = 'GET_SINGLE_POKEMON'
+const ADD_POKEMON = 'ADD_POKEMON'
 
 //action creator
 export const getPokemons = pokemons => ({type: GET_POKEMONS, pokemons})
 export const getSinglePokemon = pokemon => ({type: GET_SINGLE_POKEMON, pokemon})
+export const addPokemon = pokemon => ({type: ADD_POKEMON, pokemon})
 
 //thunk
 export const getPokemonsThunk = () => async dispatch => {
@@ -34,6 +40,16 @@ export const getSinglePokemonThunk = pokemonId => async dispatch => {
   }
 }
 
+export const addingPokemonThunk = pokemon => async dispatch => {
+  try {
+    console.log('pokemon obj in thunk', pokemon)
+    const {data} = await axios.post('/api/products', pokemon)
+    dispatch(addPokemon(data))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 //reducer
 export const pokemonReducer = (state = [], action) => {
   switch (action.type) {
@@ -41,6 +57,11 @@ export const pokemonReducer = (state = [], action) => {
       return action.pokemons
     case GET_SINGLE_POKEMON:
       return action.pokemon
+    case ADD_POKEMON: {
+      console.log('state of pokemons', state.pokemons)
+      // return  state: [...state.pokemons, action.pokemon]
+      return action.pokemon
+    }
     default:
       return state
   }

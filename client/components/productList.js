@@ -11,6 +11,7 @@ class DisconnectedProductList extends Component {
   }
 
   render() {
+    console.log('props', this.props)
     if (!this.props.isLoading) {
       return (
         <div>

@@ -5,20 +5,12 @@ import {Link} from 'react-router-dom'
 import {logout} from '../store'
 
 //material ui:
-import {makeStyles} from '@material-ui/core/styles'
+
 import AppBar from '@material-ui/core/AppBar'
 import Tabs from '@material-ui/core/Tabs'
 import Tab from '@material-ui/core/Tab'
 
-const useStyles = makeStyles(theme => ({
-  root: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.paper
-  }
-}))
-
 export function Navbar({handleClick, isLoggedIn}) {
-  const classes = useStyles()
   const [value, setValue] = React.useState(0)
 
   function handleChange(event, newValue) {
