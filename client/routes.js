@@ -8,6 +8,9 @@ import {me} from './store'
 import Home from './components/Home'
 import {SinglePokemon} from './components/SinglePokemon'
 import {getCartItemsThunk} from './store/cartReducer'
+import AdminHome from './components/adminHome'
+import AdminPokemonView from './components/adminPokemonView'
+
 
 /**
  * COMPONENT
@@ -23,6 +26,8 @@ class Routes extends Component {
     return (
       <Switch>
         {/* Routes placed here are available to all visitors */}
+        <Route exact path="/admin/products" component={AdminPokemonView} />
+        <Route exact path="/admin" component={AdminHome} />
         <Route exact path="/products" component={productList} />
         <Route exact path="/products/:pokemonId" component={SinglePokemon} />
         <Route exact path="/" component={Home} />
