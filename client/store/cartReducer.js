@@ -33,7 +33,7 @@ export const addToCartThunk = (pokemonId, userId) => {
   return async dispatch => {
     try {
       const pokemon = await axios.get(`/api/products/${pokemonId}`)
-      const order = await axios.get(`/api/cart/${userId}`)
+      let order = await axios.get(`/api/cart/${userId}`)
       const orderId = order.data[0].id
       console.log('CART THUNK 1')
       // add pokemon to suborder model: create or update
@@ -42,10 +42,11 @@ export const addToCartThunk = (pokemonId, userId) => {
         orderId,
         pokemon
       })
-      // console.log(subOrder)
+      order = await axios.get(`/api/cart/${userId}`)
+      console.log('UPDATED ORDER', order)
       console.log('HERE?')
 
-      // dispatch(addToCart(pokemon.data, orderId))
+      dispatch(addToCart(order.data[0].pokemons, orderId))
     } catch (err) {
       console.error(err)
     }

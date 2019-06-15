@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getCartItemsThunk} from '../store/cartReducer'
-import {me} from '../store/userReducer'
-// import cartThunk from '../store/cartReducer'
 
 //material ui
 import Button from '@material-ui/core/Button'
@@ -13,10 +11,13 @@ class Cart extends Component {
   //quanity input field to edit quantity => onChange update quantity in Order model
   //remove => onClick delete pokemon from Order model
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps, prevState) {
     // only update chart if the data has changed
     console.log('COMPONENTDIDUPDATE IS HAPPENING!!!!')
-    if (prevProps.userId !== this.props.userId) {
+    if (
+      prevProps.userId !== this.props.userId ||
+      prevProps.cart !== prevState.orderId
+    ) {
       this.props.getCart(this.props.userId)
     }
   }
@@ -33,7 +34,7 @@ class Cart extends Component {
         {/* list of pokemon followed by dropdown or input field (is there max amount for purchase --- how many in stock?)? */}
         {/* FOLLOWING CODE NEEDS TO BE CLEANED UP, CHECK PROPS */}
         <ul style={{listStyle: 'none'}}>
-          {this.props.cart !== undefined ? (
+          {this.props.cart.length ? (
             this.props.cart.map(pokeObj => {
               return (
                 <li key={pokeObj.pokemonId}>
@@ -108,7 +109,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   // receivedOrder: cartId => dispatch(cartThunk(cartId))
   getCart: userId => dispatch(getCartItemsThunk(userId))
-  // me: () => dispatch(me())
 })
 
 export const UserCart = connect(mapStateToProps, mapDispatchToProps)(Cart)
