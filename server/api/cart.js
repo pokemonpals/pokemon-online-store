@@ -22,7 +22,8 @@ router.get('/:userId', async (req, res, next) => {
       where: {
         userId: req.params.userId,
         pending: 'true'
-      }
+      },
+      include: [{model: Pokemon}]
     })
     // console.log('THE PENDING ORDER', pendingOrder)
     res.json(pendingOrder)
@@ -63,6 +64,8 @@ router.put('/', async (req, res, next) => {
   }
 })
 
+// CAN DELETE/REUSE THIS< UNNECESSARY< INCLUDED THIS FUNCTIONALITY IN BY :USERID ROUTE
+// WAS ORIGINALLY FOR CART COMPONENET, CAN BE USED FOR PAST ORDER VIEWS
 router.get('/sub/:orderId', async (req, res, next) => {
   const orderId = req.params.orderId
   try {
