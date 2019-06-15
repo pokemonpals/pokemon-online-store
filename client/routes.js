@@ -9,6 +9,7 @@ import Home from './components/Home'
 import {SinglePokemon} from './components/SinglePokemon'
 import AdminHome from './components/adminHome'
 import AdminPokemonView from './components/adminPokemonView'
+import Checkout from './components/Checkout'
 
 /**
  * COMPONENT
@@ -29,6 +30,7 @@ class Routes extends Component {
         <Route exact path="/products/:pokemonId" component={SinglePokemon} />
         <Route exact path="/" component={Home} />
         <Route exact path="/cart" component={UserCart} />
+        <Route exact path="/cart/checkout" component={Checkout} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
