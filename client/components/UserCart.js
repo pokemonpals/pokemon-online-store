@@ -12,10 +12,11 @@ class Cart extends Component {
   //checkout button onSubmit => update order in Order model to show purchased or purchase ? true AND post to suborder model
   //quanity input field to edit quantity => onChange update quantity in Order model
   //remove => onClick delete pokemon from Order model
-  componentDidMount = () => {
-    console.log('WHEN AM I HAPPENING????')
-    this.props.me()
-    if (this.props.userId !== undefined) {
+
+  componentDidUpdate(prevProps) {
+    // only update chart if the data has changed
+    console.log('COMPONENTDIDUPDATE IS HAPPENING!!!!')
+    if (prevProps.userId !== this.props.userId) {
       this.props.getCart(this.props.userId)
     }
   }
@@ -106,8 +107,8 @@ const mapStateToProps = state => ({
 })
 const mapDispatchToProps = dispatch => ({
   // receivedOrder: cartId => dispatch(cartThunk(cartId))
-  getCart: userId => dispatch(getCartItemsThunk(userId)),
-  me: () => dispatch(me())
+  getCart: userId => dispatch(getCartItemsThunk(userId))
+  // me: () => dispatch(me())
 })
 
 export const UserCart = connect(mapStateToProps, mapDispatchToProps)(Cart)
