@@ -84,7 +84,12 @@ export const removePokemonThunk = (userId, pokemonId) => async dispatch => {
       'POKEMON ID: ',
       pokemonId
     )
-    // await axios.delete(`/api/cart/sub/${orderId}/`)
+    await axios.delete(`/api/cart/sub/${orderId}/${pokemonId}`, {
+      params: {
+        orderId: orderId,
+        pokemonId: pokemonId
+      }
+    })
     //pokemonID === pokemonId passed in value on button
     dispatch(removePokemon(pokemonId, orderId))
   } catch (err) {
