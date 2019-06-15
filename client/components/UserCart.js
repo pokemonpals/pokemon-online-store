@@ -6,6 +6,10 @@ import {getCartItemsThunk} from '../store/cartReducer'
 import Button from '@material-ui/core/Button'
 
 class Cart extends Component {
+  constructor() {
+    super()
+    this.state = {}
+  }
   //page will render what is inside of cart => what is inside cart === what is in Order model that is not purcashed?
   //checkout button onSubmit => update order in Order model to show purchased or purchase ? true AND post to suborder model
   //quanity input field to edit quantity => onChange update quantity in Order model
@@ -13,6 +17,13 @@ class Cart extends Component {
 
   handleClick = () => {
     console.log("THE DELETE BUTTON'S CLICKED")
+  }
+
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+    console.log('THE STATE: ', this.state)
   }
 
   render() {
@@ -32,13 +43,18 @@ class Cart extends Component {
                     <img src={pokeObj.imageUrl} width="10" height="auto" />
                     {pokeObj.name}
                     {pokeObj.price}
-                    <label htmlFor="edit">Quantity: </label>
+                    <label htmlFor={pokeObj.name}>Quantity: </label>
                     <input
-                      name="edit"
+                      onChange={this.handleChange}
+                      name={pokeObj.name}
                       type="number"
                       min="1"
                       max="100"
-                      value={pokeObj.quanitity}
+                      value={
+                        this.state[pokeObj.name] === undefined
+                          ? pokeObj.suborder.quantity
+                          : this.state[pokeObj.name]
+                      }
                     />
 
                     <Button
