@@ -1,7 +1,8 @@
 const router = require('express').Router()
-const Pokemon = require('../db/models/Pokemon')
-const Order = require('../db/models/Order')
-const SubOrder = require('../db/models/SubOrder')
+const {Pokemon, Order, SubOrder} = require('../db/models/index')
+// const Pokemon = require('../db/models/Pokemon')
+// const Order = require('../db/models/Order')
+// const SubOrder = require('../db/models/SubOrder')
 
 module.exports = router
 
@@ -21,7 +22,8 @@ router.get('/:userId', async (req, res, next) => {
       where: {
         userId: req.params.userId,
         pending: 'true'
-      }
+      },
+      include: [{model: Pokemon}]
     })
     // console.log('THE PENDING ORDER', pendingOrder)
     res.json(pendingOrder)
@@ -30,16 +32,49 @@ router.get('/:userId', async (req, res, next) => {
   }
 })
 
+// Create New or Update Existing Suborder
 router.put('/', async (req, res, next) => {
+  const orderId = req.body.orderId
+  const pokemonId = req.body.pokemonId
+  const price = req.body.pokemon.data[0].price
+  const exist = await SubOrder.findOne({
+    where: {orderId: orderId, pokemonId: pokemonId}
+  })
+  if (!exist) {
+    try {
+      const {dataValues} = await SubOrder.create({
+        orderId: orderId,
+        pokemonId: pokemonId,
+        quantity: '1',
+        price: price
+      })
+      // console.log('SUBORDER RETURNED FROM CART PUT ROUTE: ', dataValues)
+      res.json(dataValues)
+    } catch (err) {
+      next(err)
+    }
+  } else {
+    try {
+      await exist.increment(['quantity'], {by: 1})
+      console.log('DIS ELSE')
+      res.send()
+    } catch (err) {
+      next(err)
+    }
+  }
+})
+
+// CAN DELETE/REUSE THIS< UNNECESSARY< INCLUDED THIS FUNCTIONALITY IN BY :USERID ROUTE
+// WAS ORIGINALLY FOR CART COMPONENET, CAN BE USED FOR PAST ORDER VIEWS
+router.get('/sub/:orderId', async (req, res, next) => {
+  const orderId = req.params.orderId
   try {
-    const {dataValues} = await SubOrder.create({
-      orderId: req.body.orderId,
-      pokemonId: req.body.pokemonId,
-      quantity: '1',
-      cost: req.body.pokemon.price
+    const subOrders = await Order.findOne({
+      where: {id: orderId},
+      include: [{model: Pokemon}]
     })
-    console.log('SUBORDER RETURNED FROM CART PUR ROUTE: ', dataValues)
-    res.json(dataValues)
+    console.log('GET SUBORDERS BY ID ROUTE: ', subOrders)
+    res.json(subOrders)
   } catch (err) {
     next(err)
   }

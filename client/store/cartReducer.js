@@ -18,9 +18,10 @@ export const addToCart = (pokemon, order) => ({
   pokemon,
   order
 })
-export const getCartItems = items => ({
+export const getCartItems = (pokemon, order) => ({
   type: GET_CART,
-  items
+  pokemon,
+  order
 })
 export const removeItem = () => ({
   type: REMOVE_ITEM
@@ -32,28 +33,36 @@ export const addToCartThunk = (pokemonId, userId) => {
   return async dispatch => {
     try {
       const pokemon = await axios.get(`/api/products/${pokemonId}`)
-      console.log('POKEMON COST', pokemon)
-      const order = await axios.get(`/api/cart/${userId}`)
+      let order = await axios.get(`/api/cart/${userId}`)
       const orderId = order.data[0].id
-      const subOrder = await axios.put(`/api/cart/`, {
+      console.log('CART THUNK 1')
+      // add pokemon to suborder model: create or update
+      await axios.put(`/api/cart/`, {
         pokemonId,
         orderId,
         pokemon
       })
-      console.log('CART THUNK SUBORDER', subOrder)
+      order = await axios.get(`/api/cart/${userId}`)
+      console.log('UPDATED ORDER', order)
+      console.log('HERE?')
 
-      dispatch(addToCart(pokemon.data, order.data[0].id))
+      dispatch(addToCart(order.data[0].pokemons, orderId))
     } catch (err) {
       console.error(err)
     }
   }
 }
 
-export const getCartItemsThunk = orderId => async dispatch => {
+export const getCartItemsThunk = userId => async dispatch => {
+  console.log('GET CART BY USER ID: ', userId)
   try {
     dispatch(startLoading())
-    const {data} = await axios.get(`/api/cart/${orderId}`)
-    dispatch(getCartItems(data))
+    const order = await axios.get(`/api/cart/${userId}`)
+    const orderId = order.data[0].id
+    const pokemon = order.data[0].pokemons
+    // const {data} = await axios.get(`/api/cart/sub/${orderId}`)
+    console.log('CART THUNK SUBORDER', order)
+    dispatch(getCartItems(pokemon, orderId))
     dispatch(endLoading())
   } catch (err) {
     console.error(err)
@@ -72,7 +81,7 @@ export const cartReducer = (state = initialState, action) => {
     case ADD_TO_CART:
       return {...state, pokemon: action.pokemon, order: action.order}
     case GET_CART:
-      return state.pokemon
+      return {...state, pokemon: action.pokemon, order: action.order}
     default:
       return state
   }
