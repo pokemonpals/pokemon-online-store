@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getCartItemsThunk} from '../store/cartReducer'
+import {getCartItemsThunk, removePokemonThunk} from '../store/cartReducer'
 
 //material ui
 import Button from '@material-ui/core/Button'
@@ -11,8 +11,9 @@ class Cart extends Component {
   //quanity input field to edit quantity => onChange update quantity in Order model
   //remove => onClick delete pokemon from Order model
 
-  handleClick = () => {
+  handleRemove = evt => {
     console.log("THE DELETE BUTTON'S CLICKED")
+    this.props.removePokemon(evt.target.value)
   }
 
   handleSubmit = () => {}
