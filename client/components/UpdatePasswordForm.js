@@ -64,7 +64,7 @@ const UpdatePasswordForm = function(props) {
           </div>
           <div className={classes.column}>
             <Typography className={classes.secondaryHeading}>
-              change your password
+              change my password
             </Typography>
           </div>
         </ExpansionPanelSummary>

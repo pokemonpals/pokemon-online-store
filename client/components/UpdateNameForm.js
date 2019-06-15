@@ -65,7 +65,7 @@ const UpdateNameForm = function(props) {
           </div>
           <div className={classes.column}>
             <Typography className={classes.secondaryHeading}>
-              view or update your name
+              view or update my name
             </Typography>
           </div>
         </ExpansionPanelSummary>

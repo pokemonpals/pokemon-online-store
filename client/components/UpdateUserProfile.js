@@ -3,6 +3,7 @@ import UpdateAddressForm from './UpdateAddressForm'
 import UpdateEmailForm from './UpdateEmailForm'
 import UpdatePasswordForm from './UpdatePasswordForm'
 import UpdateNameForm from './UpdateNameForm'
+import Typography from '@material-ui/core/Typography'
 
 export default class UpdateUserProfile extends Component {
   constructor(props) {
@@ -37,7 +38,7 @@ export default class UpdateUserProfile extends Component {
   render() {
     return (
       <div>
-        <h1>Update your profile:</h1>
+        <Typography type="primary"> My Profile:</Typography>
         <UpdateEmailForm
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}

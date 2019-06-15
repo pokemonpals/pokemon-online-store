@@ -67,7 +67,7 @@ const UpdatePasswordForm = function(props) {
           </div>
           <div className={classes.column}>
             <Typography className={classes.secondaryHeading}>
-              view or edit your address
+              view or edit my address
             </Typography>
           </div>
         </ExpansionPanelSummary>

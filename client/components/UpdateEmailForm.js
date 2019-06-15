@@ -64,7 +64,7 @@ const UserEmailForm = function(props) {
           </div>
           <div className={classes.column}>
             <Typography className={classes.secondaryHeading}>
-              view or update your email
+              view or update my email
             </Typography>
           </div>
         </ExpansionPanelSummary>
