@@ -12,8 +12,12 @@ class Cart extends Component {
   //remove => onClick delete pokemon from Order model
 
   handleRemove = evt => {
-    console.log("THE DELETE BUTTON'S CLICKED")
-    this.props.removePokemon(evt.target.value)
+    console.log(
+      "THE DELETE BUTTON'S CLICKED",
+      this.props.userId,
+      evt.target.value
+    )
+    this.props.removePokemon(this.props.userId, evt.target.value)
   }
 
   handleSubmit = () => {}
@@ -55,18 +59,18 @@ class Cart extends Component {
                     <option>9</option>
                     <option>10</option>
                   </select> */}
-                  <Button
+                  <button
                     onClick={this.handleRemove}
                     type="submit"
                     value={pokeObj.id}
-                    className="button"
-                    style={{marginTop: 24}}
-                    size="small"
-                    color="primary"
-                    variant="contained"
+                    // className="button"
+                    // style={{marginTop: 24}}
+                    // size="small"
+                    // color="primary"
+                    // variant="contained"
                   >
                     Remove
-                  </Button>
+                  </button>
                 </li>
               )
             })
