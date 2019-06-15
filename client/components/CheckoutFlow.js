@@ -1,7 +1,7 @@
 import React from 'react'
-import checkoutShipping from './checkoutShipping'
-import checkoutPayment from './checkoutPayment'
-import checkoutReview from './checkoutReview'
+import CheckoutShipping from './checkoutShipping'
+import CheckoutPayment from './checkoutPayment'
+import CheckoutReview from './checkoutReview'
 
 //material ui:
 import {makeStyles} from '@material-ui/core/styles'
@@ -55,11 +55,16 @@ const steps = ['Shipping Address', 'Payment Details', 'Review Order']
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <checkoutShipping />
+      return (
+        <CheckoutShipping
+          user={this.props.user}
+          updateUser={this.props.updateUser}
+        />
+      )
     case 1:
-      return <checkoutPayment />
+      return <CheckoutPayment />
     case 2:
-      return <checkoutReview />
+      return <CheckoutReview />
     default:
       throw new Error('Unknown step')
   }
