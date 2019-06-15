@@ -11,17 +11,6 @@ class Cart extends Component {
   //quanity input field to edit quantity => onChange update quantity in Order model
   //remove => onClick delete pokemon from Order model
 
-  componentDidUpdate(prevProps, prevState) {
-    // only update chart if the data has changed
-    console.log('COMPONENTDIDUPDATE IS HAPPENING!!!!')
-    if (
-      prevProps.userId !== this.props.userId ||
-      prevProps.cart !== prevState.orderId
-    ) {
-      this.props.getCart(this.props.userId)
-    }
-  }
-
   handleClick = () => {
     console.log("THE DELETE BUTTON'S CLICKED")
   }
