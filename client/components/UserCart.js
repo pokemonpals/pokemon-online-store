@@ -107,8 +107,8 @@ const mapStateToProps = state => ({
 })
 const mapDispatchToProps = dispatch => ({
   getCart: orderId => dispatch(getCartItemsThunk(orderId)),
-  removePokemon: (pokemonId, orderId) =>
-    dispatch(removePokemonThunk(pokemonId, orderId))
+  removePokemon: (orderId, pokemonId) =>
+    dispatch(removePokemonThunk(orderId, pokemonId))
 })
 
 export const UserCart = connect(mapStateToProps, mapDispatchToProps)(Cart)
