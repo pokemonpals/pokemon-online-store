@@ -7,8 +7,11 @@ import {productList} from './components/productList'
 import {me} from './store'
 import Home from './components/Home'
 import {SinglePokemon} from './components/SinglePokemon'
+import {getCartItemsThunk} from './store/cartReducer'
 import AdminHome from './components/adminHome'
 import AdminPokemonView from './components/adminPokemonView'
+import Checkout from './components/Checkout'
+
 
 /**
  * COMPONENT
@@ -19,6 +22,7 @@ class Routes extends Component {
   }
 
   render() {
+    this.props.getCart(this.props.userId)
     const {isLoggedIn} = this.props
     return (
       <Switch>
@@ -29,6 +33,7 @@ class Routes extends Component {
         <Route exact path="/products/:pokemonId" component={SinglePokemon} />
         <Route exact path="/" component={Home} />
         <Route exact path="/cart" component={UserCart} />
+        <Route exact path="/cart/checkout" component={Checkout} />
         {isLoggedIn && (
           <Switch>
             {/* Routes placed here are only available after logging in */}
@@ -51,17 +56,15 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    userId: state.user.id
   }
 }
 
-const mapDispatch = dispatch => {
-  return {
-    loadInitialData() {
-      dispatch(me())
-    }
-  }
-}
+const mapDispatch = dispatch => ({
+  loadInitialData: () => dispatch(me()),
+  getCart: userId => dispatch(getCartItemsThunk(userId))
+})
 
 // The `withRouter` wrapper makes sure that updates are not blocked
 // when the url changes
