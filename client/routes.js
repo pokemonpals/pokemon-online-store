@@ -12,7 +12,6 @@ import AdminHome from './components/adminHome'
 import AdminPokemonView from './components/adminPokemonView'
 import Checkout from './components/Checkout'
 
-
 /**
  * COMPONENT
  */
@@ -22,7 +21,9 @@ class Routes extends Component {
   }
 
   render() {
-    this.props.getCart(this.props.userId)
+    if (this.props.userId !== undefined) {
+      this.props.getCart(this.props.userId)
+    }
     const {isLoggedIn} = this.props
     return (
       <Switch>
