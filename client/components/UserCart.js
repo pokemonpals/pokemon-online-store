@@ -11,8 +11,8 @@ class Cart extends Component {
   //checkout button onSubmit => update order in Order model to show purchased or purchase ? true AND post to suborder model
   //quanity input field to edit quantity => onChange update quantity in Order model
   //remove => onClick delete pokemon from Order model
-  componentDidUpdate = prevProps => {
-    if (this.props.userId !== prevProps.userId) {
+  componentDidUpdate = () => {
+    if (this.props.userId !== undefined) {
       this.props.getCart(this.props.userId)
     }
   }
@@ -29,8 +29,8 @@ class Cart extends Component {
         {/* list of pokemon followed by dropdown or input field (is there max amount for purchase --- how many in stock?)? */}
         {/* FOLLOWING CODE NEEDS TO BE CLEANED UP, CHECK PROPS */}
         <ul style={{listStyle: 'none'}}>
-          {this.props.cart !== 'undefined' ? (
-            this.props.cart.pokemons.map(pokeObj => {
+          {this.props.cart !== undefined ? (
+            this.props.cart.map(pokeObj => {
               return (
                 <li key={pokeObj.pokemonId}>
                   <img src={pokeObj.imageUrl} width="10" height="auto" />
@@ -97,13 +97,13 @@ class Cart extends Component {
   }
 }
 const mapStateToProps = state => ({
-  cart: state.cart.pokemons.pokemons,
+  cart: state.cart.pokemon.pokemons,
   orderId: state.cart.order,
   userId: state.user.id
 })
 const mapDispatchToProps = dispatch => ({
   // receivedOrder: cartId => dispatch(cartThunk(cartId))
-  getCart: orderId => dispatch(getCartItemsThunk(orderId))
+  getCart: userId => dispatch(getCartItemsThunk(userId))
 })
 
 export const UserCart = connect(mapStateToProps, mapDispatchToProps)(Cart)
