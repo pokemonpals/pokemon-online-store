@@ -39,7 +39,7 @@ class Cart extends Component {
             <ul style={{listStyle: 'none'}}>
               {this.props.cart.map(pokeObj => {
                 return (
-                  <li key={pokeObj.pokemonId}>
+                  <li key={pokeObj.id}>
                     <img src={pokeObj.imageUrl} width="10" height="auto" />
                     {pokeObj.name}
                     {pokeObj.price}
