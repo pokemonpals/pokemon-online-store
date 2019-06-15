@@ -3,7 +3,7 @@ import ProfileUpdateForm from './ProfileUpdateForm'
 import UpdateEmailForm from './UpdateEmailForm'
 import UpdatePasswordForm from './UpdatePasswordForm'
 import UpdateNameForm from './UpdateNameForm'
-import UpdateAddressForm from './UpdateAddressForm'
+import UserProfilePage from './UserProfilePage'
 
 export default class UpdateUserProfile extends Component {
   constructor(props) {
@@ -55,7 +55,7 @@ export default class UpdateUserProfile extends Component {
     return (
       <div>
         <h1>Update your profile:</h1>
-        <ProfileUpdateForm
+        <UserProfilePage
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
           user={this.state}
