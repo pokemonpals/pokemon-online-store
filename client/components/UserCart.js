@@ -21,7 +21,7 @@ class Cart extends Component {
       this.props.userId,
       evt.target.value
     )
-    this.props.removePokemon(this.props.userId, evt.target.value)
+    this.props.removePokemon(this.props.orderId, evt.target.value)
   }
 
   handleChange = event => {
