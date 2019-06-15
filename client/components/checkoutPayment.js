@@ -9,7 +9,7 @@ export default function checkoutPayment() {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Payment method
+        Payment Method
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
