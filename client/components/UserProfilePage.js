@@ -84,7 +84,12 @@ const UserProfilePage = function(props) {
                 />
               </DialogContent>
               <DialogActions>
-                <Button className="button" type="submit" color="primary">
+                <Button
+                  className="button"
+                  type="submit"
+                  color="primary"
+                  expanded={false}
+                >
                   Update
                 </Button>
               </DialogActions>
