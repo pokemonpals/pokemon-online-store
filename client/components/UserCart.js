@@ -35,7 +35,7 @@ class Cart extends Component {
         {/* FOLLOWING CODE NEEDS TO BE CLEANED UP, CHECK PROPS */}
 
         {this.props.cart.length ? (
-          <div>
+          <form>
             <ul style={{listStyle: 'none'}}>
               {this.props.cart.map(pokeObj => {
                 return (
@@ -45,7 +45,6 @@ class Cart extends Component {
                     {pokeObj.price}
                     <label htmlFor={pokeObj.name}>Quantity: </label>
                     <input
-                      onChange={this.handleChange}
                       name={pokeObj.name}
                       type="number"
                       min="1"
@@ -55,11 +54,12 @@ class Cart extends Component {
                           ? pokeObj.suborder.quantity
                           : this.state[pokeObj.name]
                       }
+                      onChange={this.handleChange}
                     />
 
                     <Button
                       onClick={this.handleClick}
-                      type="submit"
+                      type="button"
                       value={pokeObj.id}
                       className="button"
                       style={{marginTop: 24}}
@@ -74,7 +74,7 @@ class Cart extends Component {
               })}
             </ul>
             <Button
-              className="button"
+              className="submit"
               style={{marginTop: 24}}
               size="small"
               color="primary"
@@ -82,7 +82,7 @@ class Cart extends Component {
             >
               Complete Purchase
             </Button>
-          </div>
+          </form>
         ) : (
           <div>
             <h3>Your PokeBag is empty</h3>
