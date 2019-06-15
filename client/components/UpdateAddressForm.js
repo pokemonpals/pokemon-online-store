@@ -115,12 +115,7 @@ const UpdatePasswordForm = function(props) {
                 />
               </DialogContent>
               <DialogActions>
-                <Button
-                  className="button"
-                  type="submit"
-                  color="primary"
-                  expanded={false}
-                >
+                <Button className="button" type="submit" color="primary">
                   Update
                 </Button>
               </DialogActions>
