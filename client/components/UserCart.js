@@ -10,18 +10,15 @@ class Cart extends Component {
     super()
     this.state = {}
   }
-  //page will render what is inside of cart => what is inside cart === what is in Order model that is not purcashed?
-  //checkout button onSubmit => update order in Order model to show purchased or purchase ? true AND post to suborder model
-  //quanity input field to edit quantity => onChange update quantity in Order model
-  //remove => onClick delete pokemon from Order model
 
   handleRemove = evt => {
-    console.log(
-      "THE DELETE BUTTON'S CLICKED",
-      this.props.userId,
-      evt.target.value
-    )
-    this.props.removePokemon(this.props.orderId, evt.target.value)
+    evt.preventDefault()
+    // console.log(
+    //   "THE DELETE BUTTON'S CLICKED",
+    //   this.props.userId,
+    //   evt.target.value
+    // )
+    this.props.removePokemon(this.props.userId, evt.target.value)
   }
 
   handleChange = event => {
@@ -35,9 +32,6 @@ class Cart extends Component {
     return (
       <div>
         <h2>Your Shopping Cart</h2>
-        {/* list of pokemon followed by dropdown or input field (is there max amount for purchase --- how many in stock?)? */}
-        {/* FOLLOWING CODE NEEDS TO BE CLEANED UP, CHECK PROPS */}
-
         {this.props.cart.length ? (
           <form>
             <ul style={{listStyle: 'none'}}>
@@ -106,9 +100,9 @@ const mapStateToProps = state => ({
   userId: state.user.id
 })
 const mapDispatchToProps = dispatch => ({
-  getCart: orderId => dispatch(getCartItemsThunk(orderId)),
-  removePokemon: (orderId, pokemonId) =>
-    dispatch(removePokemonThunk(orderId, pokemonId))
+  // getCart: orderId => dispatch(getCartItemsThunk(orderId)),
+  removePokemon: (userId, pokemonId) =>
+    dispatch(removePokemonThunk(userId, pokemonId))
 })
 
 export const UserCart = connect(mapStateToProps, mapDispatchToProps)(Cart)

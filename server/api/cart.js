@@ -80,20 +80,20 @@ router.get('/sub/:orderId', async (req, res, next) => {
   }
 })
 
-router.get('/sub/:orderId/:pokemonId', async (req, res, next) => {
-  // const orderId = req.params.orderId
-  const pokemonId = req.params.pokemonId
-  try {
-    const pokemon = await Pokemon.findOne({
-      where: {
-        id: pokemonId
-      }
-    })
-    res.json(pokemon)
-  } catch (err) {
-    next(err)
-  }
-})
+// router.get('/sub/:orderId/:pokemonId', async (req, res, next) => {
+//   // const orderId = req.params.orderId
+//   const pokemonId = req.params.pokemonId
+//   try {
+//     const pokemon = await Pokemon.findOne({
+//       where: {
+//         id: pokemonId
+//       }
+//     })
+//     res.json(pokemon)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
 
 router.delete('/sub/:orderId/:pokemonId', async (req, res, next) => {
   const orderId = req.params.orderId
@@ -105,7 +105,7 @@ router.delete('/sub/:orderId/:pokemonId', async (req, res, next) => {
         pokemonId: pokemonId
       }
     })
-    pokemonDelete.destroy()
+    await pokemonDelete.destroy()
     res.sendStatus(204)
   } catch (err) {
     next(err)
