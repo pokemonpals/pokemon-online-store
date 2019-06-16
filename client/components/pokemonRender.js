@@ -70,18 +70,18 @@ const PokemonRender = props => {
                   <Typography component="p">{pokemon.description}</Typography>
                 </CardContent>
                 <CardActions>
-                  <Button
-                    type="click"
+                  <button
+                    type="submit"
                     value={pokemon.id}
                     onClick={props.handleClick}
-                    className="button"
-                    style={{marginTop: 24}}
-                    size="small"
-                    color="primary"
-                    variant="contained"
+                    // className="button"
+                    // style={{marginTop: 24}}
+                    // size="small"
+                    // color="primary"
+                    // variant="contained"
                   >
                     Add to Cart
-                  </Button>
+                  </button>
                 </CardActions>
               </Paper>
             </Grid>

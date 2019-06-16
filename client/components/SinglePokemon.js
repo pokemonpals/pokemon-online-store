@@ -2,10 +2,11 @@ import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import {getSinglePokemonThunk} from '../store/pokemonReducer'
 import {addToCartThunk} from '../store/cartReducer'
-import PokemonRender from './PokemonRender'
+import PokemonRender from './pokemonRender'
 
 class DisconnectedSinglePokemon extends Component {
   componentDidMount() {
+    console.log('DID MOUNT IN SINGLE POKEMON')
     this.props.getSinglePokemon(this.props.match.params.pokemonId)
   }
   handleClick = evt => {
@@ -22,7 +23,7 @@ class DisconnectedSinglePokemon extends Component {
         isLoading={this.props.isLoading}
         addToCart={this.props.addToCart}
         getSinglePokemon={this.props.getSinglePokemon}
-        handleClick={this.props.handleClick}
+        handleClick={this.handleClick}
       />
     )
   }
