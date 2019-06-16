@@ -48,3 +48,12 @@ router.post('/', async (req, res, next) => {
     next(err)
   }
 })
+
+function isAdmin(req, res, next) {
+  //if you are an admin, show route
+  if (req.user && req.user.admin) {
+    return next()
+  }
+  //redirect to home if you are not an admin
+  res.redirect('/')
+}

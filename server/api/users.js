@@ -4,8 +4,6 @@ module.exports = router
 
 router.get('/', isAdmin, async (req, res, next) => {
   try {
-    console.log('REQ USER!!!!', req.user)
-    console.log('ADMIN STATUS: ', req.user.admin)
     const users = await User.findAll({
       attributes: ['id', 'email']
     })
@@ -18,7 +16,6 @@ router.get('/', isAdmin, async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const {firstName, lastName, email, password} = req.body
-    console.log(firstName, lastName, email, password)
     const data = await User.create({
       firstName,
       lastName,
@@ -33,7 +30,6 @@ router.post('/', async (req, res, next) => {
 
 router.get('/:userId', isUser, async (req, res, next) => {
   try {
-    console.log('REQ PARAMS ID', req.params.userId)
     const singleUser = await User.findAll({
       include: [
         {
@@ -97,18 +93,15 @@ router.put('/:userId', (req, res, next) => {
 
 function isAdmin(req, res, next) {
   if (req.user && req.user.admin) {
-    //display all users and their emails
+    //if you are an admin, show route
     return next()
   }
-  // if (req.user && !req.user.admin) {
-  //   res.redirect(`/api/users/${req.user.id}`)
-  // }
-  //redirect to home if admin status is falsey
+  //redirect to home if you are not an admin
   res.redirect('/')
 }
 
 function isUser(req, res, next) {
-  //if logged in and you are the appropriate user OR are an admin
+  //if logged in and you are the appropriate user OR are an admin, show route
   if (
     (req.user && req.user.id === +req.params.userId) ||
     (req.user && req.user.admin)
