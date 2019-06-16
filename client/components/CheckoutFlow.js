@@ -65,7 +65,7 @@ function getStepContent(step) {
   }
 }
 
-export default function Checkout() {
+export default function Checkout(props) {
   const classes = useStyles()
   const [activeStep, setActiveStep] = React.useState(0)
 
@@ -119,6 +119,7 @@ export default function Checkout() {
                     color="primary"
                     onClick={handleNext}
                     className={classes.button}
+                    onSubmit={props.handleSubmit}
                   >
                     {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
                   </Button>

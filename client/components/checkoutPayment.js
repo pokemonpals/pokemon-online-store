@@ -21,7 +21,12 @@ const checkoutPayment = function() {
           <TextField required id="cardNumber" label="Card number" fullWidth />
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField required id="expDate" label="Expiry date" fullWidth />
+          <TextField
+            required
+            id="expDate"
+            label="Expiry date mm/yy"
+            fullWidth
+          />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
