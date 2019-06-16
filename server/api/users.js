@@ -36,8 +36,7 @@ router.get('/:userId', async (req, res, next) => {
     const singleUser = await User.findAll({
       include: [
         {
-          model: Order,
-          as: 'order'
+          model: Order
         }
       ],
       where: {
