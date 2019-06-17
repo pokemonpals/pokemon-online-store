@@ -2,10 +2,8 @@ const router = require('express').Router()
 const {User, Order} = require('../db/models')
 module.exports = router
 
-router.get('/', async (req, res, next) => {
+router.get('/', isAdmin, async (req, res, next) => {
   try {
-    console.log('SESSION!!!', req.user)
-
     const users = await User.findAll({
       attributes: ['id', 'email']
     })
@@ -18,7 +16,6 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     const {firstName, lastName, email, password} = req.body
-    console.log(firstName, lastName, email, password)
     const data = await User.create({
       firstName,
       lastName,
@@ -31,7 +28,7 @@ router.post('/', async (req, res, next) => {
   }
 })
 
-router.get('/:userId', async (req, res, next) => {
+router.get('/:userId', isUser, async (req, res, next) => {
   try {
     const singleUser = await User.findAll({
       include: [
@@ -94,10 +91,23 @@ router.put('/:userId', (req, res, next) => {
     .catch(next)
 })
 
-function isAdmin(req, res) {
-  if (req.user.admin) {
-    //display all users and their emails
+function isAdmin(req, res, next) {
+  if (req.user && req.user.admin) {
+    //if you are an admin, show route
+    return next()
   }
-  //if user is logged in, display their email
-  //if user isn't logged in, don't display anything
+  //redirect to home if you are not an admin
+  res.redirect('/')
+}
+
+function isUser(req, res, next) {
+  //if logged in and you are the appropriate user OR are an admin, show route
+  if (
+    (req.user && req.user.id === +req.params.userId) ||
+    (req.user && req.user.admin)
+  ) {
+    return next()
+  }
+  //redirect to home if not the appropriate user, not an admin or not logged in
+  res.redirect('/')
 }

@@ -7,7 +7,7 @@ const {Pokemon, Order, SubOrder} = require('../db/models/index')
 module.exports = router
 
 //get all items in the cart
-router.get('/', async (req, res, next) => {
+router.get('/', isAdmin, async (req, res, next) => {
   try {
     const cart = await Order.findAll({})
     res.json(cart)
@@ -16,7 +16,7 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:userId', async (req, res, next) => {
+router.get('/:userId', isUser, async (req, res, next) => {
   try {
     const pendingOrder = await Order.findOrCreate({
       where: {
@@ -56,7 +56,6 @@ router.put('/', async (req, res, next) => {
   } else {
     try {
       await exist.increment(['quantity'], {by: 1})
-      console.log('DIS ELSE')
       res.send()
     } catch (err) {
       next(err)
@@ -120,3 +119,24 @@ router.delete('/sub/:orderId/:pokemonId', async (req, res, next) => {
 //     console.error(err)
 //   }
 // })
+
+function isAdmin(req, res, next) {
+  //if you are an admin, show route
+  if (req.user && req.user.admin) {
+    return next()
+  }
+  //redirect to home if you are not an admin
+  res.redirect('/')
+}
+
+function isUser(req, res, next) {
+  //if logged in and you are the appropriate user OR are an admin, show route
+  if (
+    (req.user && req.user.id === +req.params.userId) ||
+    (req.user && req.user.admin)
+  ) {
+    return next()
+  }
+  //redirect to home if not the appropriate user, not an admin or not logged in
+  res.redirect('/')
+}
