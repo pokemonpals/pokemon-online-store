@@ -1,79 +1,104 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getCartItemsThunk} from '../store/cartReducer'
+import {
+  getCartItemsThunk,
+  removePokemonThunk,
+  updateCartItemsThunk
+} from '../store/cartReducer'
 
 //material ui
 import Button from '@material-ui/core/Button'
 
 class Cart extends Component {
-  //page will render what is inside of cart => what is inside cart === what is in Order model that is not purcashed?
-  //checkout button onSubmit => update order in Order model to show purchased or purchase ? true AND post to suborder model
-  //quanity input field to edit quantity => onChange update quantity in Order model
-  //remove => onClick delete pokemon from Order model
+  constructor() {
+    super()
+    this.state = {}
+  }
 
-  handleClick = () => {
-    console.log("THE DELETE BUTTON'S CLICKED")
+  handleRemove = evt => {
+    evt.preventDefault()
+
+    this.props.removePokemon(this.props.userId, evt.target.value)
+  }
+
+  handleChange = event => {
+    this.setState({
+      [event.target.name]: event.target.value
+    })
+
+    this.props.updateCart(
+      event.target.id,
+      event.target.value,
+      this.props.orderId
+    )
+    this.props.getCart(this.props.userId)
+  }
+
+  handleSubmit = () => {
+    this.props.history.push('/checkout')
   }
 
   render() {
-    console.log('this props', this.props)
     return (
       <div>
         <h2>Your Shopping Cart</h2>
-        {/* list of pokemon followed by dropdown or input field (is there max amount for purchase --- how many in stock?)? */}
-        {/* FOLLOWING CODE NEEDS TO BE CLEANED UP, CHECK PROPS */}
-
         {this.props.cart.length ? (
-          <div>
+          <form>
             <ul style={{listStyle: 'none'}}>
               {this.props.cart.map(pokeObj => {
                 return (
-                  <li key={pokeObj.pokemonId}>
+                  <li key={pokeObj.id}>
                     <img src={pokeObj.imageUrl} width="10" height="auto" />
                     {pokeObj.name}
                     {pokeObj.price}
-                    <label htmlFor="edit">Quantity: </label>
+                    <label htmlFor={pokeObj.name}>Quantity: </label>
                     <input
-                      name="edit"
+                      id={pokeObj.id}
+                      name={pokeObj.name}
                       type="number"
                       min="1"
                       max="100"
-                      value={pokeObj.quanitity}
+                      value={
+                        this.state[pokeObj.name] === undefined
+                          ? pokeObj.suborder.quantity
+                          : this.state[pokeObj.name]
+                      }
+                      onChange={this.handleChange}
                     />
 
-                    <Button
-                      onClick={this.handleClick}
+                    <button
+                      onClick={this.handleRemove}
                       type="submit"
                       value={pokeObj.id}
-                      className="button"
-                      style={{marginTop: 24}}
-                      size="small"
-                      color="primary"
-                      variant="contained"
+                      // className="button"
+                      // style={{marginTop: 24}}
+                      // size="small"
+                      // color="primary"
+                      // variant="contained"
                     >
                       Remove
-                    </Button>
+                    </button>
                   </li>
                 )
               })}
             </ul>
             <Button
-              className="button"
+              className="submit"
+              onClick={this.handleSubmit}
               style={{marginTop: 24}}
               size="small"
               color="primary"
               variant="contained"
             >
-              Complete Purchase
+              Continue to Checkout
             </Button>
-          </div>
+          </form>
         ) : (
           <div>
             <h3>Your PokeBag is empty</h3>
             <img src="https://unixtitan.net/images/mexican-transparent-pikachu-1.png" />
           </div>
         )}
-
         {/* value={pokemon.id} */}
         {/* onClick={this.handleClick} */}
       </div>
@@ -86,8 +111,11 @@ const mapStateToProps = state => ({
   userId: state.user.id
 })
 const mapDispatchToProps = dispatch => ({
-  // receivedOrder: cartId => dispatch(cartThunk(cartId))
-  getCart: userId => dispatch(getCartItemsThunk(userId))
+  getCart: userId => dispatch(getCartItemsThunk(userId)),
+  removePokemon: (userId, pokemonId) =>
+    dispatch(removePokemonThunk(userId, pokemonId)),
+  updateCart: (pokemonId, quantity, orderId) =>
+    dispatch(updateCartItemsThunk(pokemonId, quantity, orderId))
 })
 
 export const UserCart = connect(mapStateToProps, mapDispatchToProps)(Cart)
