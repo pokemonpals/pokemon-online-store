@@ -36,11 +36,13 @@ router.get('/:userId', isUser, async (req, res, next) => {
 router.put('/', async (req, res, next) => {
   const orderId = req.body.orderId
   const pokemonId = req.body.pokemonId
-  const price = req.body.pokemon.data[0].price
+  const quantity = req.body.quantity
+  console.log('UPDATE QUANTITY: ', quantity)
   const exist = await SubOrder.findOne({
     where: {orderId: orderId, pokemonId: pokemonId}
   })
   if (!exist) {
+    const price = req.body.pokemon.data[0].price
     try {
       const {dataValues} = await SubOrder.create({
         orderId: orderId,
@@ -50,6 +52,15 @@ router.put('/', async (req, res, next) => {
       })
       // console.log('SUBORDER RETURNED FROM CART PUT ROUTE: ', dataValues)
       res.json(dataValues)
+    } catch (err) {
+      next(err)
+    }
+  } else if (quantity !== undefined) {
+    console.log('UPDATING QUANTITY')
+    try {
+      await exist.update({quantity: quantity})
+      const order = await Order.findOne({where: {id: orderId}})
+      res.send(order)
     } catch (err) {
       next(err)
     }

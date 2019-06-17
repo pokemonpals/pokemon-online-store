@@ -1,6 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getCartItemsThunk, removePokemonThunk} from '../store/cartReducer'
+import {
+  getCartItemsThunk,
+  removePokemonThunk,
+  updateCartItemsThunk
+} from '../store/cartReducer'
 
 //material ui
 import Button from '@material-ui/core/Button'
@@ -26,6 +30,14 @@ class Cart extends Component {
       [event.target.name]: event.target.value
     })
     console.log('THE STATE: ', this.state)
+    console.log('UPDATE INFO: ', event.target.id, event.target.value)
+
+    this.props.updateCart(
+      event.target.id,
+      event.target.value,
+      this.props.orderId
+    )
+    this.props.getCart(this.props.userId)
   }
 
   render() {
@@ -43,6 +55,7 @@ class Cart extends Component {
                     {pokeObj.price}
                     <label htmlFor={pokeObj.name}>Quantity: </label>
                     <input
+                      id={pokeObj.id}
                       name={pokeObj.name}
                       type="number"
                       min="1"
@@ -100,9 +113,11 @@ const mapStateToProps = state => ({
   userId: state.user.id
 })
 const mapDispatchToProps = dispatch => ({
-  // getCart: orderId => dispatch(getCartItemsThunk(orderId)),
+  getCart: orderId => dispatch(getCartItemsThunk(orderId)),
   removePokemon: (userId, pokemonId) =>
-    dispatch(removePokemonThunk(userId, pokemonId))
+    dispatch(removePokemonThunk(userId, pokemonId)),
+  updateCart: (pokemonId, quantity, orderId) =>
+    dispatch(updateCartItemsThunk(pokemonId, quantity, orderId))
 })
 
 export const UserCart = connect(mapStateToProps, mapDispatchToProps)(Cart)
