@@ -68,17 +68,48 @@ router.put('/', async (req, res, next) => {
 router.get('/sub/:orderId', async (req, res, next) => {
   const orderId = req.params.orderId
   try {
-    const subOrders = await Order.findOne({
+    const order = await Order.findOne({
       where: {id: orderId},
       include: [{model: Pokemon}]
     })
-    console.log('GET SUBORDERS BY ID ROUTE: ', subOrders)
-    res.json(subOrders)
+    console.log('GET ORDER BY ORDER ID ROUTE: ', order)
+    res.json(order)
   } catch (err) {
     next(err)
   }
 })
 
+// router.get('/sub/:orderId/:pokemonId', async (req, res, next) => {
+//   // const orderId = req.params.orderId
+//   const pokemonId = req.params.pokemonId
+//   try {
+//     const pokemon = await Pokemon.findOne({
+//       where: {
+//         id: pokemonId
+//       }
+//     })
+//     res.json(pokemon)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
+
+router.delete('/sub/:orderId/:pokemonId', async (req, res, next) => {
+  const orderId = req.params.orderId
+  const pokemonId = req.params.pokemonId
+  try {
+    const pokemonDelete = await SubOrder.findOne({
+      where: {
+        orderId: orderId,
+        pokemonId: pokemonId
+      }
+    })
+    await pokemonDelete.destroy()
+    res.sendStatus(204)
+  } catch (err) {
+    next(err)
+  }
+})
 // router.post('/', async (req, res, next) => {
 //   try {
 //     const order = await Order.create({
