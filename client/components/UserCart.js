@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getCartItemsThunk} from '../store/cartReducer'
+import {getCartItemsThunk, removePokemonThunk} from '../store/cartReducer'
 
 //material ui
 import Button from '@material-ui/core/Button'
@@ -10,13 +10,15 @@ class Cart extends Component {
     super()
     this.state = {}
   }
-  //page will render what is inside of cart => what is inside cart === what is in Order model that is not purcashed?
-  //checkout button onSubmit => update order in Order model to show purchased or purchase ? true AND post to suborder model
-  //quanity input field to edit quantity => onChange update quantity in Order model
-  //remove => onClick delete pokemon from Order model
 
-  handleClick = () => {
-    console.log("THE DELETE BUTTON'S CLICKED")
+  handleRemove = evt => {
+    evt.preventDefault()
+    // console.log(
+    //   "THE DELETE BUTTON'S CLICKED",
+    //   this.props.userId,
+    //   evt.target.value
+    // )
+    this.props.removePokemon(this.props.userId, evt.target.value)
   }
 
   handleChange = event => {
@@ -27,19 +29,15 @@ class Cart extends Component {
   }
 
   render() {
-    console.log('this props', this.props)
     return (
       <div>
         <h2>Your Shopping Cart</h2>
-        {/* list of pokemon followed by dropdown or input field (is there max amount for purchase --- how many in stock?)? */}
-        {/* FOLLOWING CODE NEEDS TO BE CLEANED UP, CHECK PROPS */}
-
         {this.props.cart.length ? (
           <form>
             <ul style={{listStyle: 'none'}}>
               {this.props.cart.map(pokeObj => {
                 return (
-                  <li key={pokeObj.pokemonId}>
+                  <li key={pokeObj.id}>
                     <img src={pokeObj.imageUrl} width="10" height="auto" />
                     {pokeObj.name}
                     {pokeObj.price}
@@ -57,18 +55,18 @@ class Cart extends Component {
                       onChange={this.handleChange}
                     />
 
-                    <Button
-                      onClick={this.handleClick}
-                      type="button"
+                    <button
+                      onClick={this.handleRemove}
+                      type="submit"
                       value={pokeObj.id}
-                      className="button"
-                      style={{marginTop: 24}}
-                      size="small"
-                      color="primary"
-                      variant="contained"
+                      // className="button"
+                      // style={{marginTop: 24}}
+                      // size="small"
+                      // color="primary"
+                      // variant="contained"
                     >
                       Remove
-                    </Button>
+                    </button>
                   </li>
                 )
               })}
@@ -102,8 +100,9 @@ const mapStateToProps = state => ({
   userId: state.user.id
 })
 const mapDispatchToProps = dispatch => ({
-  // receivedOrder: cartId => dispatch(cartThunk(cartId))
-  getCart: userId => dispatch(getCartItemsThunk(userId))
+  // getCart: orderId => dispatch(getCartItemsThunk(orderId)),
+  removePokemon: (userId, pokemonId) =>
+    dispatch(removePokemonThunk(userId, pokemonId))
 })
 
 export const UserCart = connect(mapStateToProps, mapDispatchToProps)(Cart)
