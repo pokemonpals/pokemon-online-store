@@ -44,8 +44,6 @@ export default class UpdateUserProfile extends Component {
           handleChange={this.handleChange}
           user={this.state}
           updateUser={this.props.updateUser}
-          handleClose={this.props.handleClose}
-          open={this.props.open}
         />
         <div />
         <UpdateNameForm
@@ -53,24 +51,18 @@ export default class UpdateUserProfile extends Component {
           handleChange={this.handleChange}
           user={this.state}
           updateUser={this.props.updateUser}
-          handleClose={this.props.handleClose}
-          open={this.props.open}
         />
         <UpdatePasswordForm
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
           user={this.state}
           updateUser={this.props.updateUser}
-          handleClose={this.props.handleClose}
-          open={this.props.open}
         />
         <UpdateAddressForm
           handleSubmit={this.handleSubmit}
           handleChange={this.handleChange}
           user={this.state}
           updateUser={this.props.updateUser}
-          handleClose={this.props.handleClose}
-          open={this.props.open}
         />
       </div>
     )

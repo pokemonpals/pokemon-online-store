@@ -1,19 +1,16 @@
 import React from 'react'
-import checkoutShipping from './checkoutShipping'
-import checkoutPayment from './checkoutPayment'
-import checkoutReview from './checkoutReview'
+import CheckoutShipping from './checkoutShipping'
+import CheckoutPayment from './checkoutPayment'
+import CheckoutReview from './checkoutReview'
 
 //material ui:
 import {makeStyles} from '@material-ui/core/styles'
 import CssBaseline from '@material-ui/core/CssBaseline'
-import AppBar from '@material-ui/core/AppBar'
-import Toolbar from '@material-ui/core/Toolbar'
 import Paper from '@material-ui/core/Paper'
 import Stepper from '@material-ui/core/Stepper'
 import Step from '@material-ui/core/Step'
 import StepLabel from '@material-ui/core/StepLabel'
 import Button from '@material-ui/core/Button'
-import Link from '@material-ui/core/Link'
 import Typography from '@material-ui/core/Typography'
 
 const useStyles = makeStyles(theme => ({
@@ -58,17 +55,17 @@ const steps = ['Shipping Address', 'Payment Details', 'Review Order']
 function getStepContent(step) {
   switch (step) {
     case 0:
-      return <checkoutShipping />
+      return <CheckoutShipping />
     case 1:
-      return <checkoutPayment />
+      return <CheckoutPayment />
     case 2:
-      return <checkoutReview />
+      return <CheckoutReview />
     default:
       throw new Error('Unknown step')
   }
 }
 
-export default function Checkout() {
+export default function Checkout(props) {
   const classes = useStyles()
   const [activeStep, setActiveStep] = React.useState(0)
 
@@ -83,16 +80,9 @@ export default function Checkout() {
   return (
     <React.Fragment>
       <CssBaseline />
-      <AppBar position="absolute" color="default" className={classes.appBar}>
-        <Toolbar>
-          <Typography variant="h6" color="inherit" noWrap>
-            Company name
-          </Typography>
-        </Toolbar>
-      </AppBar>
       <main className={classes.layout}>
         <Paper className={classes.paper}>
-          <Typography component="h1" variant="h4" align="center">
+          <Typography component="h1" variant="h6" align="center">
             Checkout
           </Typography>
           <Stepper activeStep={activeStep} className={classes.stepper}>
@@ -109,9 +99,10 @@ export default function Checkout() {
                   Thank you for your order.
                 </Typography>
                 <Typography variant="subtitle1">
-                  Your order number is #2001539. We have emailed your order
-                  confirmation, and will send you an update when your order has
-                  shipped.
+                  Your order is processed. You could check 'My Account' for
+                  order details. We are now preparing the pokemons for shipment.
+                  Please do not hestitate to reach out to one of our Pokemon
+                  Masters if you have any questions.
                 </Typography>
               </React.Fragment>
             ) : (
@@ -128,6 +119,7 @@ export default function Checkout() {
                     color="primary"
                     onClick={handleNext}
                     className={classes.button}
+                    onSubmit={props.handleSubmit}
                   >
                     {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
                   </Button>

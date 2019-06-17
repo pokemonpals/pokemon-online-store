@@ -10,7 +10,7 @@ const initialState = {
 //action type
 const ADD_TO_CART = 'ADD_TO_CART'
 const GET_CART = 'GET_CART'
-const REMOVE_ITEM = 'REMOVE_ITEM'
+const REMOVE_POKEMON = 'REMOVE_POKEMON'
 
 //action creator
 export const addToCart = (pokemon, order) => ({
@@ -23,19 +23,21 @@ export const getCartItems = (pokemon, order) => ({
   pokemon,
   order
 })
-export const removeItem = () => ({
-  type: REMOVE_ITEM
+export const removePokemon = (pokemonId, userId) => ({
+  type: REMOVE_POKEMON,
+  pokemonId,
+  userId
 })
 
 //thunk
 export const addToCartThunk = (pokemonId, userId) => {
-  console.log('CART THUNK RUNNING')
   return async dispatch => {
     try {
       const pokemon = await axios.get(`/api/products/${pokemonId}`)
+      //remove user ID?
+
       let order = await axios.get(`/api/cart/${userId}`)
       const orderId = order.data[0].id
-      console.log('CART THUNK 1')
       // add pokemon to suborder model: create or update
       await axios.put(`/api/cart/`, {
         pokemonId,
@@ -43,9 +45,6 @@ export const addToCartThunk = (pokemonId, userId) => {
         pokemon
       })
       order = await axios.get(`/api/cart/${userId}`)
-      console.log('UPDATED ORDER', order)
-      console.log('HERE?')
-
       dispatch(addToCart(order.data[0].pokemons, orderId))
     } catch (err) {
       console.error(err)
@@ -53,15 +52,29 @@ export const addToCartThunk = (pokemonId, userId) => {
   }
 }
 
+export const updateCartItemsThunk = (
+  pokemonId,
+  quantity,
+  orderId
+) => async () => {
+  try {
+    await axios.put('/api/cart', {
+      pokemonId: pokemonId,
+      quantity: quantity,
+      orderId: orderId
+    })
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 export const getCartItemsThunk = userId => async dispatch => {
-  console.log('GET CART BY USER ID: ', userId)
   try {
     dispatch(startLoading())
     const order = await axios.get(`/api/cart/${userId}`)
     const orderId = order.data[0].id
     const pokemon = order.data[0].pokemons
-    // const {data} = await axios.get(`/api/cart/sub/${orderId}`)
-    console.log('CART THUNK SUBORDER', order)
+
     dispatch(getCartItems(pokemon, orderId))
     dispatch(endLoading())
   } catch (err) {
@@ -69,19 +82,31 @@ export const getCartItemsThunk = userId => async dispatch => {
   }
 }
 
-// export const removeItemThunk = () => async dispatch => {
-//   try {
-//   } catch (err) {
-//     console.error(err)
-//   }
-// }
+export const removePokemonThunk = (userId, pokemonId) => async dispatch => {
+  try {
+    await axios.delete(`/api/cart/sub/${userId}/${pokemonId}`)
+    const order = await axios.get(`/api/cart/${userId}`)
+    const orderId = order.data[0].id
+    const pokemon = order.data[0].pokemons
+    // const pokemon = order.data[0].pokemons
+    dispatch(getCartItems(pokemon, orderId))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
 //reducer
 export const cartReducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_TO_CART:
       return {...state, pokemon: action.pokemon, order: action.order}
     case GET_CART:
-      return {...state, pokemon: action.pokemon, order: action.order}
+      return {...state.pokemon, pokemon: action.pokemon, order: action.order}
+    case REMOVE_POKEMON:
+      return {
+        ...state,
+        pokemon: state.pokemon.filter(mon => mon.id !== action.pokemonId)
+      }
     default:
       return state
   }

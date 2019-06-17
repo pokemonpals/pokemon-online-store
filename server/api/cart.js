@@ -7,7 +7,7 @@ const {Pokemon, Order, SubOrder} = require('../db/models/index')
 module.exports = router
 
 //get all items in the cart
-router.get('/', async (req, res, next) => {
+router.get('/', isAdmin, async (req, res, next) => {
   try {
     const cart = await Order.findAll({})
     res.json(cart)
@@ -16,7 +16,8 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-router.get('/:userId', async (req, res, next) => {
+router.get('/:userId', isUser, async (req, res, next) => {
+  console.log('ADD TO CART CLICKED< WHO IS USER?: ', req.user)
   try {
     const pendingOrder = await Order.findOrCreate({
       where: {
@@ -25,7 +26,6 @@ router.get('/:userId', async (req, res, next) => {
       },
       include: [{model: Pokemon}]
     })
-    // console.log('THE PENDING ORDER', pendingOrder)
     res.json(pendingOrder)
   } catch (err) {
     next(err)
@@ -36,11 +36,13 @@ router.get('/:userId', async (req, res, next) => {
 router.put('/', async (req, res, next) => {
   const orderId = req.body.orderId
   const pokemonId = req.body.pokemonId
-  const price = req.body.pokemon.data[0].price
+  const quantity = req.body.quantity
+
   const exist = await SubOrder.findOne({
     where: {orderId: orderId, pokemonId: pokemonId}
   })
   if (!exist) {
+    const price = req.body.pokemon.data[0].price
     try {
       const {dataValues} = await SubOrder.create({
         orderId: orderId,
@@ -48,15 +50,21 @@ router.put('/', async (req, res, next) => {
         quantity: '1',
         price: price
       })
-      // console.log('SUBORDER RETURNED FROM CART PUT ROUTE: ', dataValues)
+
       res.json(dataValues)
+    } catch (err) {
+      next(err)
+    }
+  } else if (quantity !== undefined) {
+    try {
+      await exist.update({quantity: quantity})
+      res.send()
     } catch (err) {
       next(err)
     }
   } else {
     try {
       await exist.increment(['quantity'], {by: 1})
-      console.log('DIS ELSE')
       res.send()
     } catch (err) {
       next(err)
@@ -69,17 +77,47 @@ router.put('/', async (req, res, next) => {
 router.get('/sub/:orderId', async (req, res, next) => {
   const orderId = req.params.orderId
   try {
-    const subOrders = await Order.findOne({
+    const order = await Order.findOne({
       where: {id: orderId},
       include: [{model: Pokemon}]
     })
-    console.log('GET SUBORDERS BY ID ROUTE: ', subOrders)
-    res.json(subOrders)
+    res.json(order)
   } catch (err) {
     next(err)
   }
 })
 
+// router.get('/sub/:orderId/:pokemonId', async (req, res, next) => {
+//   // const orderId = req.params.orderId
+//   const pokemonId = req.params.pokemonId
+//   try {
+//     const pokemon = await Pokemon.findOne({
+//       where: {
+//         id: pokemonId
+//       }
+//     })
+//     res.json(pokemon)
+//   } catch (err) {
+//     next(err)
+//   }
+// })
+
+router.delete('/sub/:orderId/:pokemonId', async (req, res, next) => {
+  const orderId = req.params.orderId
+  const pokemonId = req.params.pokemonId
+  try {
+    const pokemonDelete = await SubOrder.findOne({
+      where: {
+        orderId: orderId,
+        pokemonId: pokemonId
+      }
+    })
+    await pokemonDelete.destroy()
+    res.sendStatus(204)
+  } catch (err) {
+    next(err)
+  }
+})
 // router.post('/', async (req, res, next) => {
 //   try {
 //     const order = await Order.create({
@@ -89,3 +127,24 @@ router.get('/sub/:orderId', async (req, res, next) => {
 //     console.error(err)
 //   }
 // })
+
+function isAdmin(req, res, next) {
+  //if you are an admin, show route
+  if (req.user && req.user.admin) {
+    return next()
+  }
+  //redirect to home if you are not an admin
+  res.redirect('/')
+}
+
+function isUser(req, res, next) {
+  //if logged in and you are the appropriate user OR are an admin, show route
+  if (
+    (req.user && req.user.id === +req.params.userId) ||
+    (req.user && req.user.admin)
+  ) {
+    return next()
+  }
+  //redirect to home if not the appropriate user, not an admin or not logged in
+  res.redirect('/')
+}
