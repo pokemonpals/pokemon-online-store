@@ -25,7 +25,6 @@ router.get('/:userId', isUser, async (req, res, next) => {
       },
       include: [{model: Pokemon}]
     })
-    // console.log('THE PENDING ORDER', pendingOrder)
     res.json(pendingOrder)
   } catch (err) {
     next(err)
@@ -56,7 +55,6 @@ router.put('/', async (req, res, next) => {
       next(err)
     }
   } else if (quantity !== undefined) {
-    console.log('UPDATING QUANTITY')
     try {
       await exist.update({quantity: quantity})
       res.send()
@@ -82,7 +80,6 @@ router.get('/sub/:orderId', async (req, res, next) => {
       where: {id: orderId},
       include: [{model: Pokemon}]
     })
-    console.log('GET ORDER BY ORDER ID ROUTE: ', order)
     res.json(order)
   } catch (err) {
     next(err)
