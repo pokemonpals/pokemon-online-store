@@ -88,7 +88,7 @@ const PokemonRenderFunc = props => {
                   ) : (
                     <div>
                       <Link to="/login" variant="body2">
-                        {'Log in to fill your pokeBag!'}
+                        {`Log in to add ${pokemon.name} to your pokeBag!`}
                       </Link>
                     </div>
                   )}
