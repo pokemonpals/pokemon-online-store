@@ -99,7 +99,6 @@ class Cart extends Component {
             <img src="https://unixtitan.net/images/mexican-transparent-pikachu-1.png" />
           </div>
         )}
-
         {/* value={pokemon.id} */}
         {/* onClick={this.handleClick} */}
       </div>
