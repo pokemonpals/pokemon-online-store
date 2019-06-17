@@ -35,6 +35,7 @@ export const addToCartThunk = (pokemonId, userId) => {
     try {
       const pokemon = await axios.get(`/api/products/${pokemonId}`)
       //remove user ID?
+
       let order = await axios.get(`/api/cart/${userId}`)
       const orderId = order.data[0].id
       // add pokemon to suborder model: create or update

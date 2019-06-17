@@ -17,6 +17,7 @@ router.get('/', isAdmin, async (req, res, next) => {
 })
 
 router.get('/:userId', isUser, async (req, res, next) => {
+  console.log('ADD TO CART CLICKED< WHO IS USER?: ', req.user)
   try {
     const pendingOrder = await Order.findOrCreate({
       where: {
