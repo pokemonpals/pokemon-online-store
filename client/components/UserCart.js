@@ -17,11 +17,7 @@ class Cart extends Component {
 
   handleRemove = evt => {
     evt.preventDefault()
-    // console.log(
-    //   "THE DELETE BUTTON'S CLICKED",
-    //   this.props.userId,
-    //   evt.target.value
-    // )
+
     this.props.removePokemon(this.props.userId, evt.target.value)
   }
 
@@ -29,8 +25,6 @@ class Cart extends Component {
     this.setState({
       [event.target.name]: event.target.value
     })
-    console.log('THE STATE: ', this.state)
-    console.log('UPDATE INFO: ', event.target.id, event.target.value)
 
     this.props.updateCart(
       event.target.id,
@@ -113,7 +107,7 @@ const mapStateToProps = state => ({
   userId: state.user.id
 })
 const mapDispatchToProps = dispatch => ({
-  getCart: orderId => dispatch(getCartItemsThunk(orderId)),
+  getCart: userId => dispatch(getCartItemsThunk(userId)),
   removePokemon: (userId, pokemonId) =>
     dispatch(removePokemonThunk(userId, pokemonId)),
   updateCart: (pokemonId, quantity, orderId) =>

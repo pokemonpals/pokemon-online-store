@@ -31,7 +31,6 @@ export const removePokemon = (pokemonId, userId) => ({
 
 //thunk
 export const addToCartThunk = (pokemonId, userId) => {
-  console.log('CART THUNK RUNNING')
   return async dispatch => {
     try {
       const pokemon = await axios.get(`/api/products/${pokemonId}`)
@@ -56,29 +55,25 @@ export const updateCartItemsThunk = (
   pokemonId,
   quantity,
   orderId
-) => async dispatch => {
+) => async () => {
   try {
-    const data = await axios.put('/api/cart', {
+    await axios.put('/api/cart', {
       pokemonId: pokemonId,
       quantity: quantity,
       orderId: orderId
     })
-    console.log('UPDATE DATA: ', data)
-    // dispatch(getCartItems())
   } catch (err) {
     console.error(err)
   }
 }
 
 export const getCartItemsThunk = userId => async dispatch => {
-  console.log('GET CART BY USER ID: ', userId)
   try {
     dispatch(startLoading())
     const order = await axios.get(`/api/cart/${userId}`)
     const orderId = order.data[0].id
     const pokemon = order.data[0].pokemons
-    // const {data} = await axios.get(`/api/cart/sub/${orderId}`)
-    console.log('GET CART THUNK ORDER', order)
+
     dispatch(getCartItems(pokemon, orderId))
     dispatch(endLoading())
   } catch (err) {
@@ -88,13 +83,6 @@ export const getCartItemsThunk = userId => async dispatch => {
 
 export const removePokemonThunk = (userId, pokemonId) => async dispatch => {
   try {
-    console.log(
-      'STUFF IN THE REMOVE THUNK: ',
-      'ORDER ID: ',
-      userId,
-      'POKEMON ID: ',
-      pokemonId
-    )
     await axios.delete(`/api/cart/sub/${userId}/${pokemonId}`)
     const order = await axios.get(`/api/cart/${userId}`)
     const orderId = order.data[0].id
