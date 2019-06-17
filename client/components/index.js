@@ -10,6 +10,6 @@ export {default as SignUp} from './signup'
 export {UserCart} from './UserCart'
 export {default as UpdateUserProfile} from './UpdateUserProfile'
 
-export {default as BasicInfoForm} from './BasicInfoForm'
+export {BasicInfoForm} from './BasicInfoForm'
 export {default as CheckoutFlow} from './CheckoutFlow'
 export {SinglePokemon} from './SinglePokemon'
