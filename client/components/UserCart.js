@@ -1,6 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {getCartItemsThunk, removePokemonThunk} from '../store/cartReducer'
+import {
+  getCartItemsThunk,
+  removePokemonThunk,
+  updateCartItemsThunk
+} from '../store/cartReducer'
 
 //material ui
 import Button from '@material-ui/core/Button'
@@ -13,11 +17,7 @@ class Cart extends Component {
 
   handleRemove = evt => {
     evt.preventDefault()
-    // console.log(
-    //   "THE DELETE BUTTON'S CLICKED",
-    //   this.props.userId,
-    //   evt.target.value
-    // )
+
     this.props.removePokemon(this.props.userId, evt.target.value)
   }
 
@@ -25,7 +25,17 @@ class Cart extends Component {
     this.setState({
       [event.target.name]: event.target.value
     })
-    console.log('THE STATE: ', this.state)
+
+    this.props.updateCart(
+      event.target.id,
+      event.target.value,
+      this.props.orderId
+    )
+    this.props.getCart(this.props.userId)
+  }
+
+  handleSubmit = () => {
+    this.props.history.push('/checkout')
   }
 
   render() {
@@ -43,6 +53,7 @@ class Cart extends Component {
                     {pokeObj.price}
                     <label htmlFor={pokeObj.name}>Quantity: </label>
                     <input
+                      id={pokeObj.id}
                       name={pokeObj.name}
                       type="number"
                       min="1"
@@ -73,12 +84,13 @@ class Cart extends Component {
             </ul>
             <Button
               className="submit"
+              onClick={this.handleSubmit}
               style={{marginTop: 24}}
               size="small"
               color="primary"
               variant="contained"
             >
-              Complete Purchase
+              Continue to Checkout
             </Button>
           </form>
         ) : (
@@ -100,9 +112,11 @@ const mapStateToProps = state => ({
   userId: state.user.id
 })
 const mapDispatchToProps = dispatch => ({
-  // getCart: orderId => dispatch(getCartItemsThunk(orderId)),
+  getCart: userId => dispatch(getCartItemsThunk(userId)),
   removePokemon: (userId, pokemonId) =>
-    dispatch(removePokemonThunk(userId, pokemonId))
+    dispatch(removePokemonThunk(userId, pokemonId)),
+  updateCart: (pokemonId, quantity, orderId) =>
+    dispatch(updateCartItemsThunk(pokemonId, quantity, orderId))
 })
 
 export const UserCart = connect(mapStateToProps, mapDispatchToProps)(Cart)
