@@ -11,15 +11,14 @@ class DisconnectedProductList extends Component {
   }
 
   render() {
-    console.log('props', this.props)
     if (!this.props.isLoading) {
       return (
         <div>
-          <div id="products" className="container">
-            <Grid container>
+          <div className="container">
+            <Grid container spacing={2} style={{padding: 24}}>
               {this.props.pokemons.map(pokemon => {
                 return (
-                  <Grid key={pokemon.id} item xs={12} sm={6}>
+                  <Grid key={pokemon.id} item xs={6} sm={3}>
                     <PokemonCard pokemon={pokemon} key={pokemon.id} />
                   </Grid>
                 )

@@ -50,6 +50,15 @@ const User = db.define('user', {
   },
   admin: {
     type: Sequelize.BOOLEAN
+  },
+  cardName: {
+    type: Sequelize.STRING
+  },
+  cardNumber: {
+    type: Sequelize.STRING
+  },
+  expDate: {
+    type: Sequelize.STRING
   }
 })
 

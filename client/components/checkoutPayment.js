@@ -1,15 +1,17 @@
 import React from 'react'
+
+//material ui:
 import Typography from '@material-ui/core/Typography'
 import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 
-export default function checkoutPayment() {
+const checkoutPayment = function() {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
-        Payment method
+        Payment Method
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
@@ -19,7 +21,12 @@ export default function checkoutPayment() {
           <TextField required id="cardNumber" label="Card number" fullWidth />
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField required id="expDate" label="Expiry date" fullWidth />
+          <TextField
+            required
+            id="expDate"
+            label="Expiry date mm/yy"
+            fullWidth
+          />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
@@ -40,3 +47,5 @@ export default function checkoutPayment() {
     </React.Fragment>
   )
 }
+
+export default checkoutPayment
