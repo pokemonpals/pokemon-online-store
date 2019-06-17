@@ -34,6 +34,10 @@ class Cart extends Component {
     this.props.getCart(this.props.userId)
   }
 
+  handleSubmit = () => {
+    this.props.history.push('/checkout')
+  }
+
   render() {
     return (
       <div>
@@ -80,12 +84,13 @@ class Cart extends Component {
             </ul>
             <Button
               className="submit"
+              onClick={this.handleSubmit}
               style={{marginTop: 24}}
               size="small"
               color="primary"
               variant="contained"
             >
-              Complete Purchase
+              Continue to Checkout
             </Button>
           </form>
         ) : (
