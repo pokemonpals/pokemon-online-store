@@ -27,7 +27,7 @@ const updateUser = updatedUser => ({
   type: UPDATE_USER,
   updatedUser
 })
-const getUserOrders = userId => ({type: GET_USER_ORDERS, userId})
+const getUserOrders = orders => ({type: GET_USER_ORDERS, orders})
 /**
  * THUNK CREATORS
  */
@@ -95,6 +95,16 @@ export const getAllUsers = () => {
   }
 }
 
+// export const getUserOrdersThunk = () => {
+//   return async dispatch => {
+//     try {
+//       const {data} = await axios.get(`/api/users/orders`)
+//       dispatch(getUserOrders(data))
+//     } catch (err) {
+//       console.error(err)
+//     }
+//   }
+// }
 export const getUserOrdersThunk = userId => {
   return async dispatch => {
     try {
@@ -121,6 +131,8 @@ export default function(state = [], action) {
       return action.user
     case UPDATE_USER:
       return state
+    case GET_USER_ORDERS:
+      return {...state, orders: action.orders}
     default:
       return state
   }

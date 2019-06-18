@@ -24,7 +24,7 @@ router.post('/', async (req, res, next) => {
     })
     res.json(data)
   } catch (err) {
-    console.error(err)
+    next(err)
   }
 })
 
@@ -48,18 +48,19 @@ router.get('/:userId', isUser, async (req, res, next) => {
   }
 })
 
-router.get('/:userId/orders', async (req, res, next) => {
+router.get('/orders', async (req, res, next) => {
+  console.log('THE REQ.USER IN USERS', req.user)
   try {
     const userOrders = await Order.findAll({
       where: {
-        userId: req.params.userId,
+        userId: req.user.id,
         pending: 'false'
       },
       include: {model: Pokemon}
     })
     res.json(userOrders)
   } catch (err) {
-    console.error(err)
+    next(err)
   }
 })
 router.put('/:userId', (req, res, next) => {

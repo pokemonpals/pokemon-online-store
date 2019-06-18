@@ -7,7 +7,7 @@
 // import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 // import Typography from '@material-ui/core/Typography'
 
-import React from 'react'
+import React, {Component} from 'react'
 import {makeStyles} from '@material-ui/core/styles'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
@@ -18,6 +18,7 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 // import TextField from '@material-ui/core/TextField'
 // import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
+import {getUserOrdersThunk} from '../store/userReducer'
 import {connect} from 'react-redux'
 
 const useStyles = makeStyles(theme => ({
@@ -57,7 +58,11 @@ const useStyles = makeStyles(theme => ({
 
 const OrderHistory = function(props) {
   const classes = useStyles()
-
+  if (props.user.id) {
+    props.getUserOrders()
+  } else {
+    return <h1>...LOADING</h1>
+  }
   return (
     <div className={classes.root}>
       <ExpansionPanel defaultExpanded={false}>
@@ -122,10 +127,13 @@ const OrderHistory = function(props) {
   )
 }
 const mapStateToProps = state => ({
-  cart: state.cart.pokemon
+  orders: state.user.orders,
+  user: state.user
 })
-
-export default connect(mapStateToProps)(OrderHistory)
+const mapDispatchToProps = dispatch => ({
+  getUserOrders: () => dispatch(getUserOrdersThunk())
+})
+export default connect(mapStateToProps, mapDispatchToProps)(OrderHistory)
 
 // const ExpansionPanel = withStyles({
 //   root: {
