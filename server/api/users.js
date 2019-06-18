@@ -48,12 +48,12 @@ router.get('/:userId', isUser, async (req, res, next) => {
   }
 })
 
-router.get('/orders', async (req, res, next) => {
+router.get('/:userId/orders', async (req, res, next) => {
   console.log('THE REQ.USER IN USERS', req.user)
   try {
     const userOrders = await Order.findAll({
       where: {
-        userId: req.user.id,
+        userId: req.params.userId,
         pending: 'false'
       },
       include: {model: Pokemon}
