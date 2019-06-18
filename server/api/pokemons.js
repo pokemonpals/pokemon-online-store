@@ -35,7 +35,6 @@ router.get('/', async (req, res, next) => {
 
 router.post('/', async (req, res, next) => {
   try {
-    console.log('req body', req.body)
     const newPokemon = await Pokemon.create({
       name: req.body.name,
       type: req.body.type,

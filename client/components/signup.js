@@ -26,13 +26,10 @@ class SignUp extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    console.log('this.state', this.state)
     this.props.addNewUser(this.state)
-    console.log('added user, now get')
   }
 
   render() {
-    console.log('this.prop', this.props)
     return (
       <div>
         <UserForm

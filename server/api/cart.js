@@ -25,7 +25,6 @@ router.get('/:userId', isUser, async (req, res, next) => {
       },
       include: [{model: Pokemon}]
     })
-    // console.log('THE PENDING ORDER', pendingOrder)
     res.json(pendingOrder)
   } catch (err) {
     next(err)
@@ -48,7 +47,6 @@ router.put('/', async (req, res, next) => {
         quantity: '1',
         price: price
       })
-      // console.log('SUBORDER RETURNED FROM CART PUT ROUTE: ', dataValues)
       res.json(dataValues)
     } catch (err) {
       next(err)
