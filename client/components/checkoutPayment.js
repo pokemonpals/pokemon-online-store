@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'react-redux'
 
 //material ui:
 import Typography from '@material-ui/core/Typography'
@@ -7,7 +8,7 @@ import TextField from '@material-ui/core/TextField'
 import FormControlLabel from '@material-ui/core/FormControlLabel'
 import Checkbox from '@material-ui/core/Checkbox'
 
-const checkoutPayment = function() {
+const checkoutPayment = function(props) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -15,16 +16,29 @@ const checkoutPayment = function() {
       </Typography>
       <Grid container spacing={3}>
         <Grid item xs={12} md={6}>
-          <TextField required id="cardName" label="Name on card" fullWidth />
+          <TextField
+            required
+            id="cardName"
+            label="Name on card"
+            value={`${props.user.firstName} ${props.user.lastName}`}
+            fullWidth
+          />
         </Grid>
         <Grid item xs={12} md={6}>
-          <TextField required id="cardNumber" label="Card number" fullWidth />
+          <TextField
+            required
+            id="cardNumber"
+            label="Card number"
+            value={props.user.cardNumber}
+            fullWidth
+          />
         </Grid>
         <Grid item xs={12} md={6}>
           <TextField
             required
             id="expDate"
             label="Expiry date mm/yy"
+            value={props.user.expDate}
             fullWidth
           />
         </Grid>
@@ -48,4 +62,8 @@ const checkoutPayment = function() {
   )
 }
 
-export default checkoutPayment
+const mapStateToProps = state => ({
+  user: state.user
+})
+
+export default connect(mapStateToProps)(checkoutPayment)
