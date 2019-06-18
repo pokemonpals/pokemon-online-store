@@ -1,4 +1,6 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {Link} from 'react-router-dom'
 
 // //material ui
 import {makeStyles} from '@material-ui/core/styles'
@@ -43,7 +45,7 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-const PokemonRender = props => {
+const PokemonRenderFunc = props => {
   const classes = useStyles()
   if (!props.isLoading) {
     if (props.pokemon) {
@@ -70,18 +72,26 @@ const PokemonRender = props => {
                   <Typography component="p">{pokemon.description}</Typography>
                 </CardContent>
                 <CardActions>
-                  <button
-                    type="submit"
-                    value={pokemon.id}
-                    onClick={props.handleClick}
-                    // className="button"
-                    // style={{marginTop: 24}}
-                    // size="small"
-                    // color="primary"
-                    // variant="contained"
-                  >
-                    Add to Cart
-                  </button>
+                  {props.isLoggedIn ? (
+                    <button
+                      type="submit"
+                      value={pokemon.id}
+                      onClick={props.handleClick}
+                      // className="button"
+                      // style={{marginTop: 24}}
+                      // size="small"
+                      // color="primary"
+                      // variant="contained"
+                    >
+                      Add to Cart
+                    </button>
+                  ) : (
+                    <div>
+                      <Link to="/login" variant="body2">
+                        {`Log in to add ${pokemon.name} to your pokeBag!`}
+                      </Link>
+                    </div>
+                  )}
                 </CardActions>
               </Paper>
             </Grid>
@@ -95,5 +105,11 @@ const PokemonRender = props => {
     return 'LOADING'
   }
 }
+
+const mapStateToProps = state => ({
+  isLoggedIn: !!state.user.id
+})
+
+const PokemonRender = connect(mapStateToProps)(PokemonRenderFunc)
 
 export default PokemonRender

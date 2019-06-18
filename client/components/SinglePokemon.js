@@ -5,13 +5,16 @@ import {addToCartThunk} from '../store/cartReducer'
 import PokemonRender from './pokemonRender'
 
 class DisconnectedSinglePokemon extends Component {
+  constructor() {
+    super()
+    this.state = {}
+  }
   componentDidMount() {
     console.log('DID MOUNT IN SINGLE POKEMON')
     this.props.getSinglePokemon(this.props.match.params.pokemonId)
   }
   handleClick = evt => {
     evt.preventDefault()
-    console.log('clicked')
     this.props.addToCart(evt.target.value, this.props.user.id)
   }
 
