@@ -86,7 +86,7 @@ export const getAllUsers = () => {
   return async dispatch => {
     try {
       const {data} = await axios.get('/api/users')
-      dispatch(getAllUsers())
+      dispatch(gotAllUsers(data))
     } catch (err) {
       console.error(err)
     }

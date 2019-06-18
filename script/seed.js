@@ -62,6 +62,7 @@ async function seed() {
   //     pokemonId: 1
   //   })
   // }))
+
   const inventory = await Promise.all([
     Inventory.create({
       quantity: 100,
