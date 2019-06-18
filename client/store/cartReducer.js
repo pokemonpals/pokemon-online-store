@@ -115,7 +115,7 @@ export const cartReducer = (state = initialState, action) => {
     case ADD_TO_CART:
       return {...state, pokemon: action.pokemon, order: action.order}
     case GET_CART:
-      return {...state.pokemon, pokemon: action.pokemon, order: action.order}
+      return {...state, pokemon: action.pokemon, order: action.order}
     case REMOVE_POKEMON:
       return {
         ...state,

@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import {UserForm} from './userForm'
 import {connect} from 'react-redux'
-import {signupThunk} from '../store/userReducer'
+import {signupThunk, auth} from '../store/userReducer'
 
 class SignUp extends Component {
   constructor(props) {
@@ -28,10 +28,11 @@ class SignUp extends Component {
     event.preventDefault()
     console.log('this.state', this.state)
     this.props.addNewUser(this.state)
+    console.log('added user, now get')
   }
 
   render() {
-    console.log('this.props', this.props)
+    console.log('this.prop', this.props)
     return (
       <div>
         <UserForm
@@ -52,7 +53,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-  addNewUser: input => dispatch(signupThunk(input))
+  addNewUser: input => dispatch(signupThunk(input)),
+  getUser: (email, password, method) => dispatch(auth(email, password, method))
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(SignUp)
