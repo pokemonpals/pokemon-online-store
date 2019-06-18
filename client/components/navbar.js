@@ -23,11 +23,14 @@ export function Navbar({handleClick, isLoggedIn}) {
         <Tabs variant="fullWidth" value={value} onChange={handleChange}>
           <Tab label="Home" component={Link} to="/" />
           <Tab label="Products" component={Link} to="/products" />
-          <Tab label="Cart" component={Link} to="/cart">
-            <img id="bag" src="https://img.icons8.com/color/420/pokebag.png" />
-          </Tab>/>
           {isLoggedIn ? (
             <div>
+              <Tab label="Cart" component={Link} to="/cart">
+                <img
+                  id="bag"
+                  src="https://img.icons8.com/color/420/pokebag.png"
+                />
+              </Tab>
               <Tab component={Link} to="/me" label="My Account" />
               <Tab
                 label="Logout"

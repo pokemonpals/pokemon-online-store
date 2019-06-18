@@ -43,7 +43,7 @@ class Cart extends Component {
     return (
       <div>
         <h2>Your Shopping Cart</h2>
-        {this.props.orderId && (this.props.cart && this.props.cart.length) ? (
+        {this.props.cart && this.props.cart.length ? (
           <form>
             <ul style={{listStyle: 'none'}}>
               {this.props.cart.map(pokeObj => {
@@ -94,14 +94,12 @@ class Cart extends Component {
               Continue to Checkout
             </Button>
           </form>
-        ) : (
+        ) : !this.props.orderId ? null : (
           <div>
             <h3>Your PokeBag is empty</h3>
             <img src="https://unixtitan.net/images/mexican-transparent-pikachu-1.png" />
           </div>
         )}
-        {/* value={pokemon.id} */}
-        {/* onClick={this.handleClick} */}
       </div>
     )
   }

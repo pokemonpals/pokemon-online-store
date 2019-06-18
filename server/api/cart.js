@@ -63,8 +63,7 @@ router.put('/', async (req, res, next) => {
   }
 })
 
-// CAN DELETE/REUSE THIS< UNNECESSARY< INCLUDED THIS FUNCTIONALITY IN BY :USERID ROUTE
-// WAS ORIGINALLY FOR CART COMPONENET, CAN BE USED FOR PAST ORDER VIEWS
+// IS THIS BEING USED?
 router.get('/sub/:orderId', async (req, res, next) => {
   const orderId = req.params.orderId
   try {
@@ -72,27 +71,11 @@ router.get('/sub/:orderId', async (req, res, next) => {
       where: {id: orderId},
       include: [{model: Pokemon}]
     })
-    console.log('GET ORDER BY ORDER ID ROUTE: ', order)
     res.json(order)
   } catch (err) {
     next(err)
   }
 })
-
-// router.get('/sub/:orderId/:pokemonId', async (req, res, next) => {
-//   // const orderId = req.params.orderId
-//   const pokemonId = req.params.pokemonId
-//   try {
-//     const pokemon = await Pokemon.findOne({
-//       where: {
-//         id: pokemonId
-//       }
-//     })
-//     res.json(pokemon)
-//   } catch (err) {
-//     next(err)
-//   }
-// })
 
 router.delete('/sub/:orderId/:pokemonId', async (req, res, next) => {
   const orderId = req.params.orderId
@@ -105,20 +88,13 @@ router.delete('/sub/:orderId/:pokemonId', async (req, res, next) => {
       }
     })
     await pokemonDelete.destroy()
-    res.sendStatus(204)
+    const order = await Order.findOne({where: {id: orderId}, include: Pokemon})
+    res.json(order).status(204)
   } catch (err) {
     next(err)
   }
 })
-// router.post('/', async (req, res, next) => {
-//   try {
-//     const order = await Order.create({
 
-//     })
-//   } catch (err) {
-//     console.error(err)
-//   }
-// })
 router.get('/:orderId/checkout', async (req, res, next) => {
   const order = await Order.findByPk(req.params.orderId)
   res.json(order)
