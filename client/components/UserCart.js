@@ -34,7 +34,8 @@ class Cart extends Component {
     this.props.getCart(this.props.userId)
   }
 
-  handleSubmit = () => {
+  handleSubmit = event => {
+    event.preventDefault()
     this.props.history.push('/checkout')
   }
 
