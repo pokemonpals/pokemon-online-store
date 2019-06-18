@@ -92,12 +92,10 @@ export const getCartItemsThunk = userId => async dispatch => {
   }
 }
 
-export const removePokemonThunk = (userId, pokemonId) => async dispatch => {
+export const removePokemonThunk = (orderId, pokemonId) => async dispatch => {
   try {
-    await axios.delete(`/api/cart/sub/${userId}/${pokemonId}`)
-    const order = await axios.get(`/api/cart/${userId}`)
-    const orderId = order.data[0].id
-    const pokemon = order.data[0].pokemons
+    const order = await axios.delete(`/api/cart/sub/${orderId}/${pokemonId}`)
+    const pokemon = order.data.pokemons
     dispatch(getCartItems(pokemon, orderId))
   } catch (err) {
     console.error(err)

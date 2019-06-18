@@ -81,7 +81,7 @@ const OrderHistory = function(props) {
           <div className={classes.column}>
             <form onSubmit={props.handleSubmit}>
               <DialogContent>
-                {props.cart.map(order => {
+                {/* {props.cart.map(order => {
                   return (
                     <ExpansionPanel defaultExpanded={false} key={order.id}>
                       <ExpansionPanelSummary
@@ -93,7 +93,7 @@ const OrderHistory = function(props) {
                       </ExpansionPanelSummary>
                     </ExpansionPanel>
                   )
-                })}
+                })} */}
                 {/* <TextField
                   margin="dense"
                   id="passwordText"

@@ -25,7 +25,8 @@ class Cart extends Component {
 
   handleRemove = evt => {
     evt.preventDefault()
-    this.props.removePokemon(this.props.userId, evt.target.value)
+
+    this.props.removePokemon(this.props.orderId, evt.target.value)
   }
 
   handleChange = event => {
@@ -50,68 +51,7 @@ class Cart extends Component {
     return (
       <div>
         <h2>Your Shopping Cart</h2>
-        {/* SWITCH THINGS UP */}
-        {(!this.props.orderId && !this.props.userId) ||
-        (this.props.userId && !this.props.cart.length) ? (
-          <div>
-            <h3>Your PokeBag is empty</h3>
-            {console.log(this.props.userId)}
-            <img src="https://unixtitan.net/images/mexican-transparent-pikachu-1.png" />
-          </div>
-        ) : (
-          <form>
-            <ul style={{listStyle: 'none'}}>
-              {this.props.cart.map(pokeObj => {
-                return (
-                  <li key={pokeObj.id}>
-                    <img src={pokeObj.imageUrl} width="100" height="auto" />
-                    <Typography>{pokeObj.name}</Typography>
-                    <Typography>${pokeObj.price}</Typography>
-                    <label htmlFor={pokeObj.name}>Quantity: </label>
-                    <input
-                      id={pokeObj.id}
-                      name={pokeObj.name}
-                      type="number"
-                      min="1"
-                      max="100"
-                      value={
-                        this.state[pokeObj.name] === undefined
-                          ? pokeObj.suborder.quantity
-                          : this.state[pokeObj.name]
-                      }
-                      onChange={this.handleChange}
-                    />
-
-                    <button
-                      onClick={this.handleRemove}
-                      type="submit"
-                      value={pokeObj.id}
-                      // className="button"
-                      // style={{marginTop: 24}}
-                      // size="small"
-                      // color="primary"
-                      // variant="contained"
-                    >
-                      Remove
-                    </button>
-                  </li>
-                )
-              })}
-            </ul>
-            <Button
-              className="submit"
-              onClick={this.handleSubmit}
-              style={{marginTop: 24}}
-              size="small"
-              color="primary"
-              variant="contained"
-            >
-              Continue to Checkout
-            </Button>
-          </form>
-        )}
-        {/*
-        {this.props.orderId ? (
+        {this.props.cart && this.props.cart.length ? (
           <form>
             <ul style={{listStyle: 'none'}}>
               {this.props.cart.map(pokeObj => {
@@ -162,14 +102,12 @@ class Cart extends Component {
               Continue to Checkout
             </Button>
           </form>
-        ) : (
+        ) : !this.props.orderId ? null : (
           <div>
             <h3>Your PokeBag is empty</h3>
             <img src="https://unixtitan.net/images/mexican-transparent-pikachu-1.png" />
           </div>
-        )} */}
-        {/* value={pokemon.id} */}
-        {/* onClick={this.handleClick} */}
+        )}
       </div>
     )
   }

@@ -10,7 +10,7 @@ const GET_USER = 'GET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 const ADD_USER = 'ADD_USER'
 const UPDATE_USER = 'UPDATE_USER'
-
+const GET_USER_ORDERS = 'GET_USER_ORDERS'
 /**
  * INITIAL STATE-->combinedReducer
  */
@@ -27,6 +27,7 @@ const updateUser = updatedUser => ({
   type: UPDATE_USER,
   updatedUser
 })
+const getUserOrders = userId => ({type: GET_USER_ORDERS, userId})
 /**
  * THUNK CREATORS
  */
@@ -94,6 +95,16 @@ export const getAllUsers = () => {
   }
 }
 
+export const getUserOrdersThunk = userId => {
+  return async dispatch => {
+    try {
+      const {data} = await axios.get(`/api/users/${userId}/orders`)
+      dispatch(getUserOrders(data))
+    } catch (err) {
+      console.error(err)
+    }
+  }
+}
 /**
  * REDUCER
  */
