@@ -88,7 +88,6 @@ export const removePokemonThunk = (userId, pokemonId) => async dispatch => {
     const order = await axios.get(`/api/cart/${userId}`)
     const orderId = order.data[0].id
     const pokemon = order.data[0].pokemons
-    // const pokemon = order.data[0].pokemons
     dispatch(getCartItems(pokemon, orderId))
   } catch (err) {
     console.error(err)
