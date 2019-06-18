@@ -10,7 +10,7 @@ import {SinglePokemon} from './components/SinglePokemon'
 import {getCartItemsThunk} from './store/cartReducer'
 import AdminHome from './components/adminHome'
 import AdminPokemonView from './components/adminPokemonView'
-import CheckoutFlow from './components/CheckoutFlow'
+import {CheckoutFlow} from './components/CheckoutFlow'
 
 /**
  * COMPONENT

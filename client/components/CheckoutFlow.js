@@ -80,6 +80,7 @@ function Checkout(props) {
   }
   const handleSubmit = evt => {
     evt.preventDefault()
+    setActiveStep(activeStep + 1)
     props.completePurchase(props.order)
   }
   return (
@@ -132,9 +133,9 @@ function Checkout(props) {
                     <Button
                       variant="contained"
                       color="primary"
-                      onClick={handleNext}
+                      // onClick={handleNext}
                       className={classes.button}
-                      onSubmit={props.handleSubmit}
+                      onClick={handleSubmit}
                     >
                       Place order
                     </Button>
@@ -144,7 +145,6 @@ function Checkout(props) {
                       color="primary"
                       onClick={handleNext}
                       className={classes.button}
-                      // onSubmit={props.handleSubmit}
                     >
                       Next
                     </Button>
@@ -159,11 +159,13 @@ function Checkout(props) {
   )
 }
 
-// const mapStateToProps = state => ({
-//   order: state.cart.order
-// })
-// const mapDispatchToProps = dispatch => ({
-//   completePurchase: orderId => dispatch(completePurchaseThunk(orderId))
-// })
+const mapStateToProps = state => ({
+  order: state.cart.order
+})
+const mapDispatchToProps = dispatch => ({
+  completePurchase: orderId => dispatch(completePurchaseThunk(orderId))
+})
 
-// export default connect(mapStateToProps, mapDispatchToProps)(Checkout)
+export const CheckoutFlow = connect(mapStateToProps, mapDispatchToProps)(
+  Checkout
+)
