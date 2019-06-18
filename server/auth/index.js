@@ -3,7 +3,6 @@ const User = require('../db/models/user')
 module.exports = router
 
 router.post('/login', async (req, res, next) => {
-  console.log('req.body: ', req.body)
   try {
     const user = await User.findOne({where: {email: req.body.email}})
     if (!user) {

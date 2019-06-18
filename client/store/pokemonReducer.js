@@ -58,8 +58,6 @@ export const pokemonReducer = (state = [], action) => {
     case GET_SINGLE_POKEMON:
       return action.pokemon
     case ADD_POKEMON: {
-      console.log('state of pokemons', state.pokemons)
-      // return  state: [...state.pokemons, action.pokemon]
       return action.pokemon
     }
     default:
