@@ -76,8 +76,7 @@ router.put('/:userId', (req, res, next) => {
             await User.findOne({
               include: [
                 {
-                  model: Order,
-                  as: 'order'
+                  model: Order
                 }
               ],
               where: {
