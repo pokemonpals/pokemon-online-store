@@ -1,10 +1,5 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {
-  getCartItemsThunk,
-  removePokemonThunk,
-  updateCartItemsThunk
-} from '../store/cartReducer'
 
 //material ui:
 import {makeStyles} from '@material-ui/core/styles'
@@ -122,12 +117,5 @@ const mapStateToProps = state => ({
   userId: state.user.id,
   user: state.user
 })
-// const mapDispatchToProps = dispatch => ({
-//   getCart: userId => dispatch(getCartItemsThunk(userId)),
-//   removePokemon: (userId, pokemonId) =>
-//     dispatch(removePokemonThunk(userId, pokemonId)),
-//   updateCart: (pokemonId, quantity, orderId) =>
-//     dispatch(updateCartItemsThunk(pokemonId, quantity, orderId))
-// })
 
 export default connect(mapStateToProps)(Review)
