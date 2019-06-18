@@ -34,7 +34,8 @@ class Cart extends Component {
     this.props.getCart(this.props.userId)
   }
 
-  handleSubmit = () => {
+  handleSubmit = event => {
+    event.preventDefault()
     this.props.history.push('/checkout')
   }
 
@@ -42,7 +43,7 @@ class Cart extends Component {
     return (
       <div>
         <h2>Your Shopping Cart</h2>
-        {this.props.cart.length ? (
+        {this.props.orderId ? (
           <form>
             <ul style={{listStyle: 'none'}}>
               {this.props.cart.map(pokeObj => {

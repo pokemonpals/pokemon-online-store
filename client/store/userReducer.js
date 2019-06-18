@@ -54,6 +54,7 @@ export const me = () => async dispatch => {
 export const signupThunk = input => async dispatch => {
   const {data} = await axios.post(`/api/users`, input)
   dispatch(addUser(data))
+  history.push('/me')
 }
 
 export const auth = (email, password, method) => async dispatch => {
@@ -106,7 +107,7 @@ export default function(state = [], action) {
       state = []
       return state
     case ADD_USER:
-      return [...state, action.user]
+      return action.user
     case UPDATE_USER:
       return state
     default:
