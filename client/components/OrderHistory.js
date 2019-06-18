@@ -59,7 +59,7 @@ const useStyles = makeStyles(theme => ({
 const OrderHistory = function(props) {
   const classes = useStyles()
   if (props.user.id) {
-    props.getUserOrders()
+    props.getUserOrders(props.user.id)
   } else {
     return <h1>...LOADING</h1>
   }
@@ -131,7 +131,7 @@ const mapStateToProps = state => ({
   user: state.user
 })
 const mapDispatchToProps = dispatch => ({
-  getUserOrders: () => dispatch(getUserOrdersThunk())
+  getUserOrders: userId => dispatch(getUserOrdersThunk(userId))
 })
 export default connect(mapStateToProps, mapDispatchToProps)(OrderHistory)
 
