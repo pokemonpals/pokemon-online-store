@@ -1,36 +1,52 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getPokemonsThunk, addingPokemonThunk} from '../store/pokemonReducer'
+import AdminAddProductForm from './adminAddProductForm'
 
-class DisconnectedAdminPokemonView extends React.Component {
-  componentDidMount() {
-    // this.props.getAllPokemons()
-  }
-  render() {
-    return (
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+
+const AdminPokemonView = props => {
+  const {pokemons} = props
+  return (
+    <div>
+      <Table>
+        <TableHead>
+          <TableRow>
+            <TableCell> Name </TableCell>
+            <TableCell> Type </TableCell>
+            <TableCell> Description </TableCell>
+            <TableCell> Price </TableCell>
+            <TableCell> Image URL </TableCell>
+          </TableRow>
+        </TableHead>
+        <TableBody>
+          {pokemons.map(pokemon => {
+            return (
+              <TableRow key={pokemon.id}>
+                <TableCell>{pokemon.name}</TableCell>
+                <TableCell>{pokemon.type}</TableCell>
+                <TableCell>{pokemon.description}</TableCell>
+                <TableCell>{pokemon.price}</TableCell>
+                <TableCell>{pokemon.imageUrl}</TableCell>
+                <button type="submit">Not working edit button</button>
+                <button type="submit" id={pokemon.id}>
+                  Not working delete button
+                </button>
+              </TableRow>
+            )
+          })}
+          />
+        </TableBody>
+      </Table>
       <div>
-        {this.props.pokemons.map(pokemon => {
-          return (
-            <div key={pokemon.id}>
-              <h5>{pokemon.name}</h5>
-            </div>
-          )
-        })}
+        <AdminAddProductForm />
       </div>
-    )
-  }
+    </div>
+  )
 }
 
-const mapStateToProps = state => ({
-  pokemons: state.pokemons,
-  isLoading: state.loading
-})
-
-const mapDispatchToProps = dispatch => ({
-  getAllPokemons: () => dispatch(getPokemonsThunk()),
-  addNewPokemon: formInput => dispatch(addingPokemonThunk(formInput))
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(
-  DisconnectedAdminPokemonView
-)
+export default AdminPokemonView

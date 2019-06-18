@@ -44,7 +44,7 @@ class CheckoutShipping extends Component {
     const state = this.props.user.state
     const zipcode = this.props.user.zipcode
 
-    console.log('this.props', this.props)
+    // console.log('this.props', this.props)
     return (
       <React.Fragment>
         <Typography variant="h6" gutterBottom>

@@ -31,7 +31,6 @@ export default class UpdateUserProfile extends Component {
 
   handleSubmit(event) {
     event.preventDefault()
-    // console.log('this.props.user.id', this.props.user.id)
     this.props.updateUser(this.props.user.id, this.state)
   }
 
