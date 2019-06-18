@@ -18,7 +18,7 @@ class Cart extends Component {
   handleRemove = evt => {
     evt.preventDefault()
 
-    this.props.removePokemon(this.props.userId, evt.target.value)
+    this.props.removePokemon(this.props.orderId, evt.target.value)
   }
 
   handleChange = event => {
@@ -43,7 +43,7 @@ class Cart extends Component {
     return (
       <div>
         <h2>Your Shopping Cart</h2>
-        {this.props.orderId ? (
+        {this.props.orderId && (this.props.cart && this.props.cart.length) ? (
           <form>
             <ul style={{listStyle: 'none'}}>
               {this.props.cart.map(pokeObj => {
