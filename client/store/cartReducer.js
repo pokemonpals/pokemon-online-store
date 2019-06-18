@@ -11,7 +11,7 @@ const initialState = {
 const ADD_TO_CART = 'ADD_TO_CART'
 const GET_CART = 'GET_CART'
 const REMOVE_POKEMON = 'REMOVE_POKEMON'
-const COMPLETE_PURCHASE = 'COMPLETE_PURCHASE'
+const GET_USER_ORDERS = 'GET_USER_ORDERS'
 
 //action creator
 export const addToCart = (pokemon, order) => ({
@@ -29,6 +29,11 @@ export const removePokemon = (pokemonId, userId) => ({
   pokemonId,
   userId
 })
+
+// export const getUserOrders = userId => ({
+//   type: GET_USER_ORDERS,
+//   userId
+// })
 // export const completePurchase = orderId => ({
 //   type: COMPLETE_PURCHASE,
 //   orderId
@@ -108,6 +113,15 @@ export const completePurchaseThunk = orderId => async () => {
     console.error(err)
   }
 }
+
+// export const getUserOrdersThunk = userId => async dispatch => {
+//   try {
+//     const userOrders = await axios.get(`/api/cart/${userId}`)
+
+//   } catch (err) {
+//     console.error(err)
+//   }
+// }
 
 //reducer
 export const cartReducer = (state = initialState, action) => {
