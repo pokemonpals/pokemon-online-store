@@ -119,8 +119,28 @@ router.delete('/sub/:orderId/:pokemonId', async (req, res, next) => {
 //     console.error(err)
 //   }
 // })
+router.get('/:orderId/checkout', async (req, res, next) => {
+  const order = await Order.findByPk(req.params.orderId)
+  res.json(order)
+})
 
-export function isAdmin(req, res, next) {
+router.put('/:orderId/checkout', async (req, res, next) => {
+  await Order.update(
+    {
+      pending: false
+    },
+    {
+      where: {
+        id: req.params.orderId
+        // returning: true,
+        // plain: true
+      }
+    }
+  )
+  res.status(204).send('ORDER COMPLETED SUCCESSFULLY!')
+})
+
+function isAdmin(req, res, next) {
   //if you are an admin, show route
   if (req.user && req.user.admin) {
     return next()

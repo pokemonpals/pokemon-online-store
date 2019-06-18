@@ -2,6 +2,8 @@ import React from 'react'
 import CheckoutShipping from './checkoutShipping'
 import CheckoutPayment from './checkoutPayment'
 import CheckoutReview from './checkoutReview'
+import {connect} from 'react-redux'
+import {completePurchaseThunk} from '../store/cartReducer'
 
 //material ui:
 import {makeStyles} from '@material-ui/core/styles'
@@ -64,8 +66,8 @@ function getStepContent(step) {
       throw new Error('Unknown step')
   }
 }
-
-export default function Checkout(props) {
+// export default
+function Checkout(props) {
   const classes = useStyles()
   const [activeStep, setActiveStep] = React.useState(0)
 
@@ -76,7 +78,10 @@ export default function Checkout(props) {
   const handleBack = () => {
     setActiveStep(activeStep - 1)
   }
-
+  const handleSubmit = evt => {
+    evt.preventDefault()
+    props.completePurchase(props.order)
+  }
   return (
     <React.Fragment>
       <CssBaseline />
@@ -114,7 +119,7 @@ export default function Checkout(props) {
                       Back
                     </Button>
                   )}
-                  <Button
+                  {/* <Button
                     variant="contained"
                     color="primary"
                     onClick={handleNext}
@@ -122,7 +127,28 @@ export default function Checkout(props) {
                     onSubmit={props.handleSubmit}
                   >
                     {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
-                  </Button>
+                  </Button> */}
+                  {activeStep === steps.length - 1 ? (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleNext}
+                      className={classes.button}
+                      onSubmit={props.handleSubmit}
+                    >
+                      Place order
+                    </Button>
+                  ) : (
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      onClick={handleNext}
+                      className={classes.button}
+                      // onSubmit={props.handleSubmit}
+                    >
+                      Next
+                    </Button>
+                  )}
                 </div>
               </React.Fragment>
             )}
@@ -132,3 +158,12 @@ export default function Checkout(props) {
     </React.Fragment>
   )
 }
+
+// const mapStateToProps = state => ({
+//   order: state.cart.order
+// })
+// const mapDispatchToProps = dispatch => ({
+//   completePurchase: orderId => dispatch(completePurchaseThunk(orderId))
+// })
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Checkout)

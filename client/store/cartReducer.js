@@ -11,6 +11,7 @@ const initialState = {
 const ADD_TO_CART = 'ADD_TO_CART'
 const GET_CART = 'GET_CART'
 const REMOVE_POKEMON = 'REMOVE_POKEMON'
+const COMPLETE_PURCHASE = 'COMPLETE_PURCHASE'
 
 //action creator
 export const addToCart = (pokemon, order) => ({
@@ -28,6 +29,10 @@ export const removePokemon = (pokemonId, userId) => ({
   pokemonId,
   userId
 })
+// export const completePurchase = orderId => ({
+//   type: COMPLETE_PURCHASE,
+//   orderId
+// })
 
 //thunk
 export const addToCartThunk = (pokemonId, userId) => {
@@ -89,6 +94,16 @@ export const removePokemonThunk = (userId, pokemonId) => async dispatch => {
     const orderId = order.data[0].id
     const pokemon = order.data[0].pokemons
     dispatch(getCartItems(pokemon, orderId))
+  } catch (err) {
+    console.error(err)
+  }
+}
+
+export const completePurchaseThunk = orderId => async () => {
+  try {
+    await axios.put(`/api/cart/${orderId}/checkout`, {
+      pending: false
+    })
   } catch (err) {
     console.error(err)
   }
