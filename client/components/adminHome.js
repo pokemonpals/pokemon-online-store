@@ -1,5 +1,5 @@
 import React from 'react'
-import AdminSearchForm from './adminSearchForm'
+import AdminSearchForm from './adminAddProductForm'
 import AdminPokemonView from './adminPokemonView'
 import {connect} from 'react-redux'
 import {getPokemonsThunk, addingPokemonThunk} from '../store/pokemonReducer'
@@ -13,7 +13,8 @@ import TableBody from '@material-ui/core/TableBody'
 import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
-// import Paper from '@material-ui/core/Paper';
+
+import TextField from '@material-ui/core/TextField'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -34,25 +35,6 @@ class DisconnectedAdmin extends React.Component {
   componentDidMount() {
     this.props.getAllPokemons()
   }
-  handlePokeClick = () => {
-    console.log('POKEMON', this.props.pokemons)
-    // return (
-    //   <table>
-    //     {this.props.pokemons.map(pokemon => {
-    //       return (
-    //         <tr>{pokemon.name}</tr>
-    //       )
-    //     })}
-    // </table >
-    //   // <div>
-    //   //   {this.props.pokemon.map(pokemon => {
-    //   //     return (
-    //   //       <h5 key={pokemon.id}>{pokemon.name}</h5>
-    //   //     )
-    //   //   })}
-    //   // </div>
-    //   // )
-  }
   render() {
     console.log('admin props pokemon', this.props)
     return (
@@ -60,41 +42,38 @@ class DisconnectedAdmin extends React.Component {
         <h1>Users</h1>
 
         <h1>Products</h1>
-
-        {/* <Paper> */}
-        <Table>
-          <TableHead>
-            <TableRow>
-              <TableCell> Name </TableCell>
-              <TableCell> Type </TableCell>
-              <TableCell> Description </TableCell>
-              <TableCell> Price </TableCell>
-              <TableCell> Image URL </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {this.props.pokemons.map(pokemon => {
-              return (
-                <TableRow key={pokemon.id}>
-                  <TableCell>{pokemon.name}</TableCell>
-                  <TableCell>{pokemon.type}</TableCell>
-                  <TableCell>{pokemon.description}</TableCell>
-                  <TableCell>{pokemon.price}</TableCell>
-                  <TableCell>{pokemon.imageUrl}</TableCell>
-                </TableRow>
-              )
-            })}
-          </TableBody>
-        </Table>
-        {/* </Paper> */}
-
-        <button type="submit" onClick={this.handlePokeClick}>
-          Showing All Pokemon for Admin
-        </button>
-
-        <div id="functionality-tests">
-          <AdminSearchForm />
+        <div>
+          <AdminPokemonView pokemons={this.props.pokemons} />
         </div>
+        {/* Table that displays all products*/}
+        {/* <form>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell> Name </TableCell>
+                <TableCell> Type </TableCell>
+                <TableCell> Description </TableCell>
+                <TableCell> Price </TableCell>
+                <TableCell> Image URL </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {this.props.pokemons.map(pokemon => {
+                return (
+                  <TableRow key={pokemon.id}>
+                    <TableCell>{pokemon.name}</TableCell>
+                    <TableCell>{pokemon.type}</TableCell>
+                    <TableCell>{pokemon.description}</TableCell>
+                    <TableCell>{pokemon.price}</TableCell>
+                    <TableCell>{pokemon.imageUrl}</TableCell>
+                  </TableRow>
+                )
+              })}
+            </TableBody>
+          </Table>
+        </form> */}
+
+        <div id="functionality-tests" />
       </div>
     )
   }
