@@ -1,4 +1,10 @@
 import React from 'react'
+import {connect} from 'react-redux'
+import {
+  getCartItemsThunk,
+  removePokemonThunk,
+  updateCartItemsThunk
+} from '../store/cartReducer'
 
 //material ui:
 import {makeStyles} from '@material-ui/core/styles'
@@ -41,9 +47,9 @@ const useStyles = makeStyles(theme => ({
   }
 }))
 
-export default function Review() {
+function Review(props) {
   const classes = useStyles()
-
+  console.log(props)
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -92,3 +98,76 @@ export default function Review() {
     </React.Fragment>
   )
 }
+
+// class Review extends React.Component {
+//   constructor() {
+//     super()
+//     this.classes = useStyles()
+//   }
+//   // classes = useStyles()
+//   render() {
+//     // console.log('PROPS!', this.props)
+//     return (
+//       < React.Fragment >
+//         <Typography variant="h6" gutterBottom>
+//           Order summary
+//         </Typography>
+//         <List disablePadding>
+//           {products.map(product => (
+//             <ListItem className={this.classes.listItem} key={product.name}>
+//               <ListItemText primary={product.name} secondary={product.desc} />
+//               <Typography variant="body2">{product.price}</Typography>
+//             </ListItem>
+//           ))}
+//           <ListItem className={this.classes.listItem}>
+//             <ListItemText primary="Total" />
+//             <Typography variant="subtitle1" className={this.classes.total}>
+//               $34.06
+//             </Typography>
+//           </ListItem>
+//         </List>
+//         <Grid container spacing={2}>
+//           <Grid item xs={12} sm={6}>
+//             <Typography variant="h6" gutterBottom className={this.classes.title}>
+//               Shipping
+//             </Typography>
+//             <Typography gutterBottom>John Smith</Typography>
+//             <Typography gutterBottom>{addresses.join(', ')}</Typography>
+//           </Grid>
+//           <Grid item container direction="column" xs={12} sm={6}>
+//             <Typography variant="h6" gutterBottom className={this.classes.title}>
+//               Payment details
+//             </Typography>
+//             <Grid container>
+//               {payments.map(payment => (
+//                 <React.Fragment key={payment.name}>
+//                   <Grid item xs={6}>
+//                     <Typography gutterBottom>{payment.name}</Typography>
+//                   </Grid>
+//                   <Grid item xs={6}>
+//                     <Typography gutterBottom>{payment.detail}</Typography>
+//                   </Grid>
+//                 </React.Fragment>
+//               ))}
+//             </Grid>
+//           </Grid>
+//         </Grid>
+//       </React.Fragment >
+//     )
+//   }
+// }
+
+const mapStateToProps = state => ({
+  cart: state.cart.pokemon,
+  orderId: state.cart.order,
+  userId: state.user.id
+})
+// const mapDispatchToProps = dispatch => ({
+//   getCart: userId => dispatch(getCartItemsThunk(userId)),
+//   removePokemon: (userId, pokemonId) =>
+//     dispatch(removePokemonThunk(userId, pokemonId)),
+//   updateCart: (pokemonId, quantity, orderId) =>
+//     dispatch(updateCartItemsThunk(pokemonId, quantity, orderId))
+// })
+
+export default connect(mapStateToProps)(Review)

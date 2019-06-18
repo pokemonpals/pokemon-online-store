@@ -72,6 +72,7 @@ function Checkout(props) {
   const [activeStep, setActiveStep] = React.useState(0)
 
   const handleNext = () => {
+    console.log('act step', activeStep)
     setActiveStep(activeStep + 1)
   }
 

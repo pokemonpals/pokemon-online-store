@@ -1,8 +1,9 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {getPokemonsThunk, addingPokemonThunk} from '../store/pokemonReducer'
+import TextField from '@material-ui/core/TextField'
 
-class DisconnectedAdminSearchForm extends React.Component {
+class DisconnectedAdminAddProductForm extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -32,33 +33,38 @@ class DisconnectedAdminSearchForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label>Pokemon</label>
-        <input
-          type="text"
+        <TextField
+          id="name"
           name="name"
+          label="name"
           value={this.state.name}
-          reqruied
           onChange={this.handleChange}
         />
-        <label>Type</label>
-        <input
-          type="text"
+        <TextField
+          id="type"
           name="type"
+          label="type"
           value={this.state.type}
-          required
           onChange={this.handleChange}
         />
-        <label>Description</label>
-        <input
-          type="text"
+        <TextField
+          id="description"
           name="description"
+          label="description"
           value={this.state.description}
           onChange={this.handleChange}
         />
-        <label>Image</label>
-        <input
-          type="text"
+        <TextField
+          id="price"
+          name="price"
+          label="price"
+          value={this.state.price}
+          onChange={this.handleChange}
+        />
+        <TextField
+          id="imageUrl"
           name="imageUrl"
+          label="imageUrl"
           value={this.state.imageUrl}
           onChange={this.handleChange}
         />
@@ -68,16 +74,10 @@ class DisconnectedAdminSearchForm extends React.Component {
   }
 }
 
-const mapStateToProps = state => ({
-  pokemons: state.pokemons,
-  isLoading: state.loading
-})
-
 const mapDispatchToProps = dispatch => ({
-  getAllPokemons: () => dispatch(getPokemonsThunk()),
   addNewPokemon: formInput => dispatch(addingPokemonThunk(formInput))
 })
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  DisconnectedAdminSearchForm
+export default connect(null, mapDispatchToProps)(
+  DisconnectedAdminAddProductForm
 )
