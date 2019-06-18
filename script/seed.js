@@ -62,6 +62,7 @@ async function seed() {
   //     pokemonId: 1
   //   })
   // }))
+
   const inventory = await Promise.all([
     Inventory.create({
       quantity: 100,
@@ -70,6 +71,7 @@ async function seed() {
   ])
 
   console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${pokemons.length} pokemon`)
   console.log(`seeded successfully`)
 }
 
