@@ -28,12 +28,11 @@ class SignUp extends Component {
     event.preventDefault()
     console.log('this.state', this.state)
     this.props.addNewUser(this.state)
-    this.props.getUser(this.state.email, this.state.password)
-    this.props.history.push('/me')
+    console.log('added user, now get')
   }
 
   render() {
-    console.log('this.props', this.props)
+    console.log('this.prop', this.props)
     return (
       <div>
         <UserForm
