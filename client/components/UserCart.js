@@ -43,7 +43,7 @@ class Cart extends Component {
     return (
       <div>
         <h2>Your Shopping Cart</h2>
-        {this.props.cart.length ? (
+        {this.props.orderId ? (
           <form>
             <ul style={{listStyle: 'none'}}>
               {this.props.cart.map(pokeObj => {
