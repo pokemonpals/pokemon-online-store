@@ -32,39 +32,6 @@ class DisconnectedAdminAddProductForm extends React.Component {
   }
   render() {
     return (
-      // <form onSubmit={this.handleSubmit}>
-      //   <label>Pokemon</label>
-      //   <input
-      //     type="text"
-      //     name="name"
-      //     value={this.state.name}
-      //     reqruied
-      //     onChange={this.handleChange}
-      //   />
-      //   <label>Type</label>
-      //   <input
-      //     type="text"
-      //     name="type"
-      //     value={this.state.type}
-      //     required
-      //     onChange={this.handleChange}
-      //   />
-      //   <label>Description</label>
-      //   <input
-      //     type="text"
-      //     name="description"
-      //     value={this.state.description}
-      //     onChange={this.handleChange}
-      //   />
-      //   <label>Image</label>
-      //   <input
-      //     type="text"
-      //     name="imageUrl"
-      //     value={this.state.imageUrl}
-      //     onChange={this.handleChange}
-      //   />
-      //   <button type="submit">Add Pokemon</button>
-      // </form>
       <form onSubmit={this.handleSubmit}>
         <TextField
           id="name"

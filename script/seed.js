@@ -71,6 +71,7 @@ async function seed() {
   ])
 
   console.log(`seeded ${users.length} users`)
+  console.log(`seeded ${pokemons.length} pokemon`)
   console.log(`seeded successfully`)
 }
 
