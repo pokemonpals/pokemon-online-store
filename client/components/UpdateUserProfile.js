@@ -64,7 +64,7 @@ export default class UpdateUserProfile extends Component {
           user={this.state}
           updateUser={this.props.updateUser}
         />
-        <OrderHistory />
+        <OrderHistory user={this.state} />
       </div>
     )
   }

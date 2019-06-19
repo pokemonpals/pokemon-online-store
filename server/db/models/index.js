@@ -22,7 +22,7 @@ Pokemon.hasMany(Inventory)
 // Inventory.hasMany(Pokemon)
 User.hasMany(Order)
 User.hasMany(SubOrder)
-SubOrder.belongsTo(User)
+
 //Creating new many-to-many associations between Orders and Pokemons for SubOrder through table
 // Order.hasMany(SubOrder)
 // Pokemon.hasMany(SubOrder)

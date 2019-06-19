@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {updateUserThunk} from '../store/userReducer'
+import {updateUserThunk, getUserOrdersThunk} from '../store/userReducer'
 import UpdateUserProfile from './UpdateUserProfile'
 
 /**
@@ -9,7 +9,11 @@ import UpdateUserProfile from './UpdateUserProfile'
  */
 
 class UserHome extends Component {
+  componentDidMount() {
+    this.props.userOrders(this.props.user.id)
+  }
   render() {
+    console.log(this.props, 'THE PROPS IN USER HOME')
     return (
       <div>
         <h3>Welcome, {this.props.user.email}</h3>
@@ -27,12 +31,14 @@ class UserHome extends Component {
  */
 const mapState = state => ({
   user: state.user,
-  email: state.user.email
+  email: state.user.email,
+  orders: state.orders
 })
 
 const mapDispatchToProps = dispatch => ({
   updateUser: (userID, updatedUser) =>
-    dispatch(updateUserThunk(userID, updatedUser))
+    dispatch(updateUserThunk(userID, updatedUser)),
+  userOrders: userId => dispatch(getUserOrdersThunk(userId))
 })
 
 export default connect(mapState, mapDispatchToProps)(UserHome)

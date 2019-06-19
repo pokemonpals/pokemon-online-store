@@ -7,7 +7,7 @@
 // import MuiExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
 // import Typography from '@material-ui/core/Typography'
 
-import React, {Component} from 'react'
+import React from 'react'
 import {makeStyles} from '@material-ui/core/styles'
 import ExpansionPanel from '@material-ui/core/ExpansionPanel'
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails'
@@ -59,11 +59,13 @@ const useStyles = makeStyles(theme => ({
 const OrderHistory = function(props) {
   const classes = useStyles()
   // if (props.user.id) {
-  //   props.getUserOrders(props.user.id)
+  // props.getUserOrders(props.user.id)
   // } else {
   //   return <h1>...LOADING</h1>
-  // props.getUserOrders(props.user.id)
+  // // props.getUserOrders(props.user.id)
   // }
+  // console.log(props, 'THE PROPS IN ORDER HISTORY')
+
   return (
     <div className={classes.root}>
       <ExpansionPanel defaultExpanded={false}>
