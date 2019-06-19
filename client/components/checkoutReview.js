@@ -26,7 +26,6 @@ function Review(props) {
   const totalPrice = props.cart.reduce((accumulator, item) => {
     return accumulator + item.price * item.suborder.quantity
   }, 0)
-  console.log(props)
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>

@@ -31,10 +31,16 @@ const User = db.define('user', {
     type: Sequelize.STRING
   },
   firstName: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    validate: {
+      isAlpha: true
+    }
   },
   lastName: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    validate: {
+      isAlpha: true
+    }
   },
   address: {
     type: Sequelize.STRING
@@ -43,13 +49,20 @@ const User = db.define('user', {
     type: Sequelize.STRING
   },
   state: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    validate: {
+      len: [2]
+    }
   },
   zipcode: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    validate: {
+      len: [5]
+    }
   },
   admin: {
-    type: Sequelize.BOOLEAN
+    type: Sequelize.BOOLEAN,
+    defaultValue: false
   },
   cardName: {
     type: Sequelize.STRING

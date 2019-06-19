@@ -70,7 +70,7 @@ const OrderHistory = function(props) {
         >
           <div className={classes.column}>
             <Typography className={classes.heading} color="primary">
-              Order History {console.log(props, 'THE PROPS IN ORDER HISTORY')}
+              Order History
             </Typography>
           </div>
           <div className={classes.column}>

@@ -36,7 +36,6 @@ class DisconnectedAdmin extends React.Component {
     this.props.getAllPokemons()
   }
   render() {
-    console.log('admin props pokemon', this.props)
     return (
       <div>
         <h1>Users</h1>
@@ -45,34 +44,6 @@ class DisconnectedAdmin extends React.Component {
         <div>
           <AdminPokemonView pokemons={this.props.pokemons} />
         </div>
-        {/* Table that displays all products*/}
-        {/* <form>
-          <Table>
-            <TableHead>
-              <TableRow>
-                <TableCell> Name </TableCell>
-                <TableCell> Type </TableCell>
-                <TableCell> Description </TableCell>
-                <TableCell> Price </TableCell>
-                <TableCell> Image URL </TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {this.props.pokemons.map(pokemon => {
-                return (
-                  <TableRow key={pokemon.id}>
-                    <TableCell>{pokemon.name}</TableCell>
-                    <TableCell>{pokemon.type}</TableCell>
-                    <TableCell>{pokemon.description}</TableCell>
-                    <TableCell>{pokemon.price}</TableCell>
-                    <TableCell>{pokemon.imageUrl}</TableCell>
-                  </TableRow>
-                )
-              })}
-            </TableBody>
-          </Table>
-        </form> */}
-
         <div id="functionality-tests" />
       </div>
     )
