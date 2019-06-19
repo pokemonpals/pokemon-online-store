@@ -1,0 +1,10 @@
+diff a/client/components/OrderHistory.js b/client/components/OrderHistory.js	(rejected hunks)
+@@ -21,4 +21,4 @@ import DialogContent from '@material-ui/core/DialogContent'
+-import Chip from '@material-ui/core/Chip';
+-import Button from '@material-ui/core/Button';
+-import Grid from '@material-ui/core/Grid';
+-import Divider from '@material-ui/core/Divider';
++import Chip from '@material-ui/core/Chip'
++import Button from '@material-ui/core/Button'
++import Grid from '@material-ui/core/Grid'
++import Divider from '@material-ui/core/Divider'
