@@ -27,7 +27,7 @@ const Pokemon = db.define('pokemon', {
   },
   imageUrl: {
     type: Sequelize.STRING,
-    defaultValue: 'https://cdn.bulbagarden.net/upload/7/77/201Unown.png'
+    defaultValue: 'http://pngimg.com/uploads/pokeball/pokeball_PNG12.png'
   }
 })
 

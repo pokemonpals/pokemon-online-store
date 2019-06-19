@@ -46,10 +46,7 @@ const User = db.define('user', {
     type: Sequelize.STRING
   },
   city: {
-    type: Sequelize.STRING,
-    validate: {
-      isAlpha: true
-    }
+    type: Sequelize.STRING
   },
   state: {
     type: Sequelize.STRING,
@@ -71,10 +68,7 @@ const User = db.define('user', {
     type: Sequelize.STRING
   },
   cardNumber: {
-    type: Sequelize.STRING,
-    validate: {
-      isCreditCard: true
-    }
+    type: Sequelize.STRING
   },
   expDate: {
     type: Sequelize.STRING
