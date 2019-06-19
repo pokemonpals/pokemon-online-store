@@ -13,7 +13,7 @@ const Order = db.define('order', {
   totalPrice: {
     type: Sequelize.INTEGER,
     validate: {
-      min: 0.0
+      min: 0
     }
   },
   date: {
