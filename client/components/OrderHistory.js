@@ -18,6 +18,10 @@ import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 // import TextField from '@material-ui/core/TextField'
 // import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
+import Chip from '@material-ui/core/Chip'
+import Button from '@material-ui/core/Button'
+import Grid from '@material-ui/core/Grid'
+import Divider from '@material-ui/core/Divider'
 import {getUserOrdersThunk} from '../store/userReducer'
 import {connect} from 'react-redux'
 
@@ -53,6 +57,18 @@ const useStyles = makeStyles(theme => ({
     '&:hover': {
       textDecoration: 'underline'
     }
+  },
+  chip: {
+    marginRight: theme.spacing(1)
+  },
+  section1: {
+    margin: theme.spacing(3, 2)
+  },
+  section2: {
+    margin: theme.spacing(2)
+  },
+  section3: {
+    margin: theme.spacing(3, 1, 1)
   }
 }))
 
@@ -94,24 +110,89 @@ const OrderHistory = function(props) {
                   {props.orders ? (
                     props.orders.map(order => {
                       return (
-                        <li key={order.id}>
-                          <Typography>Order Number {order.id}</Typography>
-                          <Typography>Order Date: {order.date}</Typography>
-                          {order.pokemons.map(pokemon => {
-                            return (
-                              <div key={pokemon.id}>
-                                <img
-                                  src={pokemon.imageUrl}
-                                  width="150"
-                                  height="auto"
-                                />
-                                {pokemon.name}
-                                {pokemon.suborder.quantity}
-                                {pokemon.price}
-                              </div>
-                            )
-                          })}
-                        </li>
+                        <div className={classes.root} key={order.id}>
+                          <div className={classes.section1}>
+                            <Grid container alignItems="center">
+                              <Grid item xs>
+                                <Typography gutterBottom variant="h4">
+                                  Order Number {order.id}
+                                </Typography>
+                              </Grid>
+                              <Grid item>
+                                <Typography gutterBottom variant="h6">
+                                  {order.date}
+                                </Typography>
+                              </Grid>
+                            </Grid>
+                            {order.pokemons.map(pokemon => {
+                              return (
+                                <div key={pokemon.id}>
+                                  <Typography
+                                    color="textSecondary"
+                                    variant="body2"
+                                  >
+                                    <img
+                                      src={pokemon.imageUrl}
+                                      width="100"
+                                      height="auto"
+                                    />
+                                  </Typography>
+                                  <Typography
+                                    color="textSecondary"
+                                    variant="body2"
+                                  >
+                                    {pokemon.name}
+                                  </Typography>
+                                  <Typography
+                                    color="textSecondary"
+                                    variant="body2"
+                                  >
+                                    Quantity: {pokemon.suborder.quantity}
+                                  </Typography>
+                                  <Typography
+                                    color="textSecondary"
+                                    variant="body2"
+                                  >
+                                    Price: {pokemon.price}
+                                  </Typography>
+                                </div>
+                              )
+                            })}
+                          </div>
+                          {/* <Divider variant="middle" />
+                          <div className={classes.section2}>
+                            <Typography gutterBottom variant="body1">
+                              Select type
+                            </Typography>
+                            <div>
+                              <Chip className={classes.chip} label="Extra Soft" />
+                              <Chip className={classes.chip} color="primary" label="Soft" />
+                              <Chip className={classes.chip} label="Medium" />
+                              <Chip className={classes.chip} label="Hard" />
+                            </div>
+                          </div>
+                          <div className={classes.section3}>
+                            <Button color="primary">Add to cart</Button>
+                          </div> */}
+                        </div>
+                        // <li key={order.id}>
+                        //   <Typography>Order Number: {order.id}</Typography>
+                        //   <Typography>Order Date: {order.date}</Typography>
+                        //   {order.pokemons.map(pokemon => {
+                        //     return (
+                        //       <div key={pokemon.id}>
+                        //         <img
+                        //           src={pokemon.imageUrl}
+                        //           width="150"
+                        //           height="auto"
+                        //         />
+                        //         {pokemon.name}
+                        //         {pokemon.suborder.quantity}
+                        //         {pokemon.price}
+                        //       </div>
+                        //     )
+                        //   })}
+                        // </li>
                         // <ExpansionPanel defaultExpanded={false} key={order.id}>
                         //   <ExpansionPanelSummary
                         //     expandIcon={<ExpandMoreIcon />}
