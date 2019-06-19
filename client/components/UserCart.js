@@ -57,7 +57,7 @@ class Cart extends Component {
               {this.props.cart.map(pokeObj => {
                 return (
                   <li key={pokeObj.id}>
-                    <img src={pokeObj.imageUrl} width="50" height="auto" />
+                    <img src={pokeObj.imageUrl} width="150" height="auto" />
                     <Typography>{pokeObj.name}</Typography>
                     <Typography>$ {pokeObj.price}</Typography>
                     <label htmlFor={pokeObj.name}>Quantity: </label>
