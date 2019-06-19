@@ -26,12 +26,14 @@ const PokemonCard = props => {
   return (
     <Card className={classes.card}>
       <CardActionArea>
-        <CardMedia
-          className={classes.media}
-          style={{paddingTop: '60%', marginTop: '30'}}
-          image={props.pokemon.imageUrl}
-          title={props.pokemon.name}
-        />
+        <Link to={`/products/${props.pokemon.id}`}>
+          <CardMedia
+            className={classes.media}
+            style={{paddingTop: '60%', marginTop: '30'}}
+            image={props.pokemon.imageUrl}
+            title={props.pokemon.name}
+          />
+        </Link>
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {props.pokemon.name}
