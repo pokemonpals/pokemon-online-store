@@ -22,9 +22,10 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
   console.log('Google client ID / secret not found. Skipping Google OAuth.')
 } else {
   const googleConfig = {
-    clientID: process.env.GOOGLE_CLIENT_ID,
-    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    callbackURL: process.env.GOOGLE_CALLBACK
+    clientID:
+      '472406942178-3qbvvo2omv6puok7q7mi98rdqrmpho2f.apps.googleusercontent.com',
+    clientSecret: 'Hha7GRaqN0eniPN_qaPw1Yc0',
+    callbackURL: 'http://localhost:8080/auth/google/callback'
   }
 
   const strategy = new GoogleStrategy(

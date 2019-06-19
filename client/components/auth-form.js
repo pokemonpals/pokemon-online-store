@@ -16,6 +16,7 @@ import Typography from '@material-ui/core/Typography'
 import {makeStyles} from '@material-ui/core/styles'
 import Container from '@material-ui/core/Container'
 import green from '@material-ui/core/colors/green'
+import {OAuthLogin} from './OAuthLogin'
 
 /**
  * COMPONENT
@@ -107,9 +108,13 @@ const AuthForm = props => {
           </div>
           <Grid container>
             <Grid item xs>
-              <Link to="#" variant="body2">
+              {/* <Link to="/google" variant="body2">
                 {displayName} with Google
-              </Link>
+              </Link> */}
+              {/* <form method='get' action='/auth/google'>
+                <Link>Login with Google</Link>
+              </form> */}
+              <OAuthLogin />
             </Grid>
             <Grid item>
               <Link to="/signup" variant="body2">

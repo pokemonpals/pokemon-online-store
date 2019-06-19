@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button'
 import TextField from '@material-ui/core/TextField'
 import DialogActions from '@material-ui/core/DialogActions'
 import DialogContent from '@material-ui/core/DialogContent'
-
 const useStyles = makeStyles(theme => ({
   root: {
     width: '100%'
@@ -44,6 +43,40 @@ const useStyles = makeStyles(theme => ({
     }
   }
 }))
+// const useStyles = makeStyles(theme => ({
+//   root: {
+//     width: '100%'
+//   },
+//   heading: {
+//     fontSize: theme.typography.pxToRem(15)
+//   },
+//   secondaryHeading: {
+//     fontSize: theme.typography.pxToRem(15),
+//     color: theme.palette.text.secondary
+//   },
+//   icon: {
+//     verticalAlign: 'bottom',
+//     height: 20,
+//     width: 20
+//   },
+//   details: {
+//     alignItems: 'center'
+//   },
+//   column: {
+//     flexBasis: '100%'
+//   },
+//   helper: {
+//     borderLeft: `2px solid ${theme.palette.divider}`,
+//     padding: theme.spacing(1, 2)
+//   },
+//   link: {
+//     color: theme.palette.primary.main,
+//     textDecoration: 'none',
+//     '&:hover': {
+//       textDecoration: 'underline'
+//     }
+//   }
+// }))
 
 const UpdatePasswordForm = function(props) {
   const classes = useStyles()

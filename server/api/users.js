@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User, Order} = require('../db/models')
+const {User, Order, SubOrder, Pokemon} = require('../db/models')
 module.exports = router
 
 router.get('/', isAdmin, async (req, res, next) => {
@@ -24,7 +24,7 @@ router.post('/', async (req, res, next) => {
     })
     res.json(data)
   } catch (err) {
-    console.error(err)
+    next(err)
   }
 })
 
@@ -33,7 +33,8 @@ router.get('/:userId', isUser, async (req, res, next) => {
     const singleUser = await User.findAll({
       include: [
         {
-          model: Order
+          model: Order,
+          Pokemon
         }
       ],
       where: {
@@ -47,37 +48,62 @@ router.get('/:userId', isUser, async (req, res, next) => {
   }
 })
 
-router.put('/:userId', async (req, res, next) => {
+router.get('/:userId/orders', async (req, res, next) => {
+  console.log('THE REQ.USER IN USERS', req.user)
   try {
-    const {
-      email,
-      password,
-      firstName,
-      lastName,
-      address,
-      city,
-      state,
-      zipcode
-    } = req.body
-    const {data} = await User.update(
-      {
-        email,
-        password,
-        firstName,
-        lastName,
-        address,
-        city,
-        state,
-        zipcode
+    const userOrders = await Order.findAll({
+      where: {
+        userId: req.params.userId,
+        pending: 'false'
       },
-      {
-        where: {id: req.params.userId}
-      }
-    )
-    res.send(data)
+      include: {model: Pokemon}
+    })
+    res.json(userOrders)
   } catch (err) {
     next(err)
   }
+})
+router.put('/:userId', (req, res, next) => {
+  const {
+    email,
+    password,
+    firstName,
+    lastName,
+    address,
+    city,
+    state,
+    zipcode
+  } = req.body
+  User.findByPk(req.params.userId)
+    .then(user => {
+      user
+        .update({
+          email,
+          password,
+          firstName,
+          lastName,
+          address,
+          city,
+          state,
+          zipcode
+        })
+        .then(async () =>
+          res.json(
+            await User.findOne({
+              include: [
+                {
+                  model: Order
+                }
+              ],
+              where: {
+                id: req.params.userId
+              }
+            })
+          )
+        )
+    })
+    .then(user => res.json(user))
+    .catch(next)
 })
 
 function isAdmin(req, res, next) {
