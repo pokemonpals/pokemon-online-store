@@ -105,7 +105,11 @@ class Cart extends Component {
         ) : !this.props.orderId ? null : (
           <div>
             <h3>Your PokeBag is empty</h3>
-            <img src="https://unixtitan.net/images/mexican-transparent-pikachu-1.png" />
+            <img
+              src="https://unixtitan.net/images/mexican-transparent-pikachu-1.png"
+              width="500"
+              height="auto"
+            />
           </div>
         )}
       </div>
