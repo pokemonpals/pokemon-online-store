@@ -52,4 +52,28 @@ describe('Product routes', () => {
       expect(res.body[0].name).to.equal(storedProducts[1].name)
     })
   })
+
+  xdescribe('POST `/api/products/:pokemonId`', () => {
+    it('responds with a created pokemon', async () => {
+      // const response = await agent
+      //   .post("/api/campuses/1/students")
+      //   .send({
+      //     name: "Blastois",
+      //     type: "Water"
+      //   })
+      //   .expect(201);
+      const res = await request(app)
+        .put('/api/products/3')
+        .send({
+          name: 'Blastois',
+          type: 'Water'
+        })
+        .expect(201)
+
+      const createdProduct = await Pokemon.findById(res.body.id)
+      expect(createdProduct.name).to.be.equal('Blastois')
+      expect(createdProduct.type).to.be.equal('Water')
+      expect(createdProduct.id).to.be.equal(3)
+    })
+  })
 })
