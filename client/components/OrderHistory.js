@@ -76,7 +76,7 @@ const OrderHistory = function(props) {
         >
           <div className={classes.column}>
             <Typography className={classes.heading} color="primary">
-              Order History
+              Order History {console.log(props, 'THE PROPS IN ORDER HISTORY')}
             </Typography>
           </div>
           <div className={classes.column}>
@@ -89,6 +89,57 @@ const OrderHistory = function(props) {
           <div className={classes.column}>
             <form onSubmit={props.handleSubmit}>
               <DialogContent>
+                {console.log('PROPS.ORDERS', props.orders)}
+                <ul style={{listStyle: 'none'}}>
+                  {props.orders ? (
+                    props.orders.map(order => {
+                      return (
+                        <li key={order.id}>
+                          <Typography>Order Number {order.id}</Typography>
+                          <Typography>Order Date: {order.date}</Typography>
+                          {order.pokemons.map(pokemon => {
+                            return (
+                              <div key={pokemon.id}>
+                                <img
+                                  src={pokemon.imageUrl}
+                                  width="150"
+                                  height="auto"
+                                />
+                                {pokemon.name}
+                                {pokemon.suborder.quantity}
+                                {pokemon.price}
+                              </div>
+                            )
+                          })}
+                        </li>
+                        // <ExpansionPanel defaultExpanded={false} key={order.id}>
+                        //   <ExpansionPanelSummary
+                        //     expandIcon={<ExpandMoreIcon />}
+                        //     aria-controls="panel1c-content"
+                        //     id="panel1c-header"
+                        //   >
+                        //     <Typography type="date">{order.date}</Typography>
+                        //   </ExpansionPanelSummary>
+                        // </ExpansionPanel>
+                      )
+                    })
+                  ) : (
+                    <div>LOADING</div>
+                  )}
+                </ul>
+                {/* {props.orders.map(order => {
+                  return (
+                    <ExpansionPanel defaultExpanded={false} key={order.id}>
+                      <ExpansionPanelSummary
+                        expandIcon={<ExpandMoreIcon />}
+                        aria-controls="panel1c-content"
+                        id="panel1c-header"
+                      >
+                        <Typography>{order.id}</Typography>
+                      </ExpansionPanelSummary>
+                    </ExpansionPanel>
+                  )
+                })} */}
                 {/* {props.cart.map(order => {
                   return (
                     <ExpansionPanel defaultExpanded={false} key={order.id}>
