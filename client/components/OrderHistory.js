@@ -58,11 +58,12 @@ const useStyles = makeStyles(theme => ({
 
 const OrderHistory = function(props) {
   const classes = useStyles()
-  if (props.user.id) {
-    props.getUserOrders(props.user.id)
-  } else {
-    return <h1>...LOADING</h1>
-  }
+  // if (props.user.id) {
+  //   props.getUserOrders(props.user.id)
+  // } else {
+  //   return <h1>...LOADING</h1>
+  // props.getUserOrders(props.user.id)
+  // }
   return (
     <div className={classes.root}>
       <ExpansionPanel defaultExpanded={false}>
