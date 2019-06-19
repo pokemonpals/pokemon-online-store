@@ -9,6 +9,7 @@ const Home = () => {
         height="200"
         width="auto"
       />
+      <div />
       <div>
         {/* <img src=""http://pluspng.com/img-png/pokemon-logo-png-pokemon-logo-png-2000.png */}
       </div>
