@@ -39,7 +39,6 @@ const AdminPokemonView = props => {
               </TableRow>
             )
           })}
-          />
         </TableBody>
       </Table>
       <div>
