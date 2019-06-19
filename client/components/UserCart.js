@@ -49,7 +49,7 @@ class Cart extends Component {
 
   render() {
     return (
-      <div>
+      <div align="center">
         <h2>Your Shopping Cart</h2>
         {this.props.cart && this.props.cart.length ? (
           <form>
