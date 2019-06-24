@@ -8,12 +8,20 @@ import {
 
 //material ui
 import Button from '@material-ui/core/Button'
+import {Typography} from '@material-ui/core'
 
 class Cart extends Component {
   constructor() {
     super()
     this.state = {}
   }
+  // shouldComponentUpdate() {
+  //   if (this.props.userId && !this.props.order || !this.props.userId) {
+  //     return false
+  //     } else {
+  //       return true
+  //     }
+  // }
 
   handleRemove = evt => {
     evt.preventDefault()
@@ -41,7 +49,7 @@ class Cart extends Component {
 
   render() {
     return (
-      <div>
+      <div align="center">
         <h2>Your Shopping Cart</h2>
         {this.props.cart && this.props.cart.length ? (
           <form>
@@ -49,9 +57,9 @@ class Cart extends Component {
               {this.props.cart.map(pokeObj => {
                 return (
                   <li key={pokeObj.id}>
-                    <img src={pokeObj.imageUrl} width="10" height="auto" />
-                    {pokeObj.name}
-                    {pokeObj.price}
+                    <img src={pokeObj.imageUrl} width="150" height="auto" />
+                    <Typography>{pokeObj.name}</Typography>
+                    <Typography>$ {pokeObj.price}</Typography>
                     <label htmlFor={pokeObj.name}>Quantity: </label>
                     <input
                       id={pokeObj.id}
@@ -97,7 +105,11 @@ class Cart extends Component {
         ) : !this.props.orderId ? null : (
           <div>
             <h3>Your PokeBag is empty</h3>
-            <img src="https://unixtitan.net/images/mexican-transparent-pikachu-1.png" />
+            <img
+              src="https://unixtitan.net/images/mexican-transparent-pikachu-1.png"
+              width="500"
+              height="auto"
+            />
           </div>
         )}
       </div>

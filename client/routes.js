@@ -11,6 +11,7 @@ import {getCartItemsThunk} from './store/cartReducer'
 import AdminHome from './components/adminHome'
 import AdminPokemonView from './components/adminPokemonView'
 import {CheckoutFlow} from './components/CheckoutFlow'
+import {OAuthLogin} from './components/OAuthLogin'
 
 /**
  * COMPONENT
@@ -43,6 +44,7 @@ class Routes extends Component {
         )}
         <Route path="/login" component={Login} />
         <Route path="/signup" component={SignUp} />
+        {/* <Route path="/auth/google" component={OAuthLogin} /> */}
         {/* Displays our Login component as a fallback */}
         {/* <Route component={Login} /> */}
       </Switch>
